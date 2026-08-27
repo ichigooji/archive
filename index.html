@@ -224,11 +224,11 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
   font-weight: 600;
 }
 
-/* --- تصميم روابط التنقل والخط السفلي المضيء المتنقل --- */
+/* --- روابط التنقل الثلاثة (Home - TV List - Movie List) --- */
 .nav-links { 
   display: flex; 
   align-items: center; 
-  gap: 6px; 
+  gap: 4px; 
   position: relative;
 }
 
@@ -238,37 +238,34 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
   color: var(--muted); 
   font-size: 14px; 
   font-weight: 600;
-  padding: 8px 16px; 
-  transition: color 0.3s ease, text-shadow 0.3s ease;
+  padding: 8px 14px; 
+  transition: color 0.25s ease;
   background: transparent;
   border: none;
   box-shadow: none;
   cursor: pointer;
   z-index: 2;
+  white-space: nowrap;
 }
 
-/* تحسين مظهر Hover للروابط غير النشطة */
 .nav-links a:hover {
   color: #ffffff;
-  text-shadow: 0 0 10px rgba(196, 181, 253, 0.4);
 }
 
-/* العنصر النشط */
 .nav-links a.active {
   color: #ffffff;
   font-weight: 700;
-  text-shadow: 0 0 12px rgba(236, 72, 153, 0.6);
 }
 
-/* الخط السفلي المضيء الديناميكي والمتنقل */
+/* تعديل الشريط السفلي المضيء ليصبح أصغر وأرق وبإضاءة هادئة ومتناسقة */
 .nav-indicator {
   position: absolute;
-  bottom: -4px;
-  height: 3px;
+  bottom: -2px;
+  height: 2px;
   background: linear-gradient(90deg, #c4b5fd 0%, #ec4899 100%);
-  border-radius: 3px;
-  box-shadow: 0 0 10px rgba(196, 181, 253, 0.8), 0 0 16px rgba(236, 72, 153, 0.6);
-  transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(196, 181, 253, 0.35);
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
   pointer-events: none;
   z-index: 1;
   opacity: 0;
@@ -277,7 +274,7 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 /* Search Container */
 .search-container { 
   position: relative; 
-  width: 250px; 
+  width: 240px; 
   display: flex;
   align-items: center;
 }
@@ -360,6 +357,55 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 .footer-links a:hover {
   color: var(--logo-grad-start); text-shadow: 0 0 8px var(--neon-glow);
 }
+
+/* ==========================================
+   تجاوب الصفحة للهواتف والأجهزة الذكية 
+   ========================================== */
+@media (max-width: 900px) {
+  .site-header {
+    width: calc(100% - 24px);
+    padding: 0 16px;
+    height: auto;
+    min-height: 64px;
+    top: 12px;
+    border-radius: 16px;
+  }
+  .header-left { gap: 14px; }
+  .logo-top-row { font-size: 20px; }
+  .logo-slash-bolt { width: 12px; height: 24px; }
+  .logo-sub-server { font-size: 8px; letter-spacing: 2px; }
+  .nav-links a { font-size: 12.5px; padding: 6px 8px; }
+  .search-container { width: 160px; }
+  .search-input { padding: 7px 12px 7px 34px; font-size: 12px; }
+  .search-icon { left: 10px; width: 14px; height: 14px; }
+}
+
+@media (max-width: 768px) {
+  .site-header {
+    flex-wrap: wrap;
+    padding: 12px 16px;
+    gap: 12px;
+  }
+  .header-left {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .nav-links {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    border-top: 1px solid rgba(139, 92, 246, 0.12);
+    padding-top: 8px;
+    margin-top: 2px;
+  }
+  .search-container {
+    order: 2;
+    width: 100%;
+    margin-top: 2px;
+  }
+  .site-footer { padding: 30px 0 20px 0; }
+  .footer-content { padding: 0 20px; }
+}
 </style>
 </head>
 <body>
@@ -433,13 +479,11 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
       </div>
     </a>
 
-    <!-- روابط التنقل الخمسة مع إضافة الخط المتنقل -->
+    <!-- روابط التنقل المحددة (Home - TV List - Movie List) -->
     <nav class="nav-links" id="mainNav">
       <a href="https://ichigooji.github.io/archive/" target="_self" class="nav-item active">Home</a>
-      <a href="#profile" class="nav-item">Profile</a>
-      <a href="#animelist" class="nav-item">Anime List</a>
-      <a href="#mangalist" class="nav-item">Manga List</a>
-      <a href="#browse" class="nav-item">Browse</a>
+      <a href="#tvlist" class="nav-item">TV List</a>
+      <a href="#movielist" class="nav-item">Movie List</a>
       <div class="nav-indicator" id="navIndicator"></div>
     </nav>
   </div>
@@ -502,7 +546,7 @@ window.addEventListener('click', function(e) {
   }
 });
 
-/* التحكم في حركة الخط المضيء المباشر تحت القوائم الخمسة */
+/* التحكم في موقع الشريط السفلي المضيء المحدِّد */
 const navItems = document.querySelectorAll('.nav-links .nav-item');
 const indicator = document.getElementById('navIndicator');
 
@@ -513,7 +557,6 @@ function moveIndicator(element) {
   indicator.style.opacity = '1';
 }
 
-// تعيين موقع الخط عند التحميل الأولي
 window.addEventListener('DOMContentLoaded', () => {
   const activeItem = document.querySelector('.nav-links .nav-item.active');
   if (activeItem) {
@@ -521,7 +564,6 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// الانتقال والتنقل عند الضغط على أي عنصر
 navItems.forEach(item => {
   item.addEventListener('click', function(e) {
     navItems.forEach(link => link.classList.remove('active'));
