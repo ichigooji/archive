@@ -5,37 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>ICHIGOOJI - ARCANUM</title>
 
-<!-- Favicon مخصص -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%23c4b5fd'/><stop offset='100%' stop-color='%23ec4899'/></linearGradient></defs><rect width='100' height='100' rx='22' fill='%23060a16'/><path d='M45 15 L70 42 L50 48 L75 85 L30 52 L50 44 Z' fill='url(%23g)'/><polygon points='80,20 84,28 92,32 84,36 80,44 76,36 68,32 76,28' fill='%23c4b5fd'/></svg>">
-
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Montserrat:ital,wght@0,900;1,900&family=Inter:wght@400;500;600;700&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+
 <style>
 :root {
   --bg: #020408;
   --surface: rgba(8, 12, 24, 0.75);
   --header-bg: rgba(6, 10, 22, 0.85);
   --border: rgba(139, 92, 246, 0.22);
-  --border-hover: rgba(168, 85, 247, 0.4);
   --text: #f8fafc;
   --muted: #94a3b8;
-  
   --purple: #8b5cf6;
   --pink: #ec4899;
-  --cyan: #38bdf8;
-  --gold: #fbbf24;
-  
   --logo-grad-start: #c4b5fd;
   --logo-grad-end: #ec4899;
   --neon-glow: rgba(139, 92, 246, 0.3);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-html, body {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden !important;
-  scroll-behavior: smooth;
-}
+html, body { width: 100%; max-width: 100%; overflow-x: hidden !important; scroll-behavior: smooth; }
 
 body {
   font-family: 'Inter', sans-serif;
@@ -54,9 +43,7 @@ body {
   box-shadow: 0 0 12px var(--neon-glow);
 }
 
-.bg-gradient-mesh {
-  position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
-}
+.bg-gradient-mesh { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
 .mesh-blob {
   position: absolute; width: 700px; height: 700px; border-radius: 50%;
   filter: blur(140px); opacity: 0.18; animation: float-blob 22s infinite alternate ease-in-out;
@@ -71,23 +58,19 @@ body {
 
 canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; width: 100%; height: 100%; }
 
-/* Header Component */
+/* Header */
 .site-header {
   position: sticky; top: 20px; z-index: 900;
   max-width: 1250px; margin: 0 auto; width: calc(100% - 32px);
   background: var(--header-bg);
-  backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
+  backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
   border: 1px solid var(--border);
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  padding: 0 28px; height: 76px; border-radius: 22px;
+  display: grid; grid-template-columns: auto 1fr auto;
+  align-items: center; padding: 0 28px; height: 76px; border-radius: 22px;
   box-shadow: 0 25px 65px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
 .header-left { display: flex; align-items: center; gap: 20px; position: relative; }
-
 .nav-menu-wrapper { position: relative; display: inline-block; }
 
 .menu-toggle {
@@ -95,10 +78,7 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
   display: flex; flex-direction: column; justify-content: space-between; 
   width: 24px; height: 16px; padding: 0; z-index: 905;
 }
-.menu-toggle span {
-  display: block; width: 100%; height: 2px; background: var(--muted);
-  border-radius: 2px; transition: all 0.3s ease;
-}
+.menu-toggle span { display: block; width: 100%; height: 2px; background: var(--muted); border-radius: 2px; transition: all 0.3s ease; }
 .menu-toggle span:nth-child(1) { width: 100%; background: var(--logo-grad-start); }
 .menu-toggle span:nth-child(2) { width: 80%; background: var(--logo-grad-end); }
 .menu-toggle span:nth-child(3) { width: 60%; background: var(--muted); }
@@ -110,34 +90,21 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(139, 92, 246, 0.15);
   padding: 12px; z-index: 999;
 }
-
-.nav-menu-wrapper.open .menu-dropdown-content {
-  display: flex; flex-direction: column; animation: dropdown-slide-down 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
+.nav-menu-wrapper.open .menu-dropdown-content { display: flex; flex-direction: column; animation: dropdown-slide-down 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
 
 @keyframes dropdown-slide-down {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.menu-section-title {
-  font-size: 10px; font-weight: 800; letter-spacing: 1.5px; color: var(--muted);
-  text-transform: uppercase; margin: 8px 8px 4px; display: flex; align-items: center; gap: 6px;
-}
+.menu-section-title { font-size: 10px; font-weight: 800; letter-spacing: 1.5px; color: var(--muted); text-transform: uppercase; margin: 8px 8px 4px; display: flex; align-items: center; gap: 6px; }
 .menu-section-title::after { content: ''; flex: 1; height: 1px; background: rgba(139, 92, 246, 0.15); }
 
-.menu-link {
-  display: flex; align-items: center; gap: 12px; text-decoration: none;
-  color: var(--text); padding: 10px 12px; border-radius: 10px; font-size: 13.5px; font-weight: 500;
-  transition: all 0.2s ease; margin-bottom: 2px;
-}
+.menu-link { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text); padding: 10px 12px; border-radius: 10px; font-size: 13.5px; font-weight: 500; transition: all 0.2s ease; margin-bottom: 2px; }
 .menu-link svg { width: 18px; height: 18px; stroke: var(--muted); fill: none; transition: stroke 0.2s; }
-.menu-link:hover, .menu-link.active {
-  background: rgba(139, 92, 246, 0.15); color: var(--logo-grad-start);
-}
+.menu-link:hover, .menu-link.active { background: rgba(139, 92, 246, 0.15); color: var(--logo-grad-start); }
 .menu-link:hover svg, .menu-link.active svg { stroke: var(--logo-grad-start); }
 
-/* Logo Styling */
 .site-brand { display: flex; align-items: center; text-decoration: none; position: relative; font-family: 'Orbitron', 'Montserrat', sans-serif; }
 .logo-wrap { display: flex; flex-direction: column; position: relative; width: max-content; }
 .logo-top-row { display: flex; align-items: center; font-weight: 900; font-size: 25px; font-style: italic; letter-spacing: -0.5px; text-transform: uppercase; line-height: 0.9; position: relative; }
@@ -153,23 +120,17 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 .logo-text-p2 { background: linear-gradient(135deg, #ffffff 30%, var(--logo-grad-start) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; transform: skewX(-14deg); letter-spacing: -1px; }
 .logo-star-spark { position: absolute; right: -12px; top: -3px; width: 9px; height: 9px; background: var(--logo-grad-start); clip-path: polygon(50% 0%, 65% 35%, 100% 50%, 65% 65%, 50% 100%, 35% 65%, 0% 50%, 35% 35%); box-shadow: 0 0 10px var(--logo-grad-start); animation: star-spin 3s infinite linear; }
 
-@keyframes star-spin {
-  0% { transform: rotate(0deg) scale(1); }
-  50% { transform: rotate(180deg) scale(1.3); }
-  100% { transform: rotate(360deg) scale(1); }
-}
+@keyframes star-spin { 0% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(180deg) scale(1.3); } 100% { transform: rotate(360deg) scale(1); } }
 
 .logo-sub-server { font-family: 'Rajdhani', 'Orbitron', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2.8px; color: #c4b5fd; text-transform: uppercase; text-align: left; margin-top: 1px; line-height: 1; padding-left: 1px; opacity: 0.95; }
 .logo-sub-server span { color: var(--muted); font-weight: 600; }
 
-/* Header Navigation Links */
 .nav-links { display: flex; align-items: center; justify-content: center; gap: 12px; position: relative; margin: 0 auto; }
 .nav-links a { position: relative; text-decoration: none; color: var(--muted); font-size: 14px; font-weight: 600; padding: 8px 16px; transition: color 0.25s ease; cursor: pointer; z-index: 2; white-space: nowrap; }
 .nav-links a:hover, .nav-links a.active { color: #ffffff; }
 
 .nav-indicator { position: absolute; bottom: -4px; width: 14px; height: 3px; background: linear-gradient(90deg, #c4b5fd 0%, #ec4899 100%); border-radius: 3px; box-shadow: 0 0 6px rgba(236, 72, 153, 0.4); transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); pointer-events: none; z-index: 1; opacity: 0; transform: translateX(-50%); }
 
-/* Search Container Enhanced */
 .search-container { position: relative; width: 220px; display: flex; align-items: center; justify-self: end; }
 .search-icon { position: absolute; left: 14px; width: 16px; height: 16px; stroke: var(--muted); pointer-events: none; transition: stroke 0.25s ease; }
 .search-input { width: 100%; background: rgba(10, 15, 30, 0.5); border: 1px solid rgba(139, 92, 246, 0.2); padding: 9px 34px 9px 40px; border-radius: 12px; color: var(--text); font-size: 13px; font-weight: 500; outline: none; transition: all 0.25s ease; box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3); }
@@ -177,148 +138,53 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 .search-input:focus { border-color: rgba(168, 85, 247, 0.6); box-shadow: 0 0 12px rgba(139, 92, 246, 0.3), inset 0 2px 4px rgba(0, 0, 0, 0.3); }
 .search-container:focus-within .search-icon { stroke: var(--logo-grad-start); }
 
-.search-clear-btn {
-  position: absolute; right: 10px; background: none; border: none; cursor: pointer; display: none;
-  align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%;
-  color: var(--muted); transition: all 0.2s ease; padding: 0;
-}
+.search-clear-btn { position: absolute; right: 10px; background: none; border: none; cursor: pointer; display: none; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; color: var(--muted); transition: all 0.2s ease; padding: 0; }
 .search-clear-btn:hover { color: #ffffff; background: rgba(255, 255, 255, 0.1); }
 .search-clear-btn svg { width: 12px; height: 12px; stroke: currentColor; stroke-width: 2.5; fill: none; }
 
-/* Main Container & Anime Grid Layout */
+/* Grid & Cards */
 .main-container { max-width: 1250px; margin: 30px auto; padding: 0 24px; flex: 1; width: 100%; position: relative; z-index: 2; }
 .results-count { font-size: 14px; font-weight: 600; color: #64748b; margin-bottom: 20px; }
 
-.anime-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 20px;
-}
+.anime-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
 
-/* Enhanced Modern Anime Card Component */
 .anime-card {
-  position: relative;
-  border-radius: 16px;
-  background: rgba(12, 18, 34, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(139, 92, 246, 0.18);
-  overflow: hidden;
-  text-decoration: none;
-  transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
-  display: flex;
-  flex-direction: column;
+  position: relative; border-radius: 16px; background: rgba(12, 18, 34, 0.75);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(139, 92, 246, 0.18); overflow: hidden; text-decoration: none;
+  transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1); display: flex; flex-direction: column;
 }
 
-.anime-card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(168, 85, 247, 0.5);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.75), 0 0 20px rgba(139, 92, 246, 0.25);
-}
+.anime-card:hover { transform: translateY(-8px); border-color: rgba(168, 85, 247, 0.5); box-shadow: 0 16px 36px rgba(0, 0, 0, 0.75), 0 0 20px rgba(139, 92, 246, 0.25); }
 
-.poster-wrapper {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1 / 1.42;
-  overflow: hidden;
-  background: #060912;
-}
-
-.poster-img {
-  width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;
-}
+.poster-wrapper { position: relative; width: 100%; aspect-ratio: 1 / 1.42; overflow: hidden; background: #060912; }
+.poster-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
 .anime-card:hover .poster-img { transform: scale(1.08); }
 
-/* Badges Top */
-.card-badges-top {
-  position: absolute; top: 10px; left: 10px; display: flex; gap: 6px; z-index: 2;
-}
-.badge-rating {
-  background: rgba(6, 10, 22, 0.85); backdrop-filter: blur(10px);
-  color: #fbbf24; font-size: 11px; font-weight: 800; padding: 4px 8px; border-radius: 8px;
-  display: flex; align-items: center; gap: 4px; border: 1px solid rgba(251, 191, 36, 0.35);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-}
+.card-badges-top { position: absolute; top: 10px; left: 10px; display: flex; gap: 6px; z-index: 2; }
+.badge-rating { background: rgba(6, 10, 22, 0.85); backdrop-filter: blur(10px); color: #fbbf24; font-size: 11px; font-weight: 800; padding: 4px 8px; border-radius: 8px; display: flex; align-items: center; gap: 4px; border: 1px solid rgba(251, 191, 36, 0.35); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); }
 .badge-rating::before { content: '★'; font-size: 10px; }
+.badge-age { background: rgba(6, 10, 22, 0.85); backdrop-filter: blur(10px); color: #e2e8f0; font-size: 10.5px; font-weight: 700; padding: 4px 7px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); }
 
-.badge-age {
-  background: rgba(6, 10, 22, 0.85); backdrop-filter: blur(10px);
-  color: #e2e8f0; font-size: 10.5px; font-weight: 700; padding: 4px 7px; border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-}
-
-/* Badges Bottom Overlay */
-.card-badges-bottom {
-  position: absolute; bottom: 8px; left: 8px;
-  display: flex; align-items: center; gap: 8px;
-  background: rgba(6, 10, 22, 0.82); backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  padding: 4px 8px; border-radius: 8px; border: 1px solid rgba(139, 92, 246, 0.25);
-  font-size: 10.5px; font-weight: 700; color: #e2e8f0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-}
-
-.card-badges-bottom .badge-item {
-  display: flex; align-items: center; gap: 3.5px;
-}
-
-.card-badges-bottom svg {
-  width: 12px; height: 12px; stroke: #c4b5fd; fill: none; stroke-width: 2;
-}
+.card-badges-bottom { position: absolute; bottom: 8px; left: 8px; display: flex; align-items: center; gap: 8px; background: rgba(6, 10, 22, 0.82); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 4px 8px; border-radius: 8px; border: 1px solid rgba(139, 92, 246, 0.25); font-size: 10.5px; font-weight: 700; color: #e2e8f0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); }
+.card-badges-bottom .badge-item { display: flex; align-items: center; gap: 3.5px; }
+.card-badges-bottom svg { width: 12px; height: 12px; stroke: #c4b5fd; fill: none; stroke-width: 2; }
 
 .anime-card-info { padding: 12px 10px; display: flex; flex-direction: column; gap: 4px; }
-.anime-card-title {
-  font-size: 14px; font-weight: 700; color: #f1f5f9;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  display: flex; align-items: center; gap: 5px;
-}
+.anime-card-title { font-size: 14px; font-weight: 700; color: #f1f5f9; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; gap: 5px; }
 .anime-card-title::before { content: '•'; color: var(--purple); font-size: 14px; }
+.anime-card-meta { font-size: 10.5px; font-weight: 600; color: #94a3b8; letter-spacing: 0.4px; opacity: 0.85; text-transform: uppercase; }
 
-.anime-card-meta {
-  font-size: 10.5px;
-  font-weight: 600;
-  color: #94a3b8;
-  letter-spacing: 0.4px;
-  opacity: 0.85;
-  text-transform: uppercase;
-}
-
-/* Mobile & Android Specific Optimization */
 @media (max-width: 768px) {
-  .site-header {
-    display: flex; flex-direction: column; height: auto;
-    width: calc(100% - 24px); padding: 12px 16px; top: 12px; gap: 12px;
-    border-radius: 18px;
-  }
-  
-  .header-left {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-  }
-  
-  .site-brand {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
+  .site-header { display: flex; flex-direction: column; height: auto; width: calc(100% - 24px); padding: 12px 16px; top: 12px; gap: 12px; border-radius: 18px; }
+  .header-left { width: 100%; display: flex; align-items: center; justify-content: space-between; position: relative; }
+  .site-brand { position: absolute; left: 50%; transform: translateX(-50%); }
   .nav-menu-wrapper { z-index: 910; }
-
-  .nav-links {
-    width: 100%;
-    justify-content: center;
-    border-top: 1px solid rgba(139, 92, 246, 0.12);
-    padding-top: 8px;
-    gap: 4px;
-  }
+  .nav-links { width: 100%; justify-content: center; border-top: 1px solid rgba(139, 92, 246, 0.12); padding-top: 8px; gap: 4px; }
   .nav-links a { font-size: 12.5px; padding: 6px 10px; }
   .search-container { width: 100%; }
-  
   .main-container { margin: 18px auto; padding: 0 16px; }
   .anime-grid { grid-template-columns: repeat(auto-fill, minmax(135px, 1fr)); gap: 12px; }
-
   .site-footer { padding: 24px 0 20px 0; }
   .footer-content { padding: 0 20px; align-items: center; text-align: center; }
   .footer-content .site-brand { position: relative; left: 0; transform: none; margin-bottom: 12px; }
@@ -327,7 +193,6 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
   .footer-links { justify-content: center; gap: 16px; }
 }
 
-/* Footer Container */
 .site-footer { width: 100%; margin-top: auto; padding: 40px 0 30px 0; position: relative; z-index: 2; }
 .footer-content { max-width: 1250px; margin: 0 auto; padding: 0 32px; display: flex; flex-direction: column; align-items: flex-start; }
 .neon-line { width: 100%; height: 1px; background: linear-gradient(90deg, var(--purple) 0%, rgba(139, 92, 246, 0.15) 60%, transparent 100%); margin-bottom: 24px; box-shadow: 0 0 8px var(--neon-glow); }
@@ -349,16 +214,11 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 
 <canvas id="canvas-bg"></canvas>
 
-<!-- Header -->
 <header class="site-header">
   <div class="header-left">
-    
-    <!-- القائمة المنسدلة -->
     <div class="nav-menu-wrapper" id="navMenuWrapper">
       <button class="menu-toggle" aria-label="Toggle Navigation" onclick="toggleDropdownMenu(event)">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
       </button>
 
       <div class="menu-dropdown-content">
@@ -368,20 +228,13 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
           Home
         </a>
         <a href="#torrent" class="menu-link">
-          <svg fill="none" viewBox="0 0 24 24" stroke-width="2">
-            <circle cx="12" cy="12" r="9" stroke="currentColor"/>
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/>
-          </svg>
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="9" stroke="currentColor"/><path stroke-linecap="round" stroke-linejoin="round" d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg>
           Torrent
         </a>
         <a href="#subtitles" class="menu-link">
-          <svg fill="none" viewBox="0 0 24 24" stroke-width="2">
-            <rect x="3" y="5" width="18" height="14" rx="3" stroke="currentColor"/>
-            <path stroke-linecap="round" stroke-linejoin="round" d="M7 15h3M14 15h3M7 11h10"/>
-          </svg>
+          <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="3" stroke="currentColor"/><path stroke-linecap="round" stroke-linejoin="round" d="M7 15h3M14 15h3M7 11h10"/></svg>
           Subtitles
         </a>
-
         <div class="menu-section-title">MORE</div>
         <a href="#watch2gether" class="menu-link">
           <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
@@ -398,7 +251,6 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
       </div>
     </div>
 
-    <!-- اللوغو -->
     <a href="https://ichigooji.github.io/archive/" class="site-brand">
       <div class="logo-wrap">
         <div class="logo-top-row">
@@ -412,7 +264,6 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
     </a>
   </div>
 
-  <!-- روابط الفلترة -->
   <nav class="nav-links" id="mainNav">
     <a href="javascript:void(0)" class="nav-item active" data-filter="all">Home</a>
     <a href="javascript:void(0)" class="nav-item" data-filter="tv">TV List</a>
@@ -420,11 +271,8 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
     <div class="nav-indicator" id="navIndicator"></div>
   </nav>
 
-  <!-- صندوق البحث المحسّن -->
   <div class="search-container">
-    <svg class="search-icon" fill="none" viewBox="0 0 24 24" stroke-width="2">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-    </svg>
+    <svg class="search-icon" fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
     <input type="text" id="searchInput" class="search-input" placeholder="Search archive..." autocomplete="off">
     <button type="button" id="searchClearBtn" class="search-clear-btn" aria-label="Clear Search">
       <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -436,7 +284,7 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
   <div class="results-count" id="resultsCount">13 results found</div>
   
   <div class="anime-grid" id="animeGrid">
-    <!-- بطاقة Fate -->
+
     <a href="https://ichigooji.github.io/archive/fate.html" class="anime-card" data-type="tv movie">
       <div class="poster-wrapper">
         <img class="poster-img" id="fatePosterImg" src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx10087-8E2S20B9KOFz.png" alt="Fate">
@@ -445,14 +293,8 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
           <div class="badge-age">R-17+</div>
         </div>
         <div class="card-badges-bottom">
-          <div class="badge-item" title="Torrent Releases">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg>
-            <span>4</span>
-          </div>
-          <div class="badge-item" title="Subtitles">
-            <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg>
-            <span>1</span>
-          </div>
+          <div class="badge-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg><span>4</span></div>
+          <div class="badge-item"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg><span>1</span></div>
         </div>
       </div>
       <div class="anime-card-info">
@@ -461,7 +303,6 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
       </div>
     </a>
 
-    <!-- بطاقة Kabaneri of the Iron Fortress -->
     <a href="https://nyaa.si/view/1596956" class="anime-card" data-type="tv movie">
       <div class="poster-wrapper">
         <img class="poster-img" id="kabaneriPosterImg" src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21196-8P0p4fE1Wexy.jpg" alt="Kabaneri of the Iron Fortress">
@@ -470,14 +311,8 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
           <div class="badge-age">R-17+</div>
         </div>
         <div class="card-badges-bottom">
-          <div class="badge-item" title="Torrent Releases">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg>
-            <span>1</span>
-          </div>
-          <div class="badge-item" title="Subtitles">
-            <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg>
-            <span>1</span>
-          </div>
+          <div class="badge-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg><span>1</span></div>
+          <div class="badge-item"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg><span>1</span></div>
         </div>
       </div>
       <div class="anime-card-info">
@@ -486,7 +321,6 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
       </div>
     </a>
 
-    <!-- بطاقة Claymore -->
     <a href="https://nyaa.si/view/1549110" class="anime-card" data-type="tv">
       <div class="poster-wrapper">
         <img class="poster-img" id="claymorePosterImg" src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1818-wF07qYk93YgT.png" alt="Claymore">
@@ -495,14 +329,8 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
           <div class="badge-age">R-17+</div>
         </div>
         <div class="card-badges-bottom">
-          <div class="badge-item" title="Torrent Releases">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg>
-            <span>1</span>
-          </div>
-          <div class="badge-item" title="Subtitles">
-            <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg>
-            <span>1</span>
-          </div>
+          <div class="badge-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg><span>1</span></div>
+          <div class="badge-item"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg><span>1</span></div>
         </div>
       </div>
       <div class="anime-card-info">
@@ -511,7 +339,6 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
       </div>
     </a>
 
-    <!-- بطاقة Gleipnir -->
     <a href="https://nyaa.si/view/1530571" class="anime-card" data-type="tv">
       <div class="poster-wrapper">
         <img class="poster-img" id="gleipnirPosterImg" src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx108241-K8U77x04oAnz.jpg" alt="Gleipnir">
@@ -520,14 +347,8 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
           <div class="badge-age">R-17+</div>
         </div>
         <div class="card-badges-bottom">
-          <div class="badge-item" title="Torrent Releases">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg>
-            <span>1</span>
-          </div>
-          <div class="badge-item" title="Subtitles">
-            <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg>
-            <span>1</span>
-          </div>
+          <div class="badge-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg><span>1</span></div>
+          <div class="badge-item"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg><span>1</span></div>
         </div>
       </div>
       <div class="anime-card-info">
@@ -536,7 +357,6 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
       </div>
     </a>
 
-    <!-- بطاقة Redline -->
     <a href="https://nyaa.si/view/1540851" class="anime-card" data-type="movie">
       <div class="poster-wrapper">
         <img class="poster-img" id="redlinePosterImg" src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx6675-0z0iE12K0Y5C.jpg" alt="Redline">
@@ -545,14 +365,8 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
           <div class="badge-age">R-17+</div>
         </div>
         <div class="card-badges-bottom">
-          <div class="badge-item" title="Torrent Releases">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg>
-            <span>1</span>
-          </div>
-          <div class="badge-item" title="Subtitles">
-            <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg>
-            <span>1</span>
-          </div>
+          <div class="badge-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg><span>1</span></div>
+          <div class="badge-item"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg><span>1</span></div>
         </div>
       </div>
       <div class="anime-card-info">
@@ -561,7 +375,6 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
       </div>
     </a>
 
-    <!-- بطاقة Scarlet -->
     <a href="https://nyaa.si/view/2088112" class="anime-card" data-type="movie">
       <div class="poster-wrapper">
         <img class="poster-img" id="scarletPosterImg" src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx185773-vS8K2bJ0O1qX.png" alt="Scarlet">
@@ -570,14 +383,8 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
           <div class="badge-age">R-17+</div>
         </div>
         <div class="card-badges-bottom">
-          <div class="badge-item" title="Torrent Releases">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg>
-            <span>1</span>
-          </div>
-          <div class="badge-item" title="Subtitles">
-            <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg>
-            <span>1</span>
-          </div>
+          <div class="badge-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg><span>1</span></div>
+          <div class="badge-item"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg><span>1</span></div>
         </div>
       </div>
       <div class="anime-card-info">
@@ -586,7 +393,6 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
       </div>
     </a>
 
-    <!-- بطاقة Vivy -Fluorite Eye's Song- -->
     <a href="https://nyaa.si/view/1578720" class="anime-card" data-type="tv">
       <div class="poster-wrapper">
         <img class="poster-img" id="vivyPosterImg" src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx128546-L1aGZ2nJqP2g.jpg" alt="Vivy -Fluorite Eye's Song-">
@@ -595,14 +401,8 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
           <div class="badge-age">PG-13</div>
         </div>
         <div class="card-badges-bottom">
-          <div class="badge-item" title="Torrent Releases">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg>
-            <span>1</span>
-          </div>
-          <div class="badge-item" title="Subtitles">
-            <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg>
-            <span>1</span>
-          </div>
+          <div class="badge-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg><span>1</span></div>
+          <div class="badge-item"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg><span>1</span></div>
         </div>
       </div>
       <div class="anime-card-info">
@@ -611,7 +411,6 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
       </div>
     </a>
 
-    <!-- بطاقة Insomniacs After School -->
     <a href="https://nyaa.si/view/1932264" class="anime-card" data-type="tv">
       <div class="poster-wrapper">
         <img class="poster-img" id="insomniacsPosterImg" src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx143653-3f1uLhU6dZ8R.jpg" alt="Insomniacs After School">
@@ -620,14 +419,8 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
           <div class="badge-age">PG-13</div>
         </div>
         <div class="card-badges-bottom">
-          <div class="badge-item" title="Torrent Releases">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg>
-            <span>1</span>
-          </div>
-          <div class="badge-item" title="Subtitles">
-            <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg>
-            <span>1</span>
-          </div>
+          <div class="badge-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg><span>1</span></div>
+          <div class="badge-item"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg><span>1</span></div>
         </div>
       </div>
       <div class="anime-card-info">
@@ -636,23 +429,16 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
       </div>
     </a>
 
-    <!-- بطاقة Ousama Ranking - Yuuki no Takarabako -->
     <a href="https://nyaa.si/view/1682990" class="anime-card" data-type="tv">
       <div class="poster-wrapper">
-        <img class="poster-img" id="ousamaPosterImg" src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx153070-52p3Y7y7xI8Z.jpg" alt="Ousama Ranking: Yuuki no Takarabako">
+        <img class="poster-img" id="ousamaPosterImg" src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx153452-8G1J2QjS9x21.jpg" alt="Ousama Ranking">
         <div class="card-badges-top">
-          <div class="badge-rating" id="ousamaRating">8.0</div>
+          <div class="badge-rating" id="ousamaRating">7.8</div>
           <div class="badge-age">PG-13</div>
         </div>
         <div class="card-badges-bottom">
-          <div class="badge-item" title="Torrent Releases">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg>
-            <span>1</span>
-          </div>
-          <div class="badge-item" title="Subtitles">
-            <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg>
-            <span>1</span>
-          </div>
+          <div class="badge-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg><span>1</span></div>
+          <div class="badge-item"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg><span>1</span></div>
         </div>
       </div>
       <div class="anime-card-info">
@@ -661,23 +447,16 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
       </div>
     </a>
 
-    <!-- بطاقة Orb: On the Movements of the Earth -->
     <a href="https://nyaa.si/view/2044702" class="anime-card" data-type="tv">
       <div class="poster-wrapper">
-        <img class="poster-img" id="orbPosterImg" src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx152172-eXpS8vT5QO3F.jpg" alt="Orb: On the Movements of the Earth">
+        <img class="poster-img" id="orbPosterImg" src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx151514-6N4wS4E7o3S1.jpg" alt="Orb: On the Movements of the Earth">
         <div class="card-badges-top">
           <div class="badge-rating" id="orbRating">8.1</div>
           <div class="badge-age">R-17+</div>
         </div>
         <div class="card-badges-bottom">
-          <div class="badge-item" title="Torrent Releases">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg>
-            <span>1</span>
-          </div>
-          <div class="badge-item" title="Subtitles">
-            <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg>
-            <span>1</span>
-          </div>
+          <div class="badge-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg><span>1</span></div>
+          <div class="badge-item"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg><span>1</span></div>
         </div>
       </div>
       <div class="anime-card-info">
@@ -686,7 +465,6 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
       </div>
     </a>
 
-    <!-- بطاقة Bocchi the Rock! -->
     <a href="https://nyaa.si/view/1854203" class="anime-card" data-type="tv">
       <div class="poster-wrapper">
         <img class="poster-img" id="bocchiPosterImg" src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx130003-93C0Tsm934iA.png" alt="Bocchi the Rock!">
@@ -695,14 +473,8 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
           <div class="badge-age">PG-13</div>
         </div>
         <div class="card-badges-bottom">
-          <div class="badge-item" title="Torrent Releases">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg>
-            <span>1</span>
-          </div>
-          <div class="badge-item" title="Subtitles">
-            <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg>
-            <span>1</span>
-          </div>
+          <div class="badge-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg><span>1</span></div>
+          <div class="badge-item"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg><span>1</span></div>
         </div>
       </div>
       <div class="anime-card-info">
@@ -711,7 +483,6 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
       </div>
     </a>
 
-    <!-- بطاقة Grimgar: Ashes and Illusions -->
     <a href="https://nyaa.si/view/2070170" class="anime-card" data-type="tv">
       <div class="poster-wrapper">
         <img class="poster-img" id="grimgarPosterImg" src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21428-R139P97U2K24.png" alt="Grimgar: Ashes and Illusions">
@@ -720,14 +491,8 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
           <div class="badge-age">PG-13</div>
         </div>
         <div class="card-badges-bottom">
-          <div class="badge-item" title="Torrent Releases">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg>
-            <span>1</span>
-          </div>
-          <div class="badge-item" title="Subtitles">
-            <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg>
-            <span>1</span>
-          </div>
+          <div class="badge-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg><span>1</span></div>
+          <div class="badge-item"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg><span>1</span></div>
         </div>
       </div>
       <div class="anime-card-info">
@@ -736,7 +501,6 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
       </div>
     </a>
 
-    <!-- بطاقة Kara no Kyoukai -->
     <a href="https://nyaa.si/view/1679533" class="anime-card" data-type="movie">
       <div class="poster-wrapper">
         <img class="poster-img" id="knkPosterImg" src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx4282-3JdClyz2o7Jb.jpg" alt="Kara no Kyoukai">
@@ -745,14 +509,8 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
           <div class="badge-age">R-17+</div>
         </div>
         <div class="card-badges-bottom">
-          <div class="badge-item" title="Torrent Releases">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg>
-            <span>1</span>
-          </div>
-          <div class="badge-item" title="Subtitles">
-            <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg>
-            <span>1</span>
-          </div>
+          <div class="badge-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg><span>1</span></div>
+          <div class="badge-item"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg><span>1</span></div>
         </div>
       </div>
       <div class="anime-card-info">
@@ -760,6 +518,7 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
         <div class="anime-card-meta">MOVIE</div>
       </div>
     </a>
+
   </div>
 </main>
 
@@ -780,10 +539,7 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
     <div class="copyright">© 2026 ICHIGOOJI. All rights reserved.</div>
     <p class="disclaimer-text">ICHIGOOJI does not store any files on our server, we only link to media hosted on 3rd party services.</p>
     <div class="footer-links">
-      <a href="#">Privacy</a>
-      <a href="#">Terms</a>
-      <a href="#">Contact</a>
-      <a href="#">Status</a>
+      <a href="#">Privacy</a><a href="#">Terms</a><a href="#">Contact</a><a href="#">Status</a>
     </div>
   </div>
 </footer>
@@ -796,9 +552,7 @@ function toggleDropdownMenu(e) {
 
 window.addEventListener('click', function(e) {
   const wrapper = document.getElementById('navMenuWrapper');
-  if (wrapper && !wrapper.contains(e.target)) {
-    wrapper.classList.remove('open');
-  }
+  if (wrapper && !wrapper.contains(e.target)) wrapper.classList.remove('open');
 });
 
 const indicator = document.getElementById('navIndicator');
@@ -815,7 +569,6 @@ function moveIndicator(element) {
   indicator.style.opacity = '1';
 }
 
-/* آلية الفلترة المزدوجة (تبويب + بحث) */
 function filterCards() {
   const activeTab = document.querySelector('.nav-links .nav-item.active');
   const filterType = activeTab ? activeTab.getAttribute('data-filter') : 'all';
@@ -838,13 +591,8 @@ function filterCards() {
     }
   });
 
-  if (resultsCount) {
-    resultsCount.textContent = `${count} result${count === 1 ? '' : 's'} found`;
-  }
-
-  if (searchClearBtn) {
-    searchClearBtn.style.display = query.length > 0 ? 'flex' : 'none';
-  }
+  if (resultsCount) resultsCount.textContent = `${count} result${count === 1 ? '' : 's'} found`;
+  if (searchClearBtn) searchClearBtn.style.display = query.length > 0 ? 'flex' : 'none';
 }
 
 navItems.forEach(item => {
@@ -857,10 +605,7 @@ navItems.forEach(item => {
   });
 });
 
-if (searchInput) {
-  searchInput.addEventListener('input', filterCards);
-}
-
+if (searchInput) searchInput.addEventListener('input', filterCards);
 if (searchClearBtn) {
   searchClearBtn.addEventListener('click', () => {
     searchInput.value = '';
@@ -869,421 +614,103 @@ if (searchClearBtn) {
   });
 }
 
+const ANILIST_ITEMS = [
+  { key: 'fate', id: 10087 },
+  { key: 'kabaneri', id: 21196 },
+  { key: 'claymore', id: 1818 },
+  { key: 'gleipnir', id: 108241 },
+  { key: 'redline', id: 6675 },
+  { key: 'scarlet', id: 185773 },
+  { key: 'vivy', id: 128546 },
+  { key: 'insomniacs', id: 143653 },
+  { key: 'ousama', id: 153452 },
+  { key: 'orb', id: 151514 },
+  { key: 'bocchi', id: 130003 },
+  { key: 'grimgar', id: 21428 },
+  { key: 'knk', id: 4282 }
+];
+
+function applyAnimeData(key, media) {
+  if (!media) return;
+  const imgElem = document.getElementById(`${key}PosterImg`);
+  const ratingElem = document.getElementById(`${key}Rating`);
+  
+  if (imgElem && media.coverImage) {
+    const src = media.coverImage.extraLarge || media.coverImage.large;
+    if (src) imgElem.src = src;
+  }
+  if (ratingElem && media.meanScore) {
+    ratingElem.textContent = (media.meanScore / 10).toFixed(1);
+  }
+}
+
+async function fetchAllAnimeBatch() {
+  // 1. Check LocalStorage Cache (Valid for 6 hours)
+  const CACHE_KEY = 'anilist_cache_v1';
+  const cachedData = localStorage.getItem(CACHE_KEY);
+  if (cachedData) {
+    try {
+      const { timestamp, data } = JSON.parse(cachedData);
+      if (Date.now() - timestamp < 6 * 60 * 60 * 1000) {
+        ANILIST_ITEMS.forEach(item => {
+          if (data[item.key]) applyAnimeData(item.key, data[item.key]);
+        });
+        return;
+      }
+    } catch (e) {}
+  }
+
+  // 2. Single Bulk Query Construction
+  const subQueries = ANILIST_ITEMS.map(item => `
+    ${item.key}: Media(id: ${item.id}, type: ANIME) {
+      coverImage { extraLarge large }
+      meanScore
+    }
+  `).join('\n');
+
+  const query = `query { ${subQueries} }`;
+
+  try {
+    const res = await fetch('https://graphql.anilist.co', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ query })
+    });
+    const result = await res.json();
+    if (result?.data) {
+      const cachePayload = {};
+      ANILIST_ITEMS.forEach(item => {
+        const media = result.data[item.key];
+        if (media) {
+          applyAnimeData(item.key, media);
+          cachePayload[item.key] = media;
+        }
+      });
+      // Save to cache
+      localStorage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), data: cachePayload }));
+    }
+  } catch (err) {}
+}
+
 window.addEventListener('load', () => {
   const activeItem = document.querySelector('.nav-links .nav-item.active');
-  if (activeItem) {
-    moveIndicator(activeItem);
-  }
+  if (activeItem) moveIndicator(activeItem);
   filterCards();
-  fetchFateData();
-  fetchKabaneriData();
-  fetchClaymoreData();
-  fetchGleipnirData();
-  fetchRedlineData();
-  fetchScarletData();
-  fetchVivyData();
-  fetchInsomniacsData();
-  fetchOusamaData();
-  fetchOrbData();
-  fetchBocchiData();
-  fetchGrimgarData();
-  fetchKnKData();
+  
+  document.querySelectorAll('.poster-img').forEach(img => {
+    img.onerror = function() {
+      this.onerror = null;
+      this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 180 255"><rect width="100%" height="100%" fill="%230c1222"/><text x="50%" y="50%" fill="%238b5cf6" font-family="sans-serif" font-size="14" text-anchor="middle">NO IMAGE</text></svg>';
+    };
+  });
+
+  fetchAllAnimeBatch();
 });
 
 window.addEventListener('resize', () => {
   const activeItem = document.querySelector('.nav-links .nav-item.active');
   if (activeItem) moveIndicator(activeItem);
 });
-
-async function fetchFateData() {
-  const query = `
-  query {
-    Media(search: "Fate/Zero", type: ANIME) {
-      coverImage { extraLarge }
-      meanScore
-    }
-  }`;
-
-  try {
-    const response = await fetch('https://graphql.anilist.co', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ query })
-    });
-    const data = await response.json();
-    if(data.data && data.data.Media) {
-      const media = data.data.Media;
-      if(media.coverImage.extraLarge) {
-        document.getElementById('fatePosterImg').src = media.coverImage.extraLarge;
-      }
-      if(media.meanScore) {
-        document.getElementById('fateRating').textContent = (media.meanScore / 10).toFixed(1);
-      }
-    }
-  } catch (err) {
-    console.error("AniList fetch error:", err);
-  }
-}
-
-async function fetchKabaneriData() {
-  const query = `
-  query {
-    Media(search: "Koutetsujou no Kabaneri", type: ANIME) {
-      coverImage { extraLarge }
-      meanScore
-    }
-  }`;
-
-  try {
-    const response = await fetch('https://graphql.anilist.co', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ query })
-    });
-    const data = await response.json();
-    if(data.data && data.data.Media) {
-      const media = data.data.Media;
-      if(media.coverImage.extraLarge) {
-        document.getElementById('kabaneriPosterImg').src = media.coverImage.extraLarge;
-      }
-      if(media.meanScore) {
-        document.getElementById('kabaneriRating').textContent = (media.meanScore / 10).toFixed(1);
-      }
-    }
-  } catch (err) {
-    console.error("AniList fetch error:", err);
-  }
-}
-
-async function fetchClaymoreData() {
-  const query = `
-  query {
-    Media(search: "Claymore", type: ANIME) {
-      coverImage { extraLarge }
-      meanScore
-    }
-  }`;
-
-  try {
-    const response = await fetch('https://graphql.anilist.co', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ query })
-    });
-    const data = await response.json();
-    if(data.data && data.data.Media) {
-      const media = data.data.Media;
-      if(media.coverImage.extraLarge) {
-        document.getElementById('claymorePosterImg').src = media.coverImage.extraLarge;
-      }
-      if(media.meanScore) {
-        document.getElementById('claymoreRating').textContent = (media.meanScore / 10).toFixed(1);
-      }
-    }
-  } catch (err) {
-    console.error("AniList fetch error:", err);
-  }
-}
-
-async function fetchGleipnirData() {
-  const query = `
-  query {
-    Media(search: "Gleipnir", type: ANIME) {
-      coverImage { extraLarge }
-      meanScore
-    }
-  }`;
-
-  try {
-    const response = await fetch('https://graphql.anilist.co', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ query })
-    });
-    const data = await response.json();
-    if(data.data && data.data.Media) {
-      const media = data.data.Media;
-      if(media.coverImage.extraLarge) {
-        document.getElementById('gleipnirPosterImg').src = media.coverImage.extraLarge;
-      }
-      if(media.meanScore) {
-        document.getElementById('gleipnirRating').textContent = (media.meanScore / 10).toFixed(1);
-      }
-    }
-  } catch (err) {
-    console.error("AniList fetch error:", err);
-  }
-}
-
-async function fetchRedlineData() {
-  const query = `
-  query {
-    Media(id: 6675, type: ANIME) {
-      coverImage { extraLarge }
-      meanScore
-    }
-  }`;
-
-  try {
-    const response = await fetch('https://graphql.anilist.co', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ query })
-    });
-    const data = await response.json();
-    if(data.data && data.data.Media) {
-      const media = data.data.Media;
-      if(media.coverImage.extraLarge) {
-        document.getElementById('redlinePosterImg').src = media.coverImage.extraLarge;
-      }
-      if(media.meanScore) {
-        document.getElementById('redlineRating').textContent = (media.meanScore / 10).toFixed(1);
-      }
-    }
-  } catch (err) {
-    console.error("AniList fetch error:", err);
-  }
-}
-
-async function fetchScarletData() {
-  const query = `
-  query {
-    Media(id: 185773, type: ANIME) {
-      coverImage { extraLarge }
-      meanScore
-    }
-  }`;
-
-  try {
-    const response = await fetch('https://graphql.anilist.co', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ query })
-    });
-    const data = await response.json();
-    if(data.data && data.data.Media) {
-      const media = data.data.Media;
-      if(media.coverImage && media.coverImage.extraLarge) {
-        document.getElementById('scarletPosterImg').src = media.coverImage.extraLarge;
-      }
-      if(media.meanScore) {
-        document.getElementById('scarletRating').textContent = (media.meanScore / 10).toFixed(1);
-      }
-    }
-  } catch (err) {
-    console.error("AniList fetch error:", err);
-  }
-}
-
-async function fetchVivyData() {
-  const query = `
-  query {
-    Media(id: 128546, type: ANIME) {
-      coverImage { extraLarge }
-      meanScore
-    }
-  }`;
-
-  try {
-    const response = await fetch('https://graphql.anilist.co', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ query })
-    });
-    const data = await response.json();
-    if(data.data && data.data.Media) {
-      const media = data.data.Media;
-      if(media.coverImage && media.coverImage.extraLarge) {
-        document.getElementById('vivyPosterImg').src = media.coverImage.extraLarge;
-      }
-      if(media.meanScore) {
-        document.getElementById('vivyRating').textContent = (media.meanScore / 10).toFixed(1);
-      }
-    }
-  } catch (err) {
-    console.error("AniList fetch error:", err);
-  }
-}
-
-async function fetchInsomniacsData() {
-  const query = `
-  query {
-    Media(search: "Kimi wa Houkago Insomnia", type: ANIME) {
-      coverImage { extraLarge }
-      meanScore
-    }
-  }`;
-
-  try {
-    const response = await fetch('https://graphql.anilist.co', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ query })
-    });
-    const data = await response.json();
-    if(data.data && data.data.Media) {
-      const media = data.data.Media;
-      if(media.coverImage.extraLarge) {
-        document.getElementById('insomniacsPosterImg').src = media.coverImage.extraLarge;
-      }
-      if(media.meanScore) {
-        document.getElementById('insomniacsRating').textContent = (media.meanScore / 10).toFixed(1);
-      }
-    }
-  } catch (err) {
-    console.error("AniList fetch error:", err);
-  }
-}
-
-async function fetchOusamaData() {
-  const query = `
-  query {
-    Media(search: "Ousama Ranking: Yuuki no Takarabako", type: ANIME) {
-      coverImage { extraLarge }
-      meanScore
-    }
-  }`;
-
-  try {
-    const response = await fetch('https://graphql.anilist.co', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ query })
-    });
-    const data = await response.json();
-    if(data.data && data.data.Media) {
-      const media = data.data.Media;
-      if(media.coverImage.extraLarge) {
-        document.getElementById('ousamaPosterImg').src = media.coverImage.extraLarge;
-      }
-      if(media.meanScore) {
-        document.getElementById('ousamaRating').textContent = (media.meanScore / 10).toFixed(1);
-      }
-    }
-  } catch (err) {
-    console.error("AniList fetch error:", err);
-  }
-}
-
-async function fetchOrbData() {
-  const query = `
-  query {
-    Media(search: "Chi. -Chikyuu no Undou ni Tsuite-", type: ANIME) {
-      coverImage { extraLarge }
-      meanScore
-    }
-  }`;
-
-  try {
-    const response = await fetch('https://graphql.anilist.co', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ query })
-    });
-    const data = await response.json();
-    if(data.data && data.data.Media) {
-      const media = data.data.Media;
-      if(media.coverImage.extraLarge) {
-        document.getElementById('orbPosterImg').src = media.coverImage.extraLarge;
-      }
-      if(media.meanScore) {
-        document.getElementById('orbRating').textContent = (media.meanScore / 10).toFixed(1);
-      }
-    }
-  } catch (err) {
-    console.error("AniList fetch error:", err);
-  }
-}
-
-async function fetchBocchiData() {
-  const query = `
-  query {
-    Media(search: "Bocchi the Rock!", type: ANIME) {
-      coverImage { extraLarge }
-      meanScore
-    }
-  }`;
-
-  try {
-    const response = await fetch('https://graphql.anilist.co', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ query })
-    });
-    const data = await response.json();
-    if(data.data && data.data.Media) {
-      const media = data.data.Media;
-      if(media.coverImage.extraLarge) {
-        document.getElementById('bocchiPosterImg').src = media.coverImage.extraLarge;
-      }
-      if(media.meanScore) {
-        document.getElementById('bocchiRating').textContent = (media.meanScore / 10).toFixed(1);
-      }
-    }
-  } catch (err) {
-    console.error("AniList fetch error:", err);
-  }
-}
-
-async function fetchGrimgarData() {
-  const query = `
-  query {
-    Media(search: "Hai to Gensou no Grimgar", type: ANIME) {
-      coverImage { extraLarge }
-      meanScore
-    }
-  }`;
-
-  try {
-    const response = await fetch('https://graphql.anilist.co', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ query })
-    });
-    const data = await response.json();
-    if(data.data && data.data.Media) {
-      const media = data.data.Media;
-      if(media.coverImage.extraLarge) {
-        document.getElementById('grimgarPosterImg').src = media.coverImage.extraLarge;
-      }
-      if(media.meanScore) {
-        document.getElementById('grimgarRating').textContent = (media.meanScore / 10).toFixed(1);
-      }
-    }
-  } catch (err) {
-    console.error("AniList fetch error:", err);
-  }
-}
-
-async function fetchKnKData() {
-  const query = `
-  query {
-    Media(id: 4282, type: ANIME) {
-      coverImage { extraLarge }
-      meanScore
-    }
-  }`;
-
-  try {
-    const response = await fetch('https://graphql.anilist.co', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ query })
-    });
-    const data = await response.json();
-    if(data.data && data.data.Media) {
-      const media = data.data.Media;
-      if(media.coverImage.extraLarge) {
-        document.getElementById('knkPosterImg').src = media.coverImage.extraLarge;
-      }
-      if(media.meanScore) {
-        document.getElementById('knkRating').textContent = (media.meanScore / 10).toFixed(1);
-      }
-    }
-  } catch (err) {
-    console.error("AniList fetch error:", err);
-  }
-}
 
 const canvas = document.getElementById('canvas-bg');
 const ctx = canvas.getContext('2d');
