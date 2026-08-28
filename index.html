@@ -451,17 +451,27 @@ window.addEventListener('click', function(e) {
   }
 });
 
-/* تحديد موقع مؤشر التبويب العلوي */
+/* تحديد موقع مؤشر التبويب العلوي وتحديثه عند الضغط */
 const indicator = document.getElementById('navIndicator');
+const navItems = document.querySelectorAll('.nav-links .nav-item');
 
 function moveIndicator(element) {
-  if (!element) return;
+  if (!element || !indicator) return;
   const centerPosition = element.offsetLeft + (element.offsetWidth / 2);
   indicator.style.left = `${centerPosition}px`;
   indicator.style.opacity = '1';
 }
 
-window.addEventListener('DOMContentLoaded', () => {
+/* إضافة حدث النقر على التبويبات لتحريك الشريط وتحديث التحديد النشط */
+navItems.forEach(item => {
+  item.addEventListener('click', function(e) {
+    navItems.forEach(nav => nav.classList.remove('active'));
+    this.classList.add('active');
+    moveIndicator(this);
+  });
+});
+
+window.addEventListener('load', () => {
   const activeItem = document.querySelector('.nav-links .nav-item.active');
   if (activeItem) moveIndicator(activeItem);
   fetchFateData();
