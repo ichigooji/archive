@@ -20,7 +20,6 @@
   --pink: #ec4899;
   --logo-grad-start: #c4b5fd;
   --logo-grad-end: #ec4899;
-  --neon-glow: rgba(139, 92, 246, 0.3);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -34,13 +33,6 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
-}
-
-#progress-bar {
-  position: fixed; top: 0; left: 0; height: 3px;
-  background: linear-gradient(90deg, var(--purple), var(--pink), #ffffff);
-  width: 0%; z-index: 1000; transition: width 0.1s ease;
-  box-shadow: 0 0 12px var(--neon-glow);
 }
 
 .bg-gradient-mesh { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
@@ -87,13 +79,13 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
   display: none; position: absolute; top: calc(100% + 20px); left: 0; width: 240px;
   background: rgba(6, 10, 22, 0.96); backdrop-filter: blur(25px);
   border: 1px solid var(--border); border-radius: 18px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(139, 92, 246, 0.15);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
   padding: 12px; z-index: 999;
 }
-.nav-menu-wrapper.open .menu-dropdown-content { display: flex; flex-direction: column; animation: dropdown-slide-down 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+.nav-menu-wrapper.open .menu-dropdown-content { display: flex; flex-direction: column; animation: dropdown-slide-down 0.2s ease; }
 
 @keyframes dropdown-slide-down {
-  from { opacity: 0; transform: translateY(-10px); }
+  from { opacity: 0; transform: translateY(-6px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -108,104 +100,160 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 .site-brand { display: flex; align-items: center; text-decoration: none; position: relative; font-family: 'Orbitron', 'Montserrat', sans-serif; }
 .logo-wrap { display: flex; flex-direction: column; position: relative; width: max-content; }
 .logo-top-row { display: flex; align-items: center; font-weight: 900; font-size: 25px; font-style: italic; letter-spacing: -0.5px; text-transform: uppercase; line-height: 0.9; position: relative; }
-.logo-text-p1 { background: linear-gradient(135deg, #ffffff 10%, var(--logo-grad-start) 50%, var(--logo-grad-end) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.4)); transform: skewX(-14deg); }
+.logo-text-p1 { background: linear-gradient(135deg, #ffffff 10%, var(--logo-grad-start) 50%, var(--logo-grad-end) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; transform: skewX(-14deg); }
 .logo-slash-bolt { position: relative; width: 16px; height: 30px; margin: 0 1px; display: inline-block; transform: skewX(-14deg); }
-.logo-slash-bolt::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, #ffffff 0%, var(--logo-grad-end) 100%); clip-path: polygon(45% 0%, 100% 32%, 50% 45%, 85% 100%, 0% 55%, 42% 42%); box-shadow: 0 0 12px var(--neon-glow); animation: bolt-anim 2.5s infinite ease-in-out; }
-
-@keyframes bolt-anim {
-  0%, 100% { opacity: 0.85; transform: scale(1); filter: drop-shadow(0 0 4px var(--neon-glow)); }
-  50% { opacity: 1; transform: scale(1.12); filter: drop-shadow(0 0 14px #ffffff); }
-}
-
+.logo-slash-bolt::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, #ffffff 0%, var(--logo-grad-end) 100%); clip-path: polygon(45% 0%, 100% 32%, 50% 45%, 85% 100%, 0% 55%, 42% 42%); }
 .logo-text-p2 { background: linear-gradient(135deg, #ffffff 30%, var(--logo-grad-start) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; transform: skewX(-14deg); letter-spacing: -1px; }
-.logo-star-spark { position: absolute; right: -12px; top: -3px; width: 9px; height: 9px; background: var(--logo-grad-start); clip-path: polygon(50% 0%, 65% 35%, 100% 50%, 65% 65%, 50% 100%, 35% 65%, 0% 50%, 35% 35%); box-shadow: 0 0 10px var(--logo-grad-start); animation: star-spin 3s infinite linear; }
 
-@keyframes star-spin { 0% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(180deg) scale(1.3); } 100% { transform: rotate(360deg) scale(1); } }
-
-.logo-sub-server { font-family: 'Rajdhani', 'Orbitron', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2.8px; color: #c4b5fd; text-transform: uppercase; text-align: left; margin-top: 1px; line-height: 1; padding-left: 1px; opacity: 0.95; }
+.logo-sub-server { font-family: 'Rajdhani', 'Orbitron', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2.8px; color: #c4b5fd; text-transform: uppercase; text-align: left; margin-top: 1px; line-height: 1; opacity: 0.95; }
 .logo-sub-server span { color: var(--muted); font-weight: 600; }
 
-.nav-links { display: flex; align-items: center; justify-content: center; gap: 12px; position: relative; margin: 0 auto; }
-.nav-links a { position: relative; text-decoration: none; color: var(--muted); font-size: 14px; font-weight: 600; padding: 8px 16px; transition: color 0.25s ease; cursor: pointer; z-index: 2; white-space: nowrap; }
+/* Header Nav Links */
+.nav-links { display: flex; align-items: center; justify-content: center; gap: 24px; position: relative; margin: 0 auto; }
+.nav-links a { position: relative; text-decoration: none; color: #94a3b8; font-size: 14.5px; font-weight: 700; padding: 10px 4px; transition: color 0.25s ease; cursor: pointer; z-index: 2; white-space: nowrap; }
 .nav-links a:hover, .nav-links a.active { color: #ffffff; }
 
-.nav-indicator { position: absolute; bottom: -4px; width: 14px; height: 3px; background: linear-gradient(90deg, #c4b5fd 0%, #ec4899 100%); border-radius: 3px; box-shadow: 0 0 6px rgba(236, 72, 153, 0.4); transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); pointer-events: none; z-index: 1; opacity: 0; transform: translateX(-50%); }
+.nav-indicator { position: absolute; bottom: 0px; width: 20px; height: 3px; background: linear-gradient(90deg, #ec4899 0%, #c4b5fd 100%); border-radius: 3px; transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); pointer-events: none; z-index: 1; opacity: 0; transform: translateX(-50%); }
 
 .search-container { position: relative; width: 220px; display: flex; align-items: center; justify-self: end; }
 .search-icon { position: absolute; left: 14px; width: 16px; height: 16px; stroke: var(--muted); pointer-events: none; transition: stroke 0.25s ease; }
-.search-input { width: 100%; background: rgba(10, 15, 30, 0.5); border: 1px solid rgba(139, 92, 246, 0.2); padding: 9px 34px 9px 40px; border-radius: 12px; color: var(--text); font-size: 13px; font-weight: 500; outline: none; transition: all 0.25s ease; box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3); }
+.search-input { width: 100%; background: rgba(10, 15, 30, 0.5); border: 1px solid rgba(139, 92, 246, 0.2); padding: 9px 34px 9px 40px; border-radius: 12px; color: var(--text); font-size: 13px; font-weight: 500; outline: none; transition: all 0.25s ease; }
 .search-input::placeholder { color: rgba(148, 163, 184, 0.55); font-size: 13px; }
-.search-input:focus { border-color: rgba(168, 85, 247, 0.6); box-shadow: 0 0 12px rgba(139, 92, 246, 0.3), inset 0 2px 4px rgba(0, 0, 0, 0.3); }
-.search-container:focus-within .search-icon { stroke: var(--logo-grad-start); }
+.search-input:focus { border-color: rgba(168, 85, 247, 0.6); }
 
-.search-clear-btn { position: absolute; right: 10px; background: none; border: none; cursor: pointer; display: none; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; color: var(--muted); transition: all 0.2s ease; padding: 0; }
-.search-clear-btn:hover { color: #ffffff; background: rgba(255, 255, 255, 0.1); }
+.search-clear-btn { position: absolute; right: 10px; background: none; border: none; cursor: pointer; display: none; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; color: var(--muted); padding: 0; }
 .search-clear-btn svg { width: 12px; height: 12px; stroke: currentColor; stroke-width: 2.5; fill: none; }
 
-/* Grid & Cards */
+/* Container & Cards */
 .main-container { max-width: 1250px; margin: 30px auto; padding: 0 24px; flex: 1; width: 100%; position: relative; z-index: 2; }
 .results-count { font-size: 14px; font-weight: 600; color: #64748b; margin-bottom: 20px; }
 
 .anime-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
 
 .anime-card {
-  position: relative; border-radius: 16px; background: rgba(12, 18, 34, 0.75);
-  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(139, 92, 246, 0.18); overflow: hidden; text-decoration: none;
-  transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1); display: flex; flex-direction: column;
+  position: relative; border-radius: 16px; background: rgba(12, 18, 34, 0.6);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08); overflow: hidden; text-decoration: none;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease; display: flex; flex-direction: column;
 }
 
-.anime-card:hover { transform: translateY(-8px); border-color: rgba(168, 85, 247, 0.5); box-shadow: 0 16px 36px rgba(0, 0, 0, 0.75), 0 0 20px rgba(139, 92, 246, 0.25); }
+.anime-card:hover { transform: translateY(-4px); border-color: rgba(139, 92, 246, 0.4); box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6); }
 
 .poster-wrapper { position: relative; width: 100%; aspect-ratio: 1 / 1.42; overflow: hidden; background: #060912; }
-.poster-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-.anime-card:hover .poster-img { transform: scale(1.08); }
+.poster-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+.anime-card:hover .poster-img { transform: scale(1.04); filter: brightness(0.4); }
+
+/* Transparent Soft Glassmorphic Buttons */
+.card-overlay-actions {
+  position: absolute; inset: 0; background: rgba(2, 4, 8, 0.45);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 8px;
+  opacity: 0; pointer-events: none; transition: opacity 0.2s ease; padding: 16px; z-index: 10;
+}
+.anime-card:hover .card-overlay-actions { opacity: 1; pointer-events: auto; }
+
+.action-btn {
+  width: 100%; padding: 9px 12px; border-radius: 10px;
+  font-size: 11px; font-weight: 600; color: rgba(255, 255, 255, 0.9); text-decoration: none;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  cursor: pointer; transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+}
+
+.action-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+}
+
+.action-btn.disabled {
+  opacity: 0.25; cursor: not-allowed;
+  background: rgba(255, 255, 255, 0.02) !important;
+  border-color: rgba(255, 255, 255, 0.05) !important;
+  color: rgba(255, 255, 255, 0.3) !important;
+  pointer-events: none;
+}
+
+.action-btn svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; }
 
 .card-badges-top { position: absolute; top: 10px; left: 10px; display: flex; gap: 6px; z-index: 2; }
-.badge-rating { background: rgba(6, 10, 22, 0.85); backdrop-filter: blur(10px); color: #fbbf24; font-size: 11px; font-weight: 800; padding: 4px 8px; border-radius: 8px; display: flex; align-items: center; gap: 4px; border: 1px solid rgba(251, 191, 36, 0.35); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); }
+.badge-rating { background: rgba(6, 10, 22, 0.75); backdrop-filter: blur(8px); color: #fbbf24; font-size: 11px; font-weight: 700; padding: 3px 7px; border-radius: 6px; display: flex; align-items: center; gap: 3px; border: 1px solid rgba(255, 255, 255, 0.1); }
 .badge-rating::before { content: '★'; font-size: 10px; }
-.badge-age { background: rgba(6, 10, 22, 0.85); backdrop-filter: blur(10px); color: #e2e8f0; font-size: 10.5px; font-weight: 700; padding: 4px 7px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); }
+.badge-age { background: rgba(6, 10, 22, 0.75); backdrop-filter: blur(8px); color: #e2e8f0; font-size: 10.5px; font-weight: 600; padding: 3px 6px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.1); }
 
-.card-badges-bottom { position: absolute; bottom: 8px; left: 8px; display: flex; align-items: center; gap: 8px; background: rgba(6, 10, 22, 0.82); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 4px 8px; border-radius: 8px; border: 1px solid rgba(139, 92, 246, 0.25); font-size: 10.5px; font-weight: 700; color: #e2e8f0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); }
-.card-badges-bottom .badge-item { display: flex; align-items: center; gap: 3.5px; }
-.card-badges-bottom svg { width: 12px; height: 12px; stroke: #c4b5fd; fill: none; stroke-width: 2; }
+.card-badges-bottom { position: absolute; bottom: 8px; left: 8px; display: flex; align-items: center; gap: 8px; background: rgba(6, 10, 22, 0.75); backdrop-filter: blur(8px); padding: 3px 7px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.1); font-size: 10px; font-weight: 600; color: #e2e8f0; z-index: 2; }
+.card-badges-bottom .badge-item { display: flex; align-items: center; gap: 3px; }
+.card-badges-bottom svg { width: 11px; height: 11px; stroke: #c4b5fd; fill: none; stroke-width: 2; }
 
 .anime-card-info { padding: 12px 10px; display: flex; flex-direction: column; gap: 4px; }
-.anime-card-title { font-size: 14px; font-weight: 700; color: #f1f5f9; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; gap: 5px; }
+.anime-card-title { font-size: 13.5px; font-weight: 700; color: #f1f5f9; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; gap: 5px; }
 .anime-card-title::before { content: '•'; color: var(--purple); font-size: 14px; }
-.anime-card-meta { font-size: 10.5px; font-weight: 600; color: #94a3b8; letter-spacing: 0.4px; opacity: 0.85; text-transform: uppercase; }
+.anime-card-meta { font-size: 10px; font-weight: 600; color: #94a3b8; letter-spacing: 0.4px; opacity: 0.85; text-transform: uppercase; }
+
+/* Pagination Controls */
+.pagination-container {
+  display: flex; justify-content: center; align-items: center; gap: 8px;
+  margin: 40px 0 20px 0; width: 100%; flex-wrap: wrap;
+}
+
+.page-btn {
+  min-width: 40px; height: 40px; padding: 0 12px; border-radius: 10px;
+  background: rgba(12, 18, 34, 0.6); border: 1px solid rgba(139, 92, 246, 0.2);
+  color: var(--text); font-size: 13px; font-weight: 600; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s ease; backdrop-filter: blur(10px);
+}
+
+.page-btn:hover:not(.disabled):not(.active) {
+  background: rgba(139, 92, 246, 0.2); border-color: var(--purple); color: #ffffff;
+}
+
+.page-btn.active {
+  background: linear-gradient(135deg, var(--purple), var(--pink));
+  border-color: transparent; color: #ffffff; font-weight: 700;
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+}
+
+.page-btn.disabled {
+  opacity: 0.3; cursor: not-allowed; border-color: rgba(255, 255, 255, 0.05);
+}
+
+.page-dots { color: var(--muted); font-weight: 600; padding: 0 4px; }
+
+#loadingSpinner { display: none; justify-content: center; align-items: center; padding: 40px 0; width: 100%; }
+.spinner { width: 36px; height: 36px; border: 3px solid rgba(139, 92, 246, 0.2); border-top-color: var(--purple); border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
 
 @media (max-width: 768px) {
   .site-header { display: flex; flex-direction: column; height: auto; width: calc(100% - 24px); padding: 12px 16px; top: 12px; gap: 12px; border-radius: 18px; }
   .header-left { width: 100%; display: flex; align-items: center; justify-content: space-between; position: relative; }
   .site-brand { position: absolute; left: 50%; transform: translateX(-50%); }
   .nav-menu-wrapper { z-index: 910; }
-  .nav-links { width: 100%; justify-content: center; border-top: 1px solid rgba(139, 92, 246, 0.12); padding-top: 8px; gap: 4px; }
-  .nav-links a { font-size: 12.5px; padding: 6px 10px; }
+  .nav-links { width: 100%; justify-content: center; border-top: 1px solid rgba(139, 92, 246, 0.12); padding-top: 8px; gap: 12px; }
+  .nav-links a { font-size: 12.5px; padding: 6px 4px; }
   .search-container { width: 100%; }
   .main-container { margin: 18px auto; padding: 0 16px; }
   .anime-grid { grid-template-columns: repeat(auto-fill, minmax(135px, 1fr)); gap: 12px; }
   .site-footer { padding: 24px 0 20px 0; }
   .footer-content { padding: 0 20px; align-items: center; text-align: center; }
   .footer-content .site-brand { position: relative; left: 0; transform: none; margin-bottom: 12px; }
-  .neon-line { margin-bottom: 16px; }
   .disclaimer-text { font-size: 11px; margin-bottom: 14px; }
   .footer-links { justify-content: center; gap: 16px; }
 }
 
-.site-footer { width: 100%; margin-top: auto; padding: 40px 0 30px 0; position: relative; z-index: 2; }
+.site-footer { width: 100%; margin-top: auto; padding: 40px 0 30px 0; position: relative; z-index: 2; border-top: 1px solid rgba(139, 92, 246, 0.15); }
 .footer-content { max-width: 1250px; margin: 0 auto; padding: 0 32px; display: flex; flex-direction: column; align-items: flex-start; }
-.neon-line { width: 100%; height: 1px; background: linear-gradient(90deg, var(--purple) 0%, rgba(139, 92, 246, 0.15) 60%, transparent 100%); margin-bottom: 24px; box-shadow: 0 0 8px var(--neon-glow); }
-.copyright { font-size: 12.5px; font-weight: 700; color: #f8fafc; letter-spacing: 0.3px; margin-bottom: 8px; }
+.copyright { font-size: 12.5px; font-weight: 700; color: #f8fafc; letter-spacing: 0.3px; margin-bottom: 8px; margin-top: 16px; }
 .disclaimer-text { font-size: 12px; color: var(--muted); max-width: 700px; line-height: 1.6; margin-bottom: 16px; }
 .footer-links { display: flex; gap: 22px; }
 .footer-links a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 600; transition: color 0.2s ease; }
-.footer-links a:hover { color: var(--logo-grad-start); text-shadow: 0 0 8px var(--neon-glow); }
+.footer-links a:hover { color: var(--logo-grad-start); }
 </style>
 </head>
 <body>
-
-<div id="progress-bar"></div>
 
 <div class="bg-gradient-mesh">
   <div class="mesh-blob blob-1"></div>
@@ -223,15 +271,15 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 
       <div class="menu-dropdown-content">
         <div class="menu-section-title">BROWSE</div>
-        <a href="https://ichigooji.github.io/archive/" class="menu-link active">
+        <a href="javascript:void(0)" class="menu-link active" id="menuHomeLink">
           <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
           Home
         </a>
-        <a href="#torrent" class="menu-link">
+        <a href="javascript:void(0)" class="menu-link" id="menuTorrentLink">
           <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="9" stroke="currentColor"/><path stroke-linecap="round" stroke-linejoin="round" d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg>
           Torrent
         </a>
-        <a href="#subtitles" class="menu-link">
+        <a href="javascript:void(0)" class="menu-link" id="menuSubtitlesLink">
           <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="3" stroke="currentColor"/><path stroke-linecap="round" stroke-linejoin="round" d="M7 15h3M14 15h3M7 11h10"/></svg>
           Subtitles
         </a>
@@ -257,7 +305,6 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
           <span class="logo-text-p1">ICHI</span>
           <div class="logo-slash-bolt"></div>
           <span class="logo-text-p2">GOOJI</span>
-          <div class="logo-star-spark"></div>
         </div>
         <div class="logo-sub-server">ARCHIVE <span>SERVER</span></div>
       </div>
@@ -265,9 +312,11 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
   </div>
 
   <nav class="nav-links" id="mainNav">
-    <a href="javascript:void(0)" class="nav-item active" data-filter="all">Home</a>
-    <a href="javascript:void(0)" class="nav-item" data-filter="tv">TV List</a>
-    <a href="javascript:void(0)" class="nav-item" data-filter="movie">Movie List</a>
+    <a href="javascript:void(0)" class="nav-item active" data-filter="ALL">All</a>
+    <a href="javascript:void(0)" class="nav-item" data-filter="TV">TV Series</a>
+    <a href="javascript:void(0)" class="nav-item" data-filter="MOVIE">Movies</a>
+    <a href="javascript:void(0)" class="nav-item" data-filter="OVA">OVAs</a>
+    <a href="javascript:void(0)" class="nav-item" data-filter="ONA">ONAs</a>
     <div class="nav-indicator" id="navIndicator"></div>
   </nav>
 
@@ -281,245 +330,11 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 </header>
 
 <main class="main-container">
-  <div class="results-count" id="resultsCount">13 results found</div>
+  <div class="results-count" id="resultsCount">0 results found</div>
   
-  <div class="anime-grid" id="animeGrid">
-
-    <a href="https://ichigooji.github.io/archive/fate.html" class="anime-card" data-type="tv movie">
-      <div class="poster-wrapper">
-        <img class="poster-img" id="fatePosterImg" src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx10087-8E2S20B9KOFz.png" alt="Fate">
-        <div class="card-badges-top">
-          <div class="badge-rating" id="fateRating">8.4</div>
-          <div class="badge-age">R-17+</div>
-        </div>
-        <div class="card-badges-bottom">
-          <div class="badge-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg><span>4</span></div>
-          <div class="badge-item"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg><span>1</span></div>
-        </div>
-      </div>
-      <div class="anime-card-info">
-        <div class="anime-card-title">Fate</div>
-        <div class="anime-card-meta">TV · MOVIE</div>
-      </div>
-    </a>
-
-    <a href="https://nyaa.si/view/1596956" class="anime-card" data-type="tv movie">
-      <div class="poster-wrapper">
-        <img class="poster-img" id="kabaneriPosterImg" src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21196-8P0p4fE1Wexy.jpg" alt="Kabaneri of the Iron Fortress">
-        <div class="card-badges-top">
-          <div class="badge-rating" id="kabaneriRating">7.2</div>
-          <div class="badge-age">R-17+</div>
-        </div>
-        <div class="card-badges-bottom">
-          <div class="badge-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg><span>1</span></div>
-          <div class="badge-item"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg><span>1</span></div>
-        </div>
-      </div>
-      <div class="anime-card-info">
-        <div class="anime-card-title" title="Koutetsujou no Kabaneri">Kabaneri of the Iron Fortress</div>
-        <div class="anime-card-meta">TV · MOVIE</div>
-      </div>
-    </a>
-
-    <a href="https://nyaa.si/view/1549110" class="anime-card" data-type="tv">
-      <div class="poster-wrapper">
-        <img class="poster-img" id="claymorePosterImg" src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1818-wF07qYk93YgT.png" alt="Claymore">
-        <div class="card-badges-top">
-          <div class="badge-rating" id="claymoreRating">7.7</div>
-          <div class="badge-age">R-17+</div>
-        </div>
-        <div class="card-badges-bottom">
-          <div class="badge-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg><span>1</span></div>
-          <div class="badge-item"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg><span>1</span></div>
-        </div>
-      </div>
-      <div class="anime-card-info">
-        <div class="anime-card-title" title="Claymore">Claymore</div>
-        <div class="anime-card-meta">TV</div>
-      </div>
-    </a>
-
-    <a href="https://nyaa.si/view/1530571" class="anime-card" data-type="tv">
-      <div class="poster-wrapper">
-        <img class="poster-img" id="gleipnirPosterImg" src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx108241-K8U77x04oAnz.jpg" alt="Gleipnir">
-        <div class="card-badges-top">
-          <div class="badge-rating" id="gleipnirRating">6.9</div>
-          <div class="badge-age">R-17+</div>
-        </div>
-        <div class="card-badges-bottom">
-          <div class="badge-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg><span>1</span></div>
-          <div class="badge-item"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg><span>1</span></div>
-        </div>
-      </div>
-      <div class="anime-card-info">
-        <div class="anime-card-title" title="Gleipnir">Gleipnir</div>
-        <div class="anime-card-meta">TV</div>
-      </div>
-    </a>
-
-    <a href="https://nyaa.si/view/1540851" class="anime-card" data-type="movie">
-      <div class="poster-wrapper">
-        <img class="poster-img" id="redlinePosterImg" src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx6675-0z0iE12K0Y5C.jpg" alt="Redline">
-        <div class="card-badges-top">
-          <div class="badge-rating" id="redlineRating">8.2</div>
-          <div class="badge-age">R-17+</div>
-        </div>
-        <div class="card-badges-bottom">
-          <div class="badge-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg><span>1</span></div>
-          <div class="badge-item"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg><span>1</span></div>
-        </div>
-      </div>
-      <div class="anime-card-info">
-        <div class="anime-card-title" title="Redline">Redline</div>
-        <div class="anime-card-meta">MOVIE</div>
-      </div>
-    </a>
-
-    <a href="https://nyaa.si/view/2088112" class="anime-card" data-type="movie">
-      <div class="poster-wrapper">
-        <img class="poster-img" id="scarletPosterImg" src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx185773-vS8K2bJ0O1qX.png" alt="Scarlet">
-        <div class="card-badges-top">
-          <div class="badge-rating" id="scarletRating">N/A</div>
-          <div class="badge-age">R-17+</div>
-        </div>
-        <div class="card-badges-bottom">
-          <div class="badge-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg><span>1</span></div>
-          <div class="badge-item"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg><span>1</span></div>
-        </div>
-      </div>
-      <div class="anime-card-info">
-        <div class="anime-card-title" title="Scarlet">Scarlet</div>
-        <div class="anime-card-meta">MOVIE</div>
-      </div>
-    </a>
-
-    <a href="https://nyaa.si/view/1578720" class="anime-card" data-type="tv">
-      <div class="poster-wrapper">
-        <img class="poster-img" id="vivyPosterImg" src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx128546-L1aGZ2nJqP2g.jpg" alt="Vivy -Fluorite Eye's Song-">
-        <div class="card-badges-top">
-          <div class="badge-rating" id="vivyRating">8.4</div>
-          <div class="badge-age">PG-13</div>
-        </div>
-        <div class="card-badges-bottom">
-          <div class="badge-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg><span>1</span></div>
-          <div class="badge-item"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg><span>1</span></div>
-        </div>
-      </div>
-      <div class="anime-card-info">
-        <div class="anime-card-title" title="Vivy -Fluorite Eye's Song-">Vivy -Fluorite Eye's Song-</div>
-        <div class="anime-card-meta">TV</div>
-      </div>
-    </a>
-
-    <a href="https://nyaa.si/view/1932264" class="anime-card" data-type="tv">
-      <div class="poster-wrapper">
-        <img class="poster-img" id="insomniacsPosterImg" src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx143653-3f1uLhU6dZ8R.jpg" alt="Insomniacs After School">
-        <div class="card-badges-top">
-          <div class="badge-rating" id="insomniacsRating">7.9</div>
-          <div class="badge-age">PG-13</div>
-        </div>
-        <div class="card-badges-bottom">
-          <div class="badge-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg><span>1</span></div>
-          <div class="badge-item"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg><span>1</span></div>
-        </div>
-      </div>
-      <div class="anime-card-info">
-        <div class="anime-card-title" title="Kimi wa Houkago Insomnia">Insomniacs After School</div>
-        <div class="anime-card-meta">TV</div>
-      </div>
-    </a>
-
-    <a href="https://nyaa.si/view/1682990" class="anime-card" data-type="tv">
-      <div class="poster-wrapper">
-        <img class="poster-img" id="ousamaPosterImg" src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx153452-8G1J2QjS9x21.jpg" alt="Ousama Ranking">
-        <div class="card-badges-top">
-          <div class="badge-rating" id="ousamaRating">7.8</div>
-          <div class="badge-age">PG-13</div>
-        </div>
-        <div class="card-badges-bottom">
-          <div class="badge-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg><span>1</span></div>
-          <div class="badge-item"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg><span>1</span></div>
-        </div>
-      </div>
-      <div class="anime-card-info">
-        <div class="anime-card-title" title="Ousama Ranking: Yuuki no Takarabako">Ousama Ranking</div>
-        <div class="anime-card-meta">TV</div>
-      </div>
-    </a>
-
-    <a href="https://nyaa.si/view/2044702" class="anime-card" data-type="tv">
-      <div class="poster-wrapper">
-        <img class="poster-img" id="orbPosterImg" src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx151514-6N4wS4E7o3S1.jpg" alt="Orb: On the Movements of the Earth">
-        <div class="card-badges-top">
-          <div class="badge-rating" id="orbRating">8.1</div>
-          <div class="badge-age">R-17+</div>
-        </div>
-        <div class="card-badges-bottom">
-          <div class="badge-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg><span>1</span></div>
-          <div class="badge-item"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg><span>1</span></div>
-        </div>
-      </div>
-      <div class="anime-card-info">
-        <div class="anime-card-title" title="Orb: On the Movements of the Earth">Orb: On the Movements of the Earth</div>
-        <div class="anime-card-meta">TV</div>
-      </div>
-    </a>
-
-    <a href="https://nyaa.si/view/1854203" class="anime-card" data-type="tv">
-      <div class="poster-wrapper">
-        <img class="poster-img" id="bocchiPosterImg" src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx130003-93C0Tsm934iA.png" alt="Bocchi the Rock!">
-        <div class="card-badges-top">
-          <div class="badge-rating" id="bocchiRating">8.7</div>
-          <div class="badge-age">PG-13</div>
-        </div>
-        <div class="card-badges-bottom">
-          <div class="badge-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg><span>1</span></div>
-          <div class="badge-item"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg><span>1</span></div>
-        </div>
-      </div>
-      <div class="anime-card-info">
-        <div class="anime-card-title" title="Bocchi the Rock!">Bocchi the Rock!</div>
-        <div class="anime-card-meta">TV</div>
-      </div>
-    </a>
-
-    <a href="https://nyaa.si/view/2070170" class="anime-card" data-type="tv">
-      <div class="poster-wrapper">
-        <img class="poster-img" id="grimgarPosterImg" src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21428-R139P97U2K24.png" alt="Grimgar: Ashes and Illusions">
-        <div class="card-badges-top">
-          <div class="badge-rating" id="grimgarRating">7.6</div>
-          <div class="badge-age">PG-13</div>
-        </div>
-        <div class="card-badges-bottom">
-          <div class="badge-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg><span>1</span></div>
-          <div class="badge-item"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg><span>1</span></div>
-        </div>
-      </div>
-      <div class="anime-card-info">
-        <div class="anime-card-title" title="Grimgar, Ashes and Illusions">Grimgar: Ashes and Illusions</div>
-        <div class="anime-card-meta">TV</div>
-      </div>
-    </a>
-
-    <a href="https://nyaa.si/view/1679533" class="anime-card" data-type="movie">
-      <div class="poster-wrapper">
-        <img class="poster-img" id="knkPosterImg" src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx4282-3JdClyz2o7Jb.jpg" alt="Kara no Kyoukai">
-        <div class="card-badges-top">
-          <div class="badge-rating" id="knkRating">8.5</div>
-          <div class="badge-age">R-17+</div>
-        </div>
-        <div class="card-badges-bottom">
-          <div class="badge-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg><span>1</span></div>
-          <div class="badge-item"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg><span>1</span></div>
-        </div>
-      </div>
-      <div class="anime-card-info">
-        <div class="anime-card-title" title="Kara no Kyoukai: The Garden of Sinners">Kara no Kyoukai</div>
-        <div class="anime-card-meta">MOVIE</div>
-      </div>
-    </a>
-
-  </div>
+  <div class="anime-grid" id="animeGrid"></div>
+  <div id="loadingSpinner"><div class="spinner"></div></div>
+  <div class="pagination-container" id="pagination"></div>
 </main>
 
 <footer class="site-footer">
@@ -530,12 +345,10 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
           <span class="logo-text-p1">ICHI</span>
           <div class="logo-slash-bolt"></div>
           <span class="logo-text-p2">GOOJI</span>
-          <div class="logo-star-spark"></div>
         </div>
         <div class="logo-sub-server">ARCHIVE <span>SERVER</span></div>
       </div>
     </a>
-    <div class="neon-line"></div>
     <div class="copyright">© 2026 ICHIGOOJI. All rights reserved.</div>
     <p class="disclaimer-text">ICHIGOOJI does not store any files on our server, we only link to media hosted on 3rd party services.</p>
     <div class="footer-links">
@@ -545,6 +358,33 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 </footer>
 
 <script>
+// Priority Links Data
+const INITIAL_TORRENTS = {
+  10087: "https://ichigooji.github.io/archive/fate.html",
+  21196: "https://nyaa.si/view/1596956",
+  1818: "https://nyaa.si/view/1549110",
+  108241: "https://nyaa.si/view/1530571",
+  6675: "https://nyaa.si/view/1540851",
+  185773: "https://nyaa.si/view/2088112",
+  128546: "https://nyaa.si/view/1578720",
+  143653: "https://nyaa.si/view/1932264",
+  153452: "https://nyaa.si/view/1682990",
+  151514: "https://nyaa.si/view/2044702",
+  130003: "https://nyaa.si/view/1854203",
+  21428: "https://nyaa.si/view/2070170",
+  4282: "https://nyaa.si/view/1679533"
+};
+
+const INITIAL_SUBTITLES = {
+  10087: "https://gofile.io/d/e746e0ba-7fc0-4c25-912e-4f4aa5435e4d"
+};
+
+const PER_PAGE = 88; // Maximum 88 anime per page
+let currentPage = 1;
+let totalPages = 1;
+let currentDropdownFilter = 'HOME'; // 'HOME', 'TORRENT', 'SUBTITLES'
+let currentCategoryFilter = 'ALL'; // 'ALL', 'TV', 'MOVIE', 'OVA', 'ONA'
+
 function toggleDropdownMenu(e) {
   e.stopPropagation();
   document.getElementById('navMenuWrapper').classList.toggle('open');
@@ -557,10 +397,12 @@ window.addEventListener('click', function(e) {
 
 const indicator = document.getElementById('navIndicator');
 const navItems = document.querySelectorAll('.nav-links .nav-item');
-const cards = document.querySelectorAll('.anime-card');
+const grid = document.getElementById('animeGrid');
 const resultsCount = document.getElementById('resultsCount');
 const searchInput = document.getElementById('searchInput');
 const searchClearBtn = document.getElementById('searchClearBtn');
+const spinner = document.getElementById('loadingSpinner');
+const pagination = document.getElementById('pagination');
 
 function moveIndicator(element) {
   if (!element || !indicator) return;
@@ -569,142 +411,288 @@ function moveIndicator(element) {
   indicator.style.opacity = '1';
 }
 
-function filterCards() {
-  const activeTab = document.querySelector('.nav-links .nav-item.active');
-  const filterType = activeTab ? activeTab.getAttribute('data-filter') : 'all';
-  const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+// Main API Loader via AniList GraphQL with Pagination
+async function loadAnimeData(page = 1) {
+  spinner.style.display = 'flex';
+  grid.innerHTML = '';
+  pagination.innerHTML = '';
+  resultsCount.textContent = 'Loading archive...';
 
-  let count = 0;
-  cards.forEach(card => {
-    const cardTypes = card.getAttribute('data-type') || '';
-    const titleText = card.querySelector('.anime-card-title')?.textContent.toLowerCase() || '';
-    const fullTitleAttr = card.querySelector('.anime-card-title')?.getAttribute('title')?.toLowerCase() || '';
+  const searchQuery = searchInput ? searchInput.value.trim() : '';
+
+  // Torrent / Subtitles Specific Priority Filters
+  if (currentDropdownFilter === 'TORRENT' || currentDropdownFilter === 'SUBTITLES') {
+    const idsToFetch = currentDropdownFilter === 'TORRENT' ? Object.keys(INITIAL_TORRENTS) : Object.keys(INITIAL_SUBTITLES);
     
-    const matchesCategory = (filterType === 'all' || cardTypes.split(' ').includes(filterType));
-    const matchesSearch = query === '' || titleText.includes(query) || fullTitleAttr.includes(query);
+    const query = `
+    query ($ids: [Int]) {
+      Page(page: 1, perPage: 50) {
+        media(id_in: $ids, type: ANIME) {
+          id title { romaji english } coverImage { extraLarge large } meanScore format isAdult
+        }
+      }
+    }`;
 
-    if (matchesCategory && matchesSearch) {
-      card.style.display = 'flex';
-      count++;
+    try {
+      const res = await fetch('https://graphql.anilist.co', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query, variables: { ids: idsToFetch.map(Number) } })
+      });
+      const data = await res.json();
+      let list = data?.data?.Page?.media || [];
+      
+      // Keep Fate Stay Night (10087) on top
+      list.sort((a, b) => (a.id === 10087 ? -1 : b.id === 10087 ? 1 : 0));
+      
+      if (currentCategoryFilter !== 'ALL') {
+        list = list.filter(m => m.format === currentCategoryFilter);
+      }
+      if (searchQuery) {
+        list = list.filter(m => (m.title.english || m.title.romaji).toLowerCase().includes(searchQuery.toLowerCase()));
+      }
+
+      renderGrid(list);
+      resultsCount.textContent = `${list.length} result${list.length === 1 ? '' : 's'} found`;
+    } catch (e) {
+      console.error(e);
+    } finally {
+      spinner.style.display = 'none';
+    }
+    return;
+  }
+
+  // Standard Paginated Query for HOME Mode (TV, MOVIE, OVA, ONA)
+  let queryVariables = { page, perPage: PER_PAGE };
+  let filterConditions = 'type: ANIME, sort: POPULARITY_DESC, isAdult: false';
+
+  if (currentCategoryFilter !== 'ALL') {
+    filterConditions += `, format: ${currentCategoryFilter}`;
+  }
+  if (searchQuery) {
+    filterConditions += `, search: "${searchQuery.replace(/"/g, '\\"')}"`;
+  }
+
+  const gqlQuery = `
+  query ($page: Int, $perPage: Int) {
+    Page(page: $page, perPage: $perPage) {
+      pageInfo { total currentPage lastPage hasNextPage }
+      media(${filterConditions}) {
+        id title { romaji english } coverImage { extraLarge large } meanScore format isAdult
+      }
+    }
+  }`;
+
+  try {
+    const response = await fetch('https://graphql.anilist.co', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ query: gqlQuery, variables: queryVariables })
+    });
+    const result = await response.json();
+    const pageData = result?.data?.Page;
+
+    if (pageData) {
+      currentPage = pageData.pageInfo.currentPage;
+      totalPages = pageData.pageInfo.lastPage;
+
+      let items = pageData.media;
+      
+      // Sort Fate to absolute top on page 1 of ALL
+      if (currentPage === 1 && currentCategoryFilter === 'ALL' && !searchQuery) {
+        items.sort((a, b) => (a.id === 10087 ? -1 : b.id === 10087 ? 1 : 0));
+      }
+
+      renderGrid(items);
+      renderPaginationControls();
+      resultsCount.textContent = `${pageData.pageInfo.total} results found (Page ${currentPage} of ${totalPages})`;
+    }
+  } catch (err) {
+    console.error("Error loading AniList page:", err);
+    resultsCount.textContent = 'Error loading results.';
+  } finally {
+    spinner.style.display = 'none';
+  }
+}
+
+function renderGrid(items) {
+  grid.innerHTML = '';
+  items.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'anime-card';
+
+    const rating = item.meanScore ? (item.meanScore / 10).toFixed(1) : 'N/A';
+    const age = item.isAdult ? '18+' : 'PG-13';
+    const format = item.format || 'TV';
+    const posterSrc = item.coverImage.extraLarge || item.coverImage.large;
+    const anilistUrl = `https://anilist.co/anime/${item.id}`;
+    const torrentUrl = INITIAL_TORRENTS[item.id] || null;
+    const subtitleUrl = INITIAL_SUBTITLES[item.id] || null;
+
+    card.innerHTML = `
+      <div class="poster-wrapper">
+        <img class="poster-img" src="${posterSrc}" alt="${item.title.romaji}" loading="lazy">
+        
+        <div class="card-overlay-actions">
+          <a href="${anilistUrl}" target="_blank" class="action-btn">
+            <svg viewBox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            AniList
+          </a>
+
+          ${torrentUrl ? `
+          <a href="${torrentUrl}" target="_blank" class="action-btn">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg>
+            Torrent
+          </a>` : `
+          <div class="action-btn disabled">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg>
+            Torrent
+          </div>`}
+
+          ${subtitleUrl ? `
+          <a href="${subtitleUrl}" target="_blank" class="action-btn">
+            <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg>
+            Subtitles
+          </a>` : `
+          <div class="action-btn disabled">
+            <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg>
+            Subtitles
+          </div>`}
+        </div>
+
+        <div class="card-badges-top">
+          <div class="badge-rating">${rating}</div>
+          <div class="badge-age">${age}</div>
+        </div>
+        <div class="card-badges-bottom">
+          <div class="badge-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg><span>${torrentUrl ? '1' : '0'}</span></div>
+          <div class="badge-item"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg><span>${subtitleUrl ? '1' : '0'}</span></div>
+        </div>
+      </div>
+      <div class="anime-card-info">
+        <div class="anime-card-title" title="${item.title.english || item.title.romaji}">${item.title.english || item.title.romaji}</div>
+        <div class="anime-card-meta">${format}</div>
+      </div>
+    `;
+
+    grid.appendChild(card);
+  });
+}
+
+// Pagination Controls Render
+function renderPaginationControls() {
+  pagination.innerHTML = '';
+  if (totalPages <= 1) return;
+
+  // Prev Button
+  const prevBtn = document.createElement('button');
+  prevBtn.className = `page-btn ${currentPage === 1 ? 'disabled' : ''}`;
+  prevBtn.innerHTML = '‹ Prev';
+  prevBtn.onclick = () => { if (currentPage > 1) goToPage(currentPage - 1); };
+  pagination.appendChild(prevBtn);
+
+  let pages = [];
+  pages.push(1);
+  if (currentPage > 3) pages.push('...');
+  for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) {
+    pages.push(i);
+  }
+  if (currentPage < totalPages - 2) pages.push('...');
+  if (totalPages > 1) pages.push(totalPages);
+
+  pages.forEach(p => {
+    if (p === '...') {
+      const dots = document.createElement('span');
+      dots.className = 'page-dots';
+      dots.innerText = '...';
+      pagination.appendChild(dots);
     } else {
-      card.style.display = 'none';
+      const pBtn = document.createElement('button');
+      pBtn.className = `page-btn ${p === currentPage ? 'active' : ''}`;
+      pBtn.innerText = p;
+      pBtn.onclick = () => goToPage(p);
+      pagination.appendChild(pBtn);
     }
   });
 
-  if (resultsCount) resultsCount.textContent = `${count} result${count === 1 ? '' : 's'} found`;
-  if (searchClearBtn) searchClearBtn.style.display = query.length > 0 ? 'flex' : 'none';
+  // Next Button
+  const nextBtn = document.createElement('button');
+  nextBtn.className = `page-btn ${currentPage === totalPages ? 'disabled' : ''}`;
+  nextBtn.innerHTML = 'Next ›';
+  nextBtn.onclick = () => { if (currentPage < totalPages) goToPage(currentPage + 1); };
+  pagination.appendChild(nextBtn);
 }
 
+function goToPage(p) {
+  currentPage = p;
+  loadAnimeData(currentPage);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Side-Menu Event Listeners
+document.getElementById('menuHomeLink')?.addEventListener('click', () => {
+  currentDropdownFilter = 'HOME';
+  setActiveDropdownMenu('menuHomeLink');
+  loadAnimeData(1);
+});
+
+document.getElementById('menuTorrentLink')?.addEventListener('click', () => {
+  currentDropdownFilter = 'TORRENT';
+  setActiveDropdownMenu('menuTorrentLink');
+  loadAnimeData(1);
+});
+
+document.getElementById('menuSubtitlesLink')?.addEventListener('click', () => {
+  currentDropdownFilter = 'SUBTITLES';
+  setActiveDropdownMenu('menuSubtitlesLink');
+  loadAnimeData(1);
+});
+
+function setActiveDropdownMenu(id) {
+  ['menuHomeLink', 'menuTorrentLink', 'menuSubtitlesLink'].forEach(linkId => {
+    document.getElementById(linkId)?.classList.remove('active');
+  });
+  document.getElementById(id)?.classList.add('active');
+  document.getElementById('navMenuWrapper').classList.remove('open');
+}
+
+// Category Tabs Listener (ALL, TV, MOVIE, OVA, ONA)
 navItems.forEach(item => {
   item.addEventListener('click', function(e) {
     e.preventDefault();
     navItems.forEach(nav => nav.classList.remove('active'));
     this.classList.add('active');
     moveIndicator(this);
-    filterCards();
+    currentCategoryFilter = this.getAttribute('data-filter');
+    loadAnimeData(1);
   });
 });
 
-if (searchInput) searchInput.addEventListener('input', filterCards);
+let searchDebounce;
+if (searchInput) {
+  searchInput.addEventListener('input', () => {
+    clearTimeout(searchDebounce);
+    if (searchClearBtn) searchClearBtn.style.display = searchInput.value.length > 0 ? 'flex' : 'none';
+    searchDebounce = setTimeout(() => {
+      loadAnimeData(1);
+    }, 400);
+  });
+}
+
 if (searchClearBtn) {
   searchClearBtn.addEventListener('click', () => {
     searchInput.value = '';
-    filterCards();
+    searchClearBtn.style.display = 'none';
+    loadAnimeData(1);
     searchInput.focus();
   });
 }
 
-const ANILIST_ITEMS = [
-  { key: 'fate', id: 10087 },
-  { key: 'kabaneri', id: 21196 },
-  { key: 'claymore', id: 1818 },
-  { key: 'gleipnir', id: 108241 },
-  { key: 'redline', id: 6675 },
-  { key: 'scarlet', id: 185773 },
-  { key: 'vivy', id: 128546 },
-  { key: 'insomniacs', id: 143653 },
-  { key: 'ousama', id: 153452 },
-  { key: 'orb', id: 151514 },
-  { key: 'bocchi', id: 130003 },
-  { key: 'grimgar', id: 21428 },
-  { key: 'knk', id: 4282 }
-];
-
-function applyAnimeData(key, media) {
-  if (!media) return;
-  const imgElem = document.getElementById(`${key}PosterImg`);
-  const ratingElem = document.getElementById(`${key}Rating`);
-  
-  if (imgElem && media.coverImage) {
-    const src = media.coverImage.extraLarge || media.coverImage.large;
-    if (src) imgElem.src = src;
-  }
-  if (ratingElem && media.meanScore) {
-    ratingElem.textContent = (media.meanScore / 10).toFixed(1);
-  }
-}
-
-async function fetchAllAnimeBatch() {
-  // 1. Check LocalStorage Cache (Valid for 6 hours)
-  const CACHE_KEY = 'anilist_cache_v1';
-  const cachedData = localStorage.getItem(CACHE_KEY);
-  if (cachedData) {
-    try {
-      const { timestamp, data } = JSON.parse(cachedData);
-      if (Date.now() - timestamp < 6 * 60 * 60 * 1000) {
-        ANILIST_ITEMS.forEach(item => {
-          if (data[item.key]) applyAnimeData(item.key, data[item.key]);
-        });
-        return;
-      }
-    } catch (e) {}
-  }
-
-  // 2. Single Bulk Query Construction
-  const subQueries = ANILIST_ITEMS.map(item => `
-    ${item.key}: Media(id: ${item.id}, type: ANIME) {
-      coverImage { extraLarge large }
-      meanScore
-    }
-  `).join('\n');
-
-  const query = `query { ${subQueries} }`;
-
-  try {
-    const res = await fetch('https://graphql.anilist.co', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ query })
-    });
-    const result = await res.json();
-    if (result?.data) {
-      const cachePayload = {};
-      ANILIST_ITEMS.forEach(item => {
-        const media = result.data[item.key];
-        if (media) {
-          applyAnimeData(item.key, media);
-          cachePayload[item.key] = media;
-        }
-      });
-      // Save to cache
-      localStorage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), data: cachePayload }));
-    }
-  } catch (err) {}
-}
-
+// Initialization Process
 window.addEventListener('load', () => {
   const activeItem = document.querySelector('.nav-links .nav-item.active');
   if (activeItem) moveIndicator(activeItem);
-  filterCards();
-  
-  document.querySelectorAll('.poster-img').forEach(img => {
-    img.onerror = function() {
-      this.onerror = null;
-      this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 180 255"><rect width="100%" height="100%" fill="%230c1222"/><text x="50%" y="50%" fill="%238b5cf6" font-family="sans-serif" font-size="14" text-anchor="middle">NO IMAGE</text></svg>';
-    };
-  });
-
-  fetchAllAnimeBatch();
+  loadAnimeData(1);
 });
 
 window.addEventListener('resize', () => {
@@ -712,6 +700,7 @@ window.addEventListener('resize', () => {
   if (activeItem) moveIndicator(activeItem);
 });
 
+/* Canvas Background Animation */
 const canvas = document.getElementById('canvas-bg');
 const ctx = canvas.getContext('2d');
 let width, height;
@@ -727,9 +716,9 @@ class Star {
   constructor() {
     this.x = Math.random() * width;
     this.y = Math.random() * height;
-    this.vx = (Math.random() - 0.5) * 0.4;
-    this.vy = (Math.random() - 0.5) * 0.4;
-    this.radius = Math.random() * 1.6 + 0.4;
+    this.vx = (Math.random() - 0.5) * 0.3;
+    this.vy = (Math.random() - 0.5) * 0.3;
+    this.radius = Math.random() * 1.5 + 0.3;
   }
   update() {
     this.x += this.vx; this.y += this.vy;
@@ -737,12 +726,12 @@ class Star {
     if (this.y < 0 || this.y > height) this.vy *= -1;
   }
   draw() {
-    ctx.fillStyle = 'rgba(168, 85, 247, 0.45)';
+    ctx.fillStyle = 'rgba(168, 85, 247, 0.35)';
     ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2); ctx.fill();
   }
 }
 
-const stars = Array.from({ length: 35 }, () => new Star());
+const stars = Array.from({ length: 30 }, () => new Star());
 
 function animateStars() {
   ctx.clearRect(0, 0, width, height);
@@ -752,9 +741,9 @@ function animateStars() {
       const dx = stars[i].x - stars[j].x;
       const dy = stars[i].y - stars[j].y;
       const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < 120) {
-        ctx.strokeStyle = `rgba(139, 92, 246, ${0.15 * (1 - dist / 120)})`;
-        ctx.lineWidth = 0.6;
+      if (dist < 110) {
+        ctx.strokeStyle = `rgba(139, 92, 246, ${0.12 * (1 - dist / 110)})`;
+        ctx.lineWidth = 0.5;
         ctx.beginPath(); ctx.moveTo(stars[i].x, stars[i].y); ctx.lineTo(stars[j].x, stars[j].y); ctx.stroke();
       }
     }
