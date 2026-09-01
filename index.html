@@ -21,6 +21,14 @@
   --logo-grad-start: #c4b5fd;
   --logo-grad-end: #ec4899;
   --neon-glow: rgba(139, 92, 246, 0.3);
+  
+  /* AniList Theme Colors */
+  --al-navy: #0b1622;
+  --al-card: #151f2e;
+  --al-input: #0e1626;
+  --al-blue: #3db4f2;
+  --al-red: #e85d75;
+  --al-text-muted: #8ba0b2;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -76,22 +84,17 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 .menu-toggle span:nth-child(2) { width: 80%; background: var(--logo-grad-end); }
 .menu-toggle span:nth-child(3) { width: 60%; background: var(--muted); }
 
-/* Menu Dropdown & Scrollbar Hiding */
 .menu-dropdown-content {
   display: none; position: absolute; top: calc(100% + 20px); left: 0; width: 250px;
   background: rgba(6, 10, 22, 0.96); backdrop-filter: blur(25px);
   border: 1px solid var(--border); border-radius: 18px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
   padding: 12px; z-index: 999;
-  max-height: 80vh; overflow-y: auto;
-  
-  /* Hide Scrollbar Cross-Browser */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none;  /* IE and Edge */
+  max-height: 85vh; overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
-.menu-dropdown-content::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
-}
+.menu-dropdown-content::-webkit-scrollbar { display: none; }
 
 .nav-menu-wrapper.open .menu-dropdown-content { display: flex; flex-direction: column; animation: dropdown-slide-down 0.2s ease; }
 
@@ -108,7 +111,6 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 .menu-link:hover, .menu-link.active { background: rgba(139, 92, 246, 0.15); color: var(--logo-grad-start); }
 .menu-link:hover svg, .menu-link.active svg { stroke: var(--logo-grad-start); }
 
-/* User Profile Info in Menu */
 .user-profile-badge { display: flex; align-items: center; gap: 10px; padding: 10px; background: rgba(139, 92, 246, 0.1); border-radius: 12px; border: 1px solid rgba(139, 92, 246, 0.2); margin-bottom: 8px; }
 .user-avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
 .user-name { font-size: 13px; font-weight: 700; color: #fff; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
@@ -169,6 +171,24 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 .poster-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
 .anime-card:hover .poster-img { transform: scale(1.04); filter: brightness(0.4); }
 
+/* Compact & Modernized Edit Pencil Button */
+.edit-card-btn {
+  position: absolute; top: 8px; right: 8px; z-index: 15;
+  width: 24px; height: 24px; border-radius: 50%;
+  background: rgba(11, 22, 34, 0.75); backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; opacity: 0; transform: scale(0.85);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #e2e8f0;
+}
+.edit-card-btn:hover {
+  background: var(--al-blue); border-color: transparent; color: #ffffff;
+  transform: scale(1.1); box-shadow: 0 0 10px rgba(61, 180, 242, 0.5);
+}
+.edit-card-btn svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2.2; }
+.anime-card:hover .edit-card-btn { opacity: 1; transform: scale(1); }
+
 .card-overlay-actions {
   position: absolute; inset: 0; background: rgba(2, 4, 8, 0.45);
   backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
@@ -204,23 +224,6 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 
 .action-btn svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; }
 
-/* Edit AniList Entry Icon Button */
-.edit-list-btn {
-  position: absolute; top: 10px; right: 10px; z-index: 12;
-  width: 28px; height: 28px; border-radius: 8px;
-  background: rgba(6, 10, 22, 0.65); backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; color: #f8fafc; opacity: 0.85;
-  transition: all 0.2s ease;
-}
-.edit-list-btn:hover {
-  opacity: 1; transform: scale(1.08);
-  background: var(--purple); border-color: rgba(255, 255, 255, 0.4);
-  box-shadow: 0 0 12px var(--neon-glow);
-}
-.edit-list-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
-
 .card-badges-top { position: absolute; top: 10px; left: 10px; display: flex; gap: 6px; z-index: 2; }
 .badge-rating { background: rgba(6, 10, 22, 0.75); backdrop-filter: blur(8px); color: #fbbf24; font-size: 11px; font-weight: 700; padding: 3px 7px; border-radius: 6px; display: flex; align-items: center; gap: 3px; border: 1px solid rgba(255, 255, 255, 0.1); }
 .badge-rating::before { content: '★'; font-size: 10px; }
@@ -235,43 +238,80 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 .anime-card-title::before { content: '•'; color: var(--purple); font-size: 14px; }
 .anime-card-meta { font-size: 10px; font-weight: 600; color: #94a3b8; letter-spacing: 0.4px; opacity: 0.85; text-transform: uppercase; }
 
-/* Edit AniList Modal Window */
+/* Authentic AniList Modal Styling */
 .modal-overlay {
-  position: fixed; inset: 0; background: rgba(2, 4, 8, 0.8);
-  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-  z-index: 2000; display: none; align-items: center; justify-content: center; padding: 20px;
+  position: fixed; inset: 0; z-index: 2000;
+  background: rgba(6, 10, 18, 0.85); backdrop-filter: blur(8px);
+  display: none; align-items: center; justify-content: center; padding: 16px;
+  overflow-y: auto;
 }
-.modal-overlay.open { display: flex; animation: modal-fade-in 0.25s ease; }
+.modal-overlay.open { display: flex; }
 
-@keyframes modal-fade-in { from { opacity: 0; } to { opacity: 1; } }
-
-.edit-modal {
-  background: rgba(10, 15, 30, 0.95); border: 1px solid var(--border);
-  border-radius: 20px; width: 100%; max-width: 420px; padding: 24px;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.8); position: relative;
+.al-modal {
+  background: var(--al-navy); border-radius: 12px; width: 100%; max-width: 820px;
+  overflow: hidden; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9);
+  color: #edf1f5; font-family: 'Inter', sans-serif; position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.08); animation: modal-zoom 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-.modal-title { font-size: 16px; font-weight: 800; color: #fff; line-height: 1.3; }
-.modal-close { background: none; border: none; color: var(--muted); font-size: 20px; cursor: pointer; padding: 4px; }
-.modal-close:hover { color: #fff; }
-
-.form-group { margin-bottom: 16px; display: flex; flex-direction: column; gap: 6px; }
-.form-label { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
-.form-select, .form-input {
-  width: 100%; background: rgba(6, 10, 22, 0.8); border: 1px solid var(--border);
-  padding: 10px 14px; border-radius: 10px; color: #fff; font-size: 14px; outline: none;
+@keyframes modal-zoom {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
 }
-.form-select:focus, .form-input:focus { border-color: var(--purple); }
 
-.prog-group { display: flex; align-items: center; gap: 8px; }
-.prog-btn { width: 38px; height: 38px; border-radius: 10px; background: rgba(139, 92, 246, 0.2); border: 1px solid var(--border); color: #fff; font-size: 18px; font-weight: bold; cursor: pointer; }
-.prog-btn:hover { background: var(--purple); }
+.al-banner-header {
+  position: relative; height: 140px; background-size: cover; background-position: center;
+  display: flex; align-items: flex-end; padding: 0 24px 16px 24px;
+}
+.al-banner-header::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(11, 22, 34, 0.4) 0%, rgba(11, 22, 34, 0.95) 100%);
+}
 
-.modal-actions { display: flex; gap: 10px; margin-top: 24px; }
-.btn-save { flex: 1; padding: 12px; background: linear-gradient(135deg, var(--purple), var(--pink)); border: none; border-radius: 12px; color: #fff; font-weight: 700; cursor: pointer; }
-.btn-delete { padding: 12px; background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.4); border-radius: 12px; color: #f87171; font-weight: 700; cursor: pointer; }
-.btn-delete:hover { background: rgba(239, 68, 68, 0.4); }
+.al-modal-top-content {
+  position: relative; z-index: 2; width: 100%; display: flex; align-items: flex-end; justify-content: space-between; gap: 20px;
+}
+.al-cover-thumb {
+  width: 85px; height: 120px; border-radius: 6px; object-fit: cover;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.6); margin-bottom: -30px; border: 2px solid var(--al-navy);
+}
+.al-title-wrap { flex: 1; padding-bottom: 4px; }
+.al-title-wrap h2 { font-size: 18px; font-weight: 600; color: #ffffff; margin-bottom: 2px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
+
+.al-actions-top { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
+.al-save-btn {
+  background: var(--al-blue); color: #fff; border: none; padding: 8px 22px;
+  border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.1s ease;
+}
+.al-save-btn:hover { opacity: 0.9; }
+.al-close-btn {
+  position: absolute; top: 12px; right: 16px; background: none; border: none;
+  color: rgba(255, 255, 255, 0.7); font-size: 22px; cursor: pointer; z-index: 10;
+}
+.al-close-btn:hover { color: #fff; }
+
+.al-modal-body { padding: 40px 24px 24px 24px; display: flex; flex-direction: column; gap: 20px; }
+
+.al-grid-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.al-field-group { display: flex; flex-direction: column; gap: 8px; }
+.al-field-group label { font-size: 12px; font-weight: 600; color: var(--al-text-muted); }
+
+.al-input, .al-select, .al-textarea {
+  background: var(--al-card); border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px; padding: 10px 14px; color: #edf1f5; font-size: 13px;
+  outline: none; transition: border-color 0.2s ease;
+}
+.al-input:focus, .al-select:focus, .al-textarea:focus { border-color: var(--al-blue); }
+
+.al-textarea { resize: vertical; min-height: 70px; font-family: inherit; }
+
+.al-footer-actions { display: flex; justify-content: flex-end; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 16px; margin-top: 4px; }
+.al-delete-btn {
+  background: rgba(232, 93, 117, 0.15); color: var(--al-red); border: 1px solid rgba(232, 93, 117, 0.3);
+  padding: 8px 18px; border-radius: 6px; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all 0.2s ease;
+}
+.al-delete-btn:hover { background: var(--al-red); color: #fff; }
 
 /* Pagination Controls */
 .pagination-container {
@@ -317,11 +357,11 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
   .search-container { width: 100%; }
   .main-container { margin: 18px auto; padding: 0 16px; }
   .anime-grid { grid-template-columns: repeat(auto-fill, minmax(135px, 1fr)); gap: 12px; }
-  .site-footer { padding: 24px 0 20px 0; }
-  .footer-content { padding: 0 20px; align-items: center; text-align: center; }
-  .footer-content .site-brand { position: relative; left: 0; transform: none; margin-bottom: 12px; }
-  .disclaimer-text { font-size: 11px; margin-bottom: 14px; }
-  .footer-links { justify-content: center; gap: 16px; }
+  
+  .al-grid-row { grid-template-columns: 1fr; gap: 12px; }
+  .al-banner-header { height: 110px; }
+  .al-cover-thumb { width: 65px; height: 95px; margin-bottom: -20px; }
+  .al-title-wrap h2 { font-size: 15px; }
 }
 
 .site-footer { width: 100%; margin-top: auto; padding: 40px 0 30px 0; position: relative; z-index: 2; border-top: 1px solid rgba(139, 92, 246, 0.15); }
@@ -350,7 +390,6 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
       </button>
 
       <div class="menu-dropdown-content">
-        <!-- User Profile Header in Menu -->
         <div id="userProfileArea">
           <a href="javascript:void(0)" class="menu-link" id="loginBtn" onclick="loginWithAniList()">
             <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
@@ -372,7 +411,6 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
           Subtitles
         </a>
 
-        <!-- AniList User Personal Lists -->
         <div id="anilistListsSection" style="display: none;">
           <div class="menu-section-title">MY ANILIST</div>
           <a href="javascript:void(0)" class="menu-link" id="menuWatchingLink">
@@ -413,7 +451,6 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
       </div>
     </div>
 
-    <!-- Logo Header -->
     <a href="https://ichigooji.github.io/archive/" class="site-brand">
       <div class="logo-wrap">
         <div class="logo-top-row">
@@ -453,46 +490,70 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
   <div class="pagination-container" id="pagination"></div>
 </main>
 
-<!-- Edit AniList Entry Modal -->
-<div class="modal-overlay" id="editModalOverlay">
-  <div class="edit-modal">
-    <div class="modal-header">
-      <div class="modal-title" id="editModalTitle">Edit Anime Entry</div>
-      <button class="modal-close" onclick="closeEditModal()">✕</button>
-    </div>
-
-    <input type="hidden" id="editMediaId">
-    <input type="hidden" id="editEntryId">
-
-    <div class="form-group">
-      <label class="form-label">Status</label>
-      <select class="form-select" id="editStatus">
-        <option value="CURRENT">Watching</option>
-        <option value="PLANNING">Planning</option>
-        <option value="COMPLETED">Completed</option>
-        <option value="PAUSED">Paused</option>
-        <option value="DROPPED">Dropped</option>
-        <option value="REPEATING">Repeating</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label class="form-label">Episode Progress</label>
-      <div class="prog-group">
-        <button type="button" class="prog-btn" onclick="adjustProgress(-1)">-</button>
-        <input type="number" class="form-input" id="editProgress" value="0" min="0" style="text-align: center;">
-        <button type="button" class="prog-btn" onclick="adjustProgress(1)">+</button>
+<!-- Authentic AniList Edit Modal Component -->
+<div class="modal-overlay" id="editModal" onclick="if(event.target===this) closeEditModal()">
+  <div class="al-modal">
+    <button class="al-close-btn" onclick="closeEditModal()">&times;</button>
+    <div class="al-banner-header" id="modalBanner">
+      <div class="al-modal-top-content">
+        <img src="" id="modalCover" class="al-cover-thumb" alt="Poster">
+        <div class="al-title-wrap">
+          <h2 id="modalAnimeTitle">Anime Title</h2>
+        </div>
+        <div class="al-actions-top">
+          <button class="al-save-btn" onclick="saveMediaEntry()">Save</button>
+        </div>
       </div>
     </div>
+    
+    <div class="al-modal-body">
+      <!-- Row 1: Status, Score, Progress -->
+      <div class="al-grid-row">
+        <div class="al-field-group">
+          <label for="editStatus">Status</label>
+          <select id="editStatus" class="al-select">
+            <option value="CURRENT">Watching</option>
+            <option value="PLANNING">Planning</option>
+            <option value="COMPLETED">Completed</option>
+            <option value="PAUSED">Paused</option>
+            <option value="DROPPED">Dropped</option>
+          </select>
+        </div>
+        <div class="al-field-group">
+          <label for="editScore">Score</label>
+          <input type="number" id="editScore" class="al-input" min="0" max="10" step="0.1" placeholder="0">
+        </div>
+        <div class="al-field-group">
+          <label for="editProgress">Episode Progress</label>
+          <input type="number" id="editProgress" class="al-input" min="0" placeholder="0">
+        </div>
+      </div>
 
-    <div class="form-group">
-      <label class="form-label">Score (0 - 10)</label>
-      <input type="number" class="form-input" id="editScore" value="0" min="0" max="10" step="0.5">
-    </div>
+      <!-- Row 2: Dates and Rewatches -->
+      <div class="al-grid-row">
+        <div class="al-field-group">
+          <label for="editStartDate">Start Date</label>
+          <input type="date" id="editStartDate" class="al-input">
+        </div>
+        <div class="al-field-group">
+          <label for="editFinishDate">Finish Date</label>
+          <input type="date" id="editFinishDate" class="al-input">
+        </div>
+        <div class="al-field-group">
+          <label for="editRepeat">Total Rewatches</label>
+          <input type="number" id="editRepeat" class="al-input" min="0" value="0">
+        </div>
+      </div>
 
-    <div class="modal-actions">
-      <button class="btn-delete" onclick="deleteAniListEntry()">Delete</button>
-      <button class="btn-save" onclick="saveAniListEntry()">Save Changes</button>
+      <!-- Row 3: Notes -->
+      <div class="al-field-group">
+        <label for="editNotes">Notes</label>
+        <textarea id="editNotes" class="al-textarea" placeholder="Write your personal notes..."></textarea>
+      </div>
+
+      <div class="al-footer-actions">
+        <button class="al-delete-btn" onclick="deleteMediaEntry()">Delete</button>
+      </div>
     </div>
   </div>
 </div>
@@ -519,13 +580,12 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 </footer>
 
 <script>
-// AniList Configuration
 const ANILIST_CLIENT_ID = '49970';
 let accessToken = localStorage.getItem('anilist_token') || null;
 let currentUser = null;
-let userMediaListMap = {}; // Cache user entries by mediaId
+let editingMediaId = null;
+let editingEntryId = null;
 
-// Priority Links Data
 const INITIAL_TORRENTS = {
   10087: "https://ichigooji.github.io/archive/fate.html",
   21196: "https://nyaa.si/view/1596956",
@@ -578,7 +638,6 @@ function moveIndicator(element) {
   indicator.style.opacity = '1';
 }
 
-/* OAuth2 Login & User Sync Functions */
 function loginWithAniList() {
   const redirectUri = encodeURIComponent(window.location.origin + window.location.pathname);
   window.location.href = `https://anilist.co/api/v2/oauth/authorize?client_id=${ANILIST_CLIENT_ID}&response_type=token`;
@@ -611,7 +670,6 @@ async function fetchUserProfile() {
     if (data?.data?.Viewer) {
       currentUser = data.data.Viewer;
       renderUserProfile();
-      fetchAllUserEntries();
     } else {
       logoutAniList();
     }
@@ -639,7 +697,6 @@ function logoutAniList() {
   localStorage.removeItem('anilist_token');
   accessToken = null;
   currentUser = null;
-  userMediaListMap = {};
   document.getElementById('userProfileArea').innerHTML = `
     <a href="javascript:void(0)" class="menu-link" id="loginBtn" onclick="loginWithAniList()">
       <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
@@ -649,43 +706,10 @@ function logoutAniList() {
   document.getElementById('anilistListsSection').style.display = 'none';
   if (['CURRENT', 'PLANNING', 'COMPLETED', 'PAUSED', 'DROPPED'].includes(currentDropdownFilter)) {
     currentDropdownFilter = 'HOME';
-  }
-  loadAnimeData(1);
-}
-
-/* Cache all entries for fast modal editing */
-async function fetchAllUserEntries() {
-  if (!currentUser) return;
-  const query = `
-  query ($userId: Int) {
-    MediaListCollection(userId: $userId, type: ANIME) {
-      lists {
-        entries {
-          id mediaId status progress score
-        }
-      }
-    }
-  }`;
-  try {
-    const res = await fetch('https://graphql.anilist.co', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query, variables: { userId: currentUser.id } })
-    });
-    const data = await res.json();
-    userMediaListMap = {};
-    const collections = data?.data?.MediaListCollection?.lists || [];
-    collections.forEach(c => {
-      c.entries.forEach(e => {
-        userMediaListMap[e.mediaId] = e;
-      });
-    });
-  } catch (err) {
-    console.error("Error loading user entries cache:", err);
+    loadAnimeData(1);
   }
 }
 
-/* User Specific Lists Fetcher */
 async function loadUserMediaList(status) {
   spinner.style.display = 'flex';
   grid.innerHTML = '';
@@ -697,10 +721,12 @@ async function loadUserMediaList(status) {
     MediaListCollection(userId: $userId, type: ANIME, status: $status) {
       lists {
         entries {
-          id progress score status
           media {
-            id title { romaji english } coverImage { extraLarge large } meanScore format isAdult
+            id title { romaji english } coverImage { extraLarge large } bannerImage meanScore format isAdult
           }
+          status
+          progress
+          score
         }
       }
     }
@@ -716,12 +742,7 @@ async function loadUserMediaList(status) {
     let list = [];
     const collections = data?.data?.MediaListCollection?.lists || [];
     collections.forEach(c => {
-      c.entries.forEach(e => {
-        if (e.media) {
-          userMediaListMap[e.media.id] = { id: e.id, mediaId: e.media.id, status: e.status, progress: e.progress, score: e.score };
-          list.push(e.media);
-        }
-      });
+      c.entries.forEach(e => { if (e.media) list.push(e.media); });
     });
 
     const searchQuery = searchInput ? searchInput.value.trim() : '';
@@ -742,7 +763,6 @@ async function loadUserMediaList(status) {
   }
 }
 
-// Main API Loader
 async function loadAnimeData(page = 1) {
   const searchQuery = searchInput ? searchInput.value.trim() : '';
 
@@ -765,7 +785,7 @@ async function loadAnimeData(page = 1) {
     query ($ids: [Int]) {
       Page(page: 1, perPage: 50) {
         media(id_in: $ids, type: ANIME) {
-          id title { romaji english } coverImage { extraLarge large } meanScore format isAdult
+          id title { romaji english } coverImage { extraLarge large } bannerImage meanScore format isAdult
         }
       }
     }`;
@@ -813,7 +833,7 @@ async function loadAnimeData(page = 1) {
     Page(page: $page, perPage: $perPage) {
       pageInfo { total currentPage lastPage hasNextPage }
       media(${filterConditions}) {
-        id title { romaji english } coverImage { extraLarge large } meanScore format isAdult
+        id title { romaji english } coverImage { extraLarge large } bannerImage meanScore format isAdult
       }
     }
   }`;
@@ -859,18 +879,19 @@ function renderGrid(items) {
     const age = item.isAdult ? '18+' : 'PG-13';
     const format = item.format || 'TV';
     const posterSrc = item.coverImage.extraLarge || item.coverImage.large;
+    const bannerSrc = item.bannerImage || posterSrc;
+    const titleText = item.title.english || item.title.romaji;
     const anilistUrl = `https://anilist.co/anime/${item.id}`;
     const torrentUrl = INITIAL_TORRENTS[item.id] || null;
     const subtitleUrl = INITIAL_SUBTITLES[item.id] || null;
-    const titleText = item.title.english || item.title.romaji;
 
     card.innerHTML = `
       <div class="poster-wrapper">
         <img class="poster-img" src="${posterSrc}" alt="${item.title.romaji}" loading="lazy">
         
         ${currentUser ? `
-        <button class="edit-list-btn" onclick="openEditModal(${item.id}, '${titleText.replace(/'/g, "\\'")}')" title="Edit AniList Entry">
-          <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        <button class="edit-card-btn" title="Edit Entry" onclick="openEditModal(event, ${item.id}, '${titleText.replace(/'/g, "\\'")}', '${posterSrc}', '${bannerSrc}')">
+          <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
         </button>` : ''}
 
         <div class="card-overlay-actions">
@@ -919,48 +940,93 @@ function renderGrid(items) {
   });
 }
 
-/* Edit AniList Entry Modal logic */
-function openEditModal(mediaId, title) {
-  document.getElementById('editMediaId').value = mediaId;
-  document.getElementById('editModalTitle').textContent = `Edit: ${title}`;
+function formatDateToInput(d) {
+  if (!d || !d.year || !d.month || !d.day) return '';
+  const m = String(d.month).padStart(2, '0');
+  const day = String(d.day).padStart(2, '0');
+  return `${d.year}-${m}-${day}`;
+}
 
-  const entry = userMediaListMap[mediaId];
-  if (entry) {
-    document.getElementById('editEntryId').value = entry.id || '';
-    document.getElementById('editStatus').value = entry.status || 'PLANNING';
-    document.getElementById('editProgress').value = entry.progress || 0;
-    document.getElementById('editScore').value = entry.score || 0;
-  } else {
-    document.getElementById('editEntryId').value = '';
-    document.getElementById('editStatus').value = 'PLANNING';
-    document.getElementById('editProgress').value = 0;
-    document.getElementById('editScore').value = 0;
+function parseDateFromInput(str) {
+  if (!str) return { year: null, month: null, day: null };
+  const parts = str.split('-');
+  return { year: parseInt(parts[0]), month: parseInt(parts[1]), day: parseInt(parts[2]) };
+}
+
+async function openEditModal(event, mediaId, title, cover, banner) {
+  event.stopPropagation();
+  editingMediaId = mediaId;
+  editingEntryId = null;
+
+  document.getElementById('modalAnimeTitle').textContent = title;
+  document.getElementById('modalCover').src = cover;
+  document.getElementById('modalBanner').style.backgroundImage = `url('${banner}')`;
+  
+  // Reset Form
+  document.getElementById('editStatus').value = 'CURRENT';
+  document.getElementById('editProgress').value = '';
+  document.getElementById('editScore').value = '';
+  document.getElementById('editStartDate').value = '';
+  document.getElementById('editFinishDate').value = '';
+  document.getElementById('editRepeat').value = 0;
+  document.getElementById('editNotes').value = '';
+
+  document.getElementById('editModal').classList.add('open');
+
+  const query = `
+  query ($mediaId: Int) {
+    MediaList(mediaId: $mediaId) {
+      id status progress score repeat notes
+      startedAt { year month day }
+      completedAt { year month day }
+    }
+  }`;
+
+  try {
+    const res = await fetch('https://graphql.anilist.co', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + accessToken,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ query, variables: { mediaId } })
+    });
+    const data = await res.json();
+    if (data?.data?.MediaList) {
+      const entry = data.data.MediaList;
+      editingEntryId = entry.id;
+      if (entry.status) document.getElementById('editStatus').value = entry.status;
+      if (entry.progress !== undefined) document.getElementById('editProgress').value = entry.progress;
+      if (entry.score !== undefined) document.getElementById('editScore').value = entry.score;
+      if (entry.repeat !== undefined) document.getElementById('editRepeat').value = entry.repeat;
+      if (entry.notes) document.getElementById('editNotes').value = entry.notes;
+      document.getElementById('editStartDate').value = formatDateToInput(entry.startedAt);
+      document.getElementById('editFinishDate').value = formatDateToInput(entry.completedAt);
+    }
+  } catch (e) {
+    console.log("No existing entry details found", e);
   }
-
-  document.getElementById('editModalOverlay').classList.add('open');
 }
 
 function closeEditModal() {
-  document.getElementById('editModalOverlay').classList.remove('open');
+  document.getElementById('editModal').classList.remove('open');
 }
 
-function adjustProgress(delta) {
-  const input = document.getElementById('editProgress');
-  let val = parseInt(input.value) || 0;
-  val = Math.max(0, val + delta);
-  input.value = val;
-}
+async function saveMediaEntry() {
+  if (!accessToken || !editingMediaId) return;
 
-async function saveAniListEntry() {
-  const mediaId = parseInt(document.getElementById('editMediaId').value);
   const status = document.getElementById('editStatus').value;
   const progress = parseInt(document.getElementById('editProgress').value) || 0;
   const score = parseFloat(document.getElementById('editScore').value) || 0;
+  const repeat = parseInt(document.getElementById('editRepeat').value) || 0;
+  const notes = document.getElementById('editNotes').value;
+  const startedAt = parseDateFromInput(document.getElementById('editStartDate').value);
+  const completedAt = parseDateFromInput(document.getElementById('editFinishDate').value);
 
   const mutation = `
-  mutation ($mediaId: Int, $status: MediaListStatus, $progress: Int, $score: Float) {
-    SaveMediaListEntry (mediaId: $mediaId, status: $status, progress: $progress, score: $score) {
-      id mediaId status progress score
+  mutation ($mediaId: Int, $status: MediaListStatus, $progress: Int, $score: Float, $repeat: Int, $notes: String, $startedAt: FuzzyDateInput, $completedAt: FuzzyDateInput) {
+    SaveMediaListEntry (mediaId: $mediaId, status: $status, progress: $progress, score: $score, repeat: $repeat, notes: $notes, startedAt: $startedAt, completedAt: $completedAt) {
+      id status progress score repeat notes
     }
   }`;
 
@@ -974,36 +1040,28 @@ async function saveAniListEntry() {
       },
       body: JSON.stringify({
         query: mutation,
-        variables: { mediaId, status, progress, score }
+        variables: { mediaId: editingMediaId, status, progress, score, repeat, notes, startedAt, completedAt }
       })
     });
+    
     const data = await res.json();
     if (data?.data?.SaveMediaListEntry) {
-      const saved = data.data.SaveMediaListEntry;
-      userMediaListMap[mediaId] = saved;
       closeEditModal();
       if (['CURRENT', 'PLANNING', 'COMPLETED', 'PAUSED', 'DROPPED'].includes(currentDropdownFilter)) {
-        loadAnimeData(currentPage);
+        loadAnimeData(1);
       }
     } else {
-      alert("Failed to save entry. Check permissions.");
+      alert("Error saving changes.");
     }
-  } catch (e) {
-    console.error("Save error:", e);
-    alert("Error saving entry.");
+  } catch (err) {
+    console.error("Save error:", err);
+    alert("Failed to save changes.");
   }
 }
 
-async function deleteAniListEntry() {
-  const entryId = document.getElementById('editEntryId').value;
-  const mediaId = parseInt(document.getElementById('editMediaId').value);
-
-  if (!entryId) {
-    closeEditModal();
-    return;
-  }
-
-  if (!confirm("Are you sure you want to delete this anime from your list?")) return;
+async function deleteMediaEntry() {
+  if (!accessToken || !editingEntryId) return;
+  if (!confirm("Are you sure you want to delete this entry from your AniList?")) return;
 
   const mutation = `
   mutation ($id: Int) {
@@ -1020,15 +1078,12 @@ async function deleteAniListEntry() {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
-      body: JSON.stringify({ query: mutation, variables: { id: parseInt(entryId) } })
+      body: JSON.stringify({ query: mutation, variables: { id: editingEntryId } })
     });
     const data = await res.json();
     if (data?.data?.DeleteMediaListEntry?.deleted) {
-      delete userMediaListMap[mediaId];
       closeEditModal();
-      if (['CURRENT', 'PLANNING', 'COMPLETED', 'PAUSED', 'DROPPED'].includes(currentDropdownFilter)) {
-        loadAnimeData(currentPage);
-      }
+      loadAnimeData(1);
     }
   } catch (e) {
     console.error("Delete error:", e);
@@ -1082,12 +1137,10 @@ function goToPage(p) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-/* Menu Nav Click Listeners */
 document.getElementById('menuHomeLink')?.addEventListener('click', () => { currentDropdownFilter = 'HOME'; setActiveDropdownMenu('menuHomeLink'); loadAnimeData(1); });
 document.getElementById('menuTorrentLink')?.addEventListener('click', () => { currentDropdownFilter = 'TORRENT'; setActiveDropdownMenu('menuTorrentLink'); loadAnimeData(1); });
 document.getElementById('menuSubtitlesLink')?.addEventListener('click', () => { currentDropdownFilter = 'SUBTITLES'; setActiveDropdownMenu('menuSubtitlesLink'); loadAnimeData(1); });
 
-/* AniList User Lists Menu Links */
 document.getElementById('menuWatchingLink')?.addEventListener('click', () => { currentDropdownFilter = 'CURRENT'; setActiveDropdownMenu('menuWatchingLink'); loadAnimeData(1); });
 document.getElementById('menuPlanningLink')?.addEventListener('click', () => { currentDropdownFilter = 'PLANNING'; setActiveDropdownMenu('menuPlanningLink'); loadAnimeData(1); });
 document.getElementById('menuCompletedLink')?.addEventListener('click', () => { currentDropdownFilter = 'COMPLETED'; setActiveDropdownMenu('menuCompletedLink'); loadAnimeData(1); });
@@ -1130,7 +1183,6 @@ if (searchClearBtn) {
   });
 }
 
-// Init
 window.addEventListener('load', () => {
   handleOAuthCallback();
   if (accessToken) fetchUserProfile();
@@ -1145,7 +1197,7 @@ window.addEventListener('resize', () => {
   if (activeItem) moveIndicator(activeItem);
 });
 
-/* Canvas Stars Animation */
+/* Background Stars Animation */
 const canvas = document.getElementById('canvas-bg');
 const ctx = canvas.getContext('2d');
 let width, height;
