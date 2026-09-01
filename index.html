@@ -20,6 +20,7 @@
   --pink: #ec4899;
   --logo-grad-start: #c4b5fd;
   --logo-grad-end: #ec4899;
+  --neon-glow: rgba(139, 92, 246, 0.3);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -76,11 +77,12 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 .menu-toggle span:nth-child(3) { width: 60%; background: var(--muted); }
 
 .menu-dropdown-content {
-  display: none; position: absolute; top: calc(100% + 20px); left: 0; width: 240px;
+  display: none; position: absolute; top: calc(100% + 20px); left: 0; width: 250px;
   background: rgba(6, 10, 22, 0.96); backdrop-filter: blur(25px);
   border: 1px solid var(--border); border-radius: 18px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
   padding: 12px; z-index: 999;
+  max-height: 80vh; overflow-y: auto;
 }
 .nav-menu-wrapper.open .menu-dropdown-content { display: flex; flex-direction: column; animation: dropdown-slide-down 0.2s ease; }
 
@@ -89,23 +91,38 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
   to { opacity: 1; transform: translateY(0); }
 }
 
-.menu-section-title { font-size: 10px; font-weight: 800; letter-spacing: 1.5px; color: var(--muted); text-transform: uppercase; margin: 8px 8px 4px; display: flex; align-items: center; gap: 6px; }
+.menu-section-title { font-size: 10px; font-weight: 800; letter-spacing: 1.5px; color: var(--muted); text-transform: uppercase; margin: 10px 8px 4px; display: flex; align-items: center; gap: 6px; }
 .menu-section-title::after { content: ''; flex: 1; height: 1px; background: rgba(139, 92, 246, 0.15); }
 
-.menu-link { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text); padding: 10px 12px; border-radius: 10px; font-size: 13.5px; font-weight: 500; transition: all 0.2s ease; margin-bottom: 2px; }
+.menu-link { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text); padding: 10px 12px; border-radius: 10px; font-size: 13.5px; font-weight: 500; transition: all 0.2s ease; margin-bottom: 2px; cursor: pointer; }
 .menu-link svg { width: 18px; height: 18px; stroke: var(--muted); fill: none; transition: stroke 0.2s; }
 .menu-link:hover, .menu-link.active { background: rgba(139, 92, 246, 0.15); color: var(--logo-grad-start); }
 .menu-link:hover svg, .menu-link.active svg { stroke: var(--logo-grad-start); }
 
+/* User Profile Info in Menu */
+.user-profile-badge { display: flex; align-items: center; gap: 10px; padding: 10px; background: rgba(139, 92, 246, 0.1); border-radius: 12px; border: 1px solid rgba(139, 92, 246, 0.2); margin-bottom: 8px; }
+.user-avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
+.user-name { font-size: 13px; font-weight: 700; color: #fff; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+
+/* Logo Styles */
 .site-brand { display: flex; align-items: center; text-decoration: none; position: relative; font-family: 'Orbitron', 'Montserrat', sans-serif; }
 .logo-wrap { display: flex; flex-direction: column; position: relative; width: max-content; }
 .logo-top-row { display: flex; align-items: center; font-weight: 900; font-size: 25px; font-style: italic; letter-spacing: -0.5px; text-transform: uppercase; line-height: 0.9; position: relative; }
-.logo-text-p1 { background: linear-gradient(135deg, #ffffff 10%, var(--logo-grad-start) 50%, var(--logo-grad-end) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; transform: skewX(-14deg); }
+.logo-text-p1 { background: linear-gradient(135deg, #ffffff 10%, var(--logo-grad-start) 50%, var(--logo-grad-end) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.4)); transform: skewX(-14deg); }
 .logo-slash-bolt { position: relative; width: 16px; height: 30px; margin: 0 1px; display: inline-block; transform: skewX(-14deg); }
-.logo-slash-bolt::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, #ffffff 0%, var(--logo-grad-end) 100%); clip-path: polygon(45% 0%, 100% 32%, 50% 45%, 85% 100%, 0% 55%, 42% 42%); }
-.logo-text-p2 { background: linear-gradient(135deg, #ffffff 30%, var(--logo-grad-start) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; transform: skewX(-14deg); letter-spacing: -1px; }
+.logo-slash-bolt::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, #ffffff 0%, var(--logo-grad-end) 100%); clip-path: polygon(45% 0%, 100% 32%, 50% 45%, 85% 100%, 0% 55%, 42% 42%); box-shadow: 0 0 12px var(--neon-glow); animation: bolt-anim 2.5s infinite ease-in-out; }
 
-.logo-sub-server { font-family: 'Rajdhani', 'Orbitron', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2.8px; color: #c4b5fd; text-transform: uppercase; text-align: left; margin-top: 1px; line-height: 1; opacity: 0.95; }
+@keyframes bolt-anim {
+  0%, 100% { opacity: 0.85; transform: scale(1); filter: drop-shadow(0 0 4px var(--neon-glow)); }
+  50% { opacity: 1; transform: scale(1.12); filter: drop-shadow(0 0 14px #ffffff); }
+}
+
+.logo-text-p2 { background: linear-gradient(135deg, #ffffff 30%, var(--logo-grad-start) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; transform: skewX(-14deg); letter-spacing: -1px; }
+.logo-star-spark { position: absolute; right: -12px; top: -3px; width: 9px; height: 9px; background: var(--logo-grad-start); clip-path: polygon(50% 0%, 65% 35%, 100% 50%, 65% 65%, 50% 100%, 35% 65%, 0% 50%, 35% 35%); box-shadow: 0 0 10px var(--logo-grad-start); animation: star-spin 3s infinite linear; }
+
+@keyframes star-spin { 0% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(180deg) scale(1.3); } 100% { transform: rotate(360deg) scale(1); } }
+
+.logo-sub-server { font-family: 'Rajdhani', 'Orbitron', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2.8px; color: #c4b5fd; text-transform: uppercase; text-align: left; margin-top: 1px; line-height: 1; padding-left: 1px; opacity: 0.95; }
 .logo-sub-server span { color: var(--muted); font-weight: 600; }
 
 /* Header Nav Links */
@@ -143,7 +160,6 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 .poster-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
 .anime-card:hover .poster-img { transform: scale(1.04); filter: brightness(0.4); }
 
-/* Transparent Soft Glassmorphic Buttons */
 .card-overlay-actions {
   position: absolute; inset: 0; background: rgba(2, 4, 8, 0.45);
   backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
@@ -270,6 +286,14 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
       </button>
 
       <div class="menu-dropdown-content">
+        <!-- User Profile Header in Menu -->
+        <div id="userProfileArea">
+          <a href="javascript:void(0)" class="menu-link" id="loginBtn" onclick="loginWithAniList()">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
+            Login with AniList
+          </a>
+        </div>
+
         <div class="menu-section-title">BROWSE</div>
         <a href="javascript:void(0)" class="menu-link active" id="menuHomeLink">
           <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
@@ -283,6 +307,32 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
           <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="3" stroke="currentColor"/><path stroke-linecap="round" stroke-linejoin="round" d="M7 15h3M14 15h3M7 11h10"/></svg>
           Subtitles
         </a>
+
+        <!-- AniList User Personal Lists -->
+        <div id="anilistListsSection" style="display: none;">
+          <div class="menu-section-title">MY ANILIST</div>
+          <a href="javascript:void(0)" class="menu-link" id="menuWatchingLink">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Watching
+          </a>
+          <a href="javascript:void(0)" class="menu-link" id="menuPlanningLink">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            Planning
+          </a>
+          <a href="javascript:void(0)" class="menu-link" id="menuCompletedLink">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Completed
+          </a>
+          <a href="javascript:void(0)" class="menu-link" id="menuPausedLink">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Paused
+          </a>
+          <a href="javascript:void(0)" class="menu-link" id="menuDroppedLink">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            Dropped
+          </a>
+        </div>
+
         <div class="menu-section-title">MORE</div>
         <a href="#watch2gether" class="menu-link">
           <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
@@ -299,12 +349,14 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
       </div>
     </div>
 
+    <!-- Logo Header -->
     <a href="https://ichigooji.github.io/archive/" class="site-brand">
       <div class="logo-wrap">
         <div class="logo-top-row">
           <span class="logo-text-p1">ICHI</span>
           <div class="logo-slash-bolt"></div>
           <span class="logo-text-p2">GOOJI</span>
+          <div class="logo-star-spark"></div>
         </div>
         <div class="logo-sub-server">ARCHIVE <span>SERVER</span></div>
       </div>
@@ -345,6 +397,7 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
           <span class="logo-text-p1">ICHI</span>
           <div class="logo-slash-bolt"></div>
           <span class="logo-text-p2">GOOJI</span>
+          <div class="logo-star-spark"></div>
         </div>
         <div class="logo-sub-server">ARCHIVE <span>SERVER</span></div>
       </div>
@@ -358,6 +411,11 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 </footer>
 
 <script>
+// AniList Configuration
+const ANILIST_CLIENT_ID = 'YOUR_CLIENT_ID_HERE'; // قم باستبدال هذا بـ Client ID الخاص بك
+let accessToken = localStorage.getItem('anilist_token') || null;
+let currentUser = null;
+
 // Priority Links Data
 const INITIAL_TORRENTS = {
   10087: "https://ichigooji.github.io/archive/fate.html",
@@ -379,11 +437,11 @@ const INITIAL_SUBTITLES = {
   10087: "https://gofile.io/d/e746e0ba-7fc0-4c25-912e-4f4aa5435e4d"
 };
 
-const PER_PAGE = 88; // Maximum 88 anime per page
+const PER_PAGE = 88;
 let currentPage = 1;
 let totalPages = 1;
-let currentDropdownFilter = 'HOME'; // 'HOME', 'TORRENT', 'SUBTITLES'
-let currentCategoryFilter = 'ALL'; // 'ALL', 'TV', 'MOVIE', 'OVA', 'ONA'
+let currentDropdownFilter = 'HOME'; // 'HOME', 'TORRENT', 'SUBTITLES', 'CURRENT', 'PLANNING', 'COMPLETED', 'PAUSED', 'DROPPED'
+let currentCategoryFilter = 'ALL';
 
 function toggleDropdownMenu(e) {
   e.stopPropagation();
@@ -411,16 +469,148 @@ function moveIndicator(element) {
   indicator.style.opacity = '1';
 }
 
-// Main API Loader via AniList GraphQL with Pagination
+/* OAuth2 Login & User Sync Functions */
+function loginWithAniList() {
+  const redirectUri = window.location.href.split('#')[0];
+  window.location.href = `https://anilist.co/api/v2/oauth/authorize?client_id=${ANILIST_CLIENT_ID}&response_type=token`;
+}
+
+function handleOAuthCallback() {
+  const hash = window.location.hash.substring(1);
+  const params = new URLSearchParams(hash);
+  if (params.has('access_token')) {
+    accessToken = params.get('access_token');
+    localStorage.setItem('anilist_token', accessToken);
+    window.location.hash = '';
+  }
+}
+
+async function fetchUserProfile() {
+  if (!accessToken) return;
+  const query = `query { Viewer { id name avatar { medium } } }`;
+  try {
+    const res = await fetch('https://graphql.anilist.co', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + accessToken,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({ query })
+    });
+    const data = await res.json();
+    if (data?.data?.Viewer) {
+      currentUser = data.data.Viewer;
+      renderUserProfile();
+    } else {
+      logoutAniList();
+    }
+  } catch (e) {
+    console.error("Profile fetch error:", e);
+  }
+}
+
+function renderUserProfile() {
+  const profileArea = document.getElementById('userProfileArea');
+  const userSection = document.getElementById('anilistListsSection');
+  if (currentUser) {
+    profileArea.innerHTML = `
+      <div class="user-profile-badge">
+        <img src="${currentUser.avatar.medium}" class="user-avatar" alt="${currentUser.name}">
+        <div class="user-name">${currentUser.name}</div>
+        <a href="javascript:void(0)" onclick="logoutAniList()" style="margin-left:auto; color:var(--pink); font-size:11px; text-decoration:none;">Logout</a>
+      </div>
+    `;
+    userSection.style.display = 'block';
+  }
+}
+
+function logoutAniList() {
+  localStorage.removeItem('anilist_token');
+  accessToken = null;
+  currentUser = null;
+  document.getElementById('userProfileArea').innerHTML = `
+    <a href="javascript:void(0)" class="menu-link" id="loginBtn" onclick="loginWithAniList()">
+      <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
+      Login with AniList
+    </a>
+  `;
+  document.getElementById('anilistListsSection').style.display = 'none';
+  if (['CURRENT', 'PLANNING', 'COMPLETED', 'PAUSED', 'DROPPED'].includes(currentDropdownFilter)) {
+    currentDropdownFilter = 'HOME';
+    loadAnimeData(1);
+  }
+}
+
+/* User Specific Lists Fetcher */
+async function loadUserMediaList(status) {
+  spinner.style.display = 'flex';
+  grid.innerHTML = '';
+  pagination.innerHTML = '';
+  resultsCount.textContent = `Fetching ${status.toLowerCase()} list...`;
+
+  const query = `
+  query ($userId: Int, $status: MediaListStatus) {
+    MediaListCollection(userId: $userId, type: ANIME, status: $status) {
+      lists {
+        entries {
+          media {
+            id title { romaji english } coverImage { extraLarge large } meanScore format isAdult
+          }
+        }
+      }
+    }
+  }`;
+
+  try {
+    const res = await fetch('https://graphql.anilist.co', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query, variables: { userId: currentUser.id, status } })
+    });
+    const data = await res.json();
+    let list = [];
+    const collections = data?.data?.MediaListCollection?.lists || [];
+    collections.forEach(c => {
+      c.entries.forEach(e => { if (e.media) list.push(e.media); });
+    });
+
+    const searchQuery = searchInput ? searchInput.value.trim() : '';
+    if (currentCategoryFilter !== 'ALL') {
+      list = list.filter(m => m.format === currentCategoryFilter);
+    }
+    if (searchQuery) {
+      list = list.filter(m => (m.title.english || m.title.romaji).toLowerCase().includes(searchQuery.toLowerCase()));
+    }
+
+    renderGrid(list);
+    resultsCount.textContent = `${list.length} result${list.length === 1 ? '' : 's'} found in ${status}`;
+  } catch (err) {
+    console.error("User list error:", err);
+    resultsCount.textContent = 'Error loading user list.';
+  } finally {
+    spinner.style.display = 'none';
+  }
+}
+
+// Main API Loader
 async function loadAnimeData(page = 1) {
+  const searchQuery = searchInput ? searchInput.value.trim() : '';
+
+  // Check if loading User Specific Lists
+  if (['CURRENT', 'PLANNING', 'COMPLETED', 'PAUSED', 'DROPPED'].includes(currentDropdownFilter)) {
+    if (currentUser) {
+      loadUserMediaList(currentDropdownFilter);
+      return;
+    }
+  }
+
   spinner.style.display = 'flex';
   grid.innerHTML = '';
   pagination.innerHTML = '';
   resultsCount.textContent = 'Loading archive...';
 
-  const searchQuery = searchInput ? searchInput.value.trim() : '';
-
-  // Torrent / Subtitles Specific Priority Filters
+  // Torrent / Subtitles Specific Filters
   if (currentDropdownFilter === 'TORRENT' || currentDropdownFilter === 'SUBTITLES') {
     const idsToFetch = currentDropdownFilter === 'TORRENT' ? Object.keys(INITIAL_TORRENTS) : Object.keys(INITIAL_SUBTITLES);
     
@@ -442,7 +632,6 @@ async function loadAnimeData(page = 1) {
       const data = await res.json();
       let list = data?.data?.Page?.media || [];
       
-      // Keep Fate Stay Night (10087) on top
       list.sort((a, b) => (a.id === 10087 ? -1 : b.id === 10087 ? 1 : 0));
       
       if (currentCategoryFilter !== 'ALL') {
@@ -462,7 +651,7 @@ async function loadAnimeData(page = 1) {
     return;
   }
 
-  // Standard Paginated Query for HOME Mode (TV, MOVIE, OVA, ONA)
+  // Standard Paginated Query for HOME Mode
   let queryVariables = { page, perPage: PER_PAGE };
   let filterConditions = 'type: ANIME, sort: POPULARITY_DESC, isAdult: false';
 
@@ -498,7 +687,6 @@ async function loadAnimeData(page = 1) {
 
       let items = pageData.media;
       
-      // Sort Fate to absolute top on page 1 of ALL
       if (currentPage === 1 && currentCategoryFilter === 'ALL' && !searchQuery) {
         items.sort((a, b) => (a.id === 10087 ? -1 : b.id === 10087 ? 1 : 0));
       }
@@ -579,12 +767,10 @@ function renderGrid(items) {
   });
 }
 
-// Pagination Controls Render
 function renderPaginationControls() {
   pagination.innerHTML = '';
   if (totalPages <= 1) return;
 
-  // Prev Button
   const prevBtn = document.createElement('button');
   prevBtn.className = `page-btn ${currentPage === 1 ? 'disabled' : ''}`;
   prevBtn.innerHTML = '‹ Prev';
@@ -615,7 +801,6 @@ function renderPaginationControls() {
     }
   });
 
-  // Next Button
   const nextBtn = document.createElement('button');
   nextBtn.className = `page-btn ${currentPage === totalPages ? 'disabled' : ''}`;
   nextBtn.innerHTML = 'Next ›';
@@ -629,34 +814,25 @@ function goToPage(p) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Side-Menu Event Listeners
-document.getElementById('menuHomeLink')?.addEventListener('click', () => {
-  currentDropdownFilter = 'HOME';
-  setActiveDropdownMenu('menuHomeLink');
-  loadAnimeData(1);
-});
+/* Menu Nav Click Listeners */
+document.getElementById('menuHomeLink')?.addEventListener('click', () => { currentDropdownFilter = 'HOME'; setActiveDropdownMenu('menuHomeLink'); loadAnimeData(1); });
+document.getElementById('menuTorrentLink')?.addEventListener('click', () => { currentDropdownFilter = 'TORRENT'; setActiveDropdownMenu('menuTorrentLink'); loadAnimeData(1); });
+document.getElementById('menuSubtitlesLink')?.addEventListener('click', () => { currentDropdownFilter = 'SUBTITLES'; setActiveDropdownMenu('menuSubtitlesLink'); loadAnimeData(1); });
 
-document.getElementById('menuTorrentLink')?.addEventListener('click', () => {
-  currentDropdownFilter = 'TORRENT';
-  setActiveDropdownMenu('menuTorrentLink');
-  loadAnimeData(1);
-});
-
-document.getElementById('menuSubtitlesLink')?.addEventListener('click', () => {
-  currentDropdownFilter = 'SUBTITLES';
-  setActiveDropdownMenu('menuSubtitlesLink');
-  loadAnimeData(1);
-});
+/* AniList User Lists Menu Links */
+document.getElementById('menuWatchingLink')?.addEventListener('click', () => { currentDropdownFilter = 'CURRENT'; setActiveDropdownMenu('menuWatchingLink'); loadAnimeData(1); });
+document.getElementById('menuPlanningLink')?.addEventListener('click', () => { currentDropdownFilter = 'PLANNING'; setActiveDropdownMenu('menuPlanningLink'); loadAnimeData(1); });
+document.getElementById('menuCompletedLink')?.addEventListener('click', () => { currentDropdownFilter = 'COMPLETED'; setActiveDropdownMenu('menuCompletedLink'); loadAnimeData(1); });
+document.getElementById('menuPausedLink')?.addEventListener('click', () => { currentDropdownFilter = 'PAUSED'; setActiveDropdownMenu('menuPausedLink'); loadAnimeData(1); });
+document.getElementById('menuDroppedLink')?.addEventListener('click', () => { currentDropdownFilter = 'DROPPED'; setActiveDropdownMenu('menuDroppedLink'); loadAnimeData(1); });
 
 function setActiveDropdownMenu(id) {
-  ['menuHomeLink', 'menuTorrentLink', 'menuSubtitlesLink'].forEach(linkId => {
-    document.getElementById(linkId)?.classList.remove('active');
-  });
+  const allLinks = ['menuHomeLink', 'menuTorrentLink', 'menuSubtitlesLink', 'menuWatchingLink', 'menuPlanningLink', 'menuCompletedLink', 'menuPausedLink', 'menuDroppedLink'];
+  allLinks.forEach(linkId => { document.getElementById(linkId)?.classList.remove('active'); });
   document.getElementById(id)?.classList.add('active');
   document.getElementById('navMenuWrapper').classList.remove('open');
 }
 
-// Category Tabs Listener (ALL, TV, MOVIE, OVA, ONA)
 navItems.forEach(item => {
   item.addEventListener('click', function(e) {
     e.preventDefault();
@@ -673,9 +849,7 @@ if (searchInput) {
   searchInput.addEventListener('input', () => {
     clearTimeout(searchDebounce);
     if (searchClearBtn) searchClearBtn.style.display = searchInput.value.length > 0 ? 'flex' : 'none';
-    searchDebounce = setTimeout(() => {
-      loadAnimeData(1);
-    }, 400);
+    searchDebounce = setTimeout(() => { loadAnimeData(1); }, 400);
   });
 }
 
@@ -688,8 +862,11 @@ if (searchClearBtn) {
   });
 }
 
-// Initialization Process
+// Init
 window.addEventListener('load', () => {
+  handleOAuthCallback();
+  if (accessToken) fetchUserProfile();
+  
   const activeItem = document.querySelector('.nav-links .nav-item.active');
   if (activeItem) moveIndicator(activeItem);
   loadAnimeData(1);
@@ -700,7 +877,7 @@ window.addEventListener('resize', () => {
   if (activeItem) moveIndicator(activeItem);
 });
 
-/* Canvas Background Animation */
+/* Canvas Stars Animation */
 const canvas = document.getElementById('canvas-bg');
 const ctx = canvas.getContext('2d');
 let width, height;
