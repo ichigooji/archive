@@ -42,6 +42,7 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
+  -webkit-font-smoothing: antialiased;
 }
 
 .bg-gradient-mesh { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; transform: translateZ(0); }
@@ -68,8 +69,9 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
   backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
   border: 1px solid var(--border);
   display: grid; grid-template-columns: auto 1fr auto;
-  align-items: center; padding: 0 28px; height: 76px; border-radius: 22px;
-  box-shadow: 0 25px 65px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  align-items: center; padding: 0 24px; height: 76px; border-radius: 24px;
+  box-shadow: 0 25px 65px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transform: translateZ(0);
 }
 
 .header-left { display: flex; align-items: center; gap: 20px; position: relative; }
@@ -85,36 +87,40 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 .menu-toggle span:nth-child(2) { width: 80%; background: var(--logo-grad-end); }
 .menu-toggle span:nth-child(3) { width: 60%; background: var(--muted); }
 
+/* WIDER GRID DROPDOWN MENU */
 .menu-dropdown-content {
-  display: none; position: absolute; top: calc(100% + 20px); left: 0; width: 250px;
-  background: rgba(6, 10, 22, 0.96); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-  border: 1px solid var(--border); border-radius: 18px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
-  padding: 12px; z-index: 999;
+  display: none; position: absolute; top: calc(100% + 18px); left: 0; width: 440px;
+  background: rgba(8, 13, 28, 0.95); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  padding: 16px; z-index: 999;
   max-height: 85vh; overflow-y: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
 .menu-dropdown-content::-webkit-scrollbar { display: none; }
 
-.nav-menu-wrapper.open .menu-dropdown-content { display: flex; flex-direction: column; animation: dropdown-slide-down 0.2s ease; }
+.nav-menu-wrapper.open .menu-dropdown-content { display: block; animation: dropdown-slide-down 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
 
 @keyframes dropdown-slide-down {
-  from { opacity: 0; transform: translateY(-6px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(-10px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-.menu-section-title { font-size: 10px; font-weight: 800; letter-spacing: 1.5px; color: var(--muted); text-transform: uppercase; margin: 10px 8px 4px; display: flex; align-items: center; gap: 6px; }
+.menu-grid-section { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-bottom: 10px; }
+.menu-grid-section.full-width { grid-template-columns: 1fr; }
+
+.menu-section-title { font-size: 10px; font-weight: 800; letter-spacing: 1.5px; color: var(--muted); text-transform: uppercase; margin: 10px 4px 6px; display: flex; align-items: center; gap: 6px; grid-column: span 2; }
 .menu-section-title::after { content: ''; flex: 1; height: 1px; background: rgba(139, 92, 246, 0.15); }
 
-.menu-link { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text); padding: 10px 12px; border-radius: 10px; font-size: 13.5px; font-weight: 500; transition: all 0.2s ease; margin-bottom: 2px; cursor: pointer; }
-.menu-link svg { width: 18px; height: 18px; stroke: var(--muted); fill: none; transition: stroke 0.2s; }
-.menu-link:hover, .menu-link.active { background: rgba(139, 92, 246, 0.15); color: var(--logo-grad-start); }
+.menu-link { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); padding: 9px 12px; border-radius: 12px; font-size: 13px; font-weight: 600; transition: all 0.2s ease; cursor: pointer; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.03); }
+.menu-link svg { width: 16px; height: 16px; stroke: var(--muted); fill: none; transition: stroke 0.2s; flex-shrink: 0; }
+.menu-link:hover, .menu-link.active { background: rgba(139, 92, 246, 0.18); border-color: rgba(139, 92, 246, 0.35); color: var(--logo-grad-start); transform: translateY(-1px); }
 .menu-link:hover svg, .menu-link.active svg { stroke: var(--logo-grad-start); }
 
-.user-profile-badge { display: flex; align-items: center; gap: 10px; padding: 10px; background: rgba(139, 92, 246, 0.1); border-radius: 12px; border: 1px solid rgba(139, 92, 246, 0.2); margin-bottom: 8px; }
-.user-avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
-.user-name { font-size: 13px; font-weight: 700; color: #fff; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+.user-profile-badge { display: flex; align-items: center; gap: 10px; padding: 12px; background: rgba(139, 92, 246, 0.12); border-radius: 14px; border: 1px solid rgba(139, 92, 246, 0.25); margin-bottom: 10px; }
+.user-avatar { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; }
+.user-name { font-size: 13.5px; font-weight: 700; color: #fff; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
 
 /* Logo Styles */
 .site-brand { display: flex; align-items: center; text-decoration: none; position: relative; font-family: 'Orbitron', 'Montserrat', sans-serif; }
@@ -144,39 +150,62 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 
 .nav-indicator { position: absolute; bottom: 0px; width: 20px; height: 3px; background: linear-gradient(90deg, #ec4899 0%, #c4b5fd 100%); border-radius: 3px; transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); pointer-events: none; z-index: 1; opacity: 0; transform: translateX(-50%); }
 
-.search-container { position: relative; width: 220px; display: flex; align-items: center; justify-self: end; }
+/* SEARCH CONTAINER & ANILIST ADVANCED FILTERS */
+.search-wrapper { position: relative; display: flex; flex-direction: column; justify-self: end; }
+.search-container { position: relative; width: 230px; display: flex; align-items: center; transition: width 0.3s ease; }
 .search-icon { position: absolute; left: 14px; width: 16px; height: 16px; stroke: var(--muted); pointer-events: none; transition: stroke 0.25s ease; }
-.search-input { width: 100%; background: rgba(10, 15, 30, 0.5); border: 1px solid rgba(139, 92, 246, 0.2); padding: 9px 34px 9px 40px; border-radius: 12px; color: var(--text); font-size: 13px; font-weight: 500; outline: none; transition: all 0.25s ease; }
+.search-input { width: 100%; background: rgba(10, 15, 30, 0.65); border: 1px solid rgba(139, 92, 246, 0.25); padding: 9.5px 34px 9.5px 40px; border-radius: 14px; color: var(--text); font-size: 13px; font-weight: 500; outline: none; transition: all 0.25s ease; }
 .search-input::placeholder { color: rgba(148, 163, 184, 0.55); font-size: 13px; }
-.search-input:focus { border-color: rgba(168, 85, 247, 0.6); }
+.search-input:focus { border-color: rgba(168, 85, 247, 0.8); box-shadow: 0 0 15px rgba(139, 92, 246, 0.25); background: rgba(12, 18, 36, 0.9); }
 
 .search-clear-btn { position: absolute; right: 10px; background: none; border: none; cursor: pointer; display: none; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; color: var(--muted); padding: 0; }
 .search-clear-btn svg { width: 12px; height: 12px; stroke: currentColor; stroke-width: 2.5; fill: none; }
 
+/* Advanced Filter Popup Panel */
+.anilist-filter-panel {
+  position: absolute; top: calc(100% + 14px); right: 0; width: 320px;
+  background: rgba(8, 14, 28, 0.96); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+  border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 18px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85); padding: 16px; z-index: 950;
+  display: none; opacity: 0; transform: translateY(-8px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.anilist-filter-panel.show { display: block; opacity: 1; transform: translateY(0); }
+
+.filter-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.filter-group { display: flex; flex-direction: column; gap: 4px; }
+.filter-group label { font-size: 10.5px; font-weight: 700; color: var(--al-text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+.filter-select {
+  background: var(--al-card); border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px; padding: 7px 10px; color: #edf1f5; font-size: 11.5px; font-weight: 600;
+  outline: none; transition: border-color 0.2s ease; cursor: pointer;
+}
+.filter-select:focus { border-color: var(--al-blue); }
+
 /* Container & Cards */
 .main-container { max-width: 1250px; margin: 30px auto; padding: 0 24px; flex: 1; width: 100%; position: relative; z-index: 2; }
-.results-count { font-size: 14px; font-weight: 600; color: #64748b; margin-bottom: 20px; }
+.results-count { font-size: 13.5px; font-weight: 600; color: #64748b; margin-bottom: 20px; }
 
-.anime-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
+.anime-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 22px; }
 
 .anime-card {
-  position: relative; border-radius: 16px; background: rgba(12, 18, 34, 0.6);
-  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  position: relative; border-radius: 18px; background: rgba(12, 18, 34, 0.65);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08); overflow: hidden; text-decoration: none;
-  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease; display: flex; flex-direction: column;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column;
 }
 
-.anime-card:hover { transform: translateY(-4px); border-color: rgba(139, 92, 246, 0.4); box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6); }
+.anime-card:hover { transform: translateY(-6px); border-color: rgba(139, 92, 246, 0.5); box-shadow: 0 16px 32px rgba(0, 0, 0, 0.75), 0 0 20px rgba(139, 92, 246, 0.15); }
 
 .poster-wrapper { position: relative; width: 100%; aspect-ratio: 1 / 1.42; overflow: hidden; background: #060912; }
-.poster-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
-.anime-card:hover .poster-img { transform: scale(1.04); filter: brightness(0.4); }
+.poster-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease, filter 0.4s ease; }
+.anime-card:hover .poster-img { transform: scale(1.06); filter: brightness(0.35); }
 
-/* Compact & Modernized Edit Pencil Button */
+/* Edit Pencil Button */
 .edit-card-btn {
   position: absolute; top: 8px; right: 8px; z-index: 15;
-  width: 28px; height: 28px; border-radius: 50%;
-  background: rgba(11, 22, 34, 0.85); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  width: 26px; height: 26px; border-radius: 50%;
+  background: rgba(11, 22, 34, 0.8); backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   display: flex; align-items: center; justify-content: center;
   cursor: pointer; opacity: 0; transform: scale(0.85);
@@ -185,39 +214,34 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 }
 .edit-card-btn:hover {
   background: var(--al-blue); border-color: transparent; color: #ffffff;
-  transform: scale(1.1); box-shadow: 0 0 10px rgba(61, 180, 242, 0.5);
+  transform: scale(1.1); box-shadow: 0 0 12px rgba(61, 180, 242, 0.6);
 }
 .edit-card-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2.2; }
 .anime-card:hover .edit-card-btn { opacity: 1; transform: scale(1); }
 
-/* Always show edit button on touch devices when logged in */
-@media (hover: none) {
-  .edit-card-btn { opacity: 1; transform: scale(1); }
-}
-
 .card-overlay-actions {
-  position: absolute; inset: 0; background: rgba(2, 4, 8, 0.45);
-  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  position: absolute; inset: 0; background: rgba(2, 4, 8, 0.5);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 8px;
-  opacity: 0; pointer-events: none; transition: opacity 0.2s ease; padding: 16px; z-index: 10;
+  opacity: 0; pointer-events: none; transition: opacity 0.25s ease; padding: 16px; z-index: 10;
 }
 .anime-card:hover .card-overlay-actions { opacity: 1; pointer-events: auto; }
 
 .action-btn {
-  width: 100%; padding: 9px 12px; border-radius: 10px;
-  font-size: 11px; font-weight: 600; color: rgba(255, 255, 255, 0.9); text-decoration: none;
+  width: 100%; padding: 9.5px 12px; border-radius: 12px;
+  font-size: 11px; font-weight: 700; color: rgba(255, 255, 255, 0.95); text-decoration: none;
   display: flex; align-items: center; justify-content: center; gap: 8px;
-  cursor: pointer; transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  cursor: pointer; transition: all 0.2s ease;
   text-transform: uppercase; letter-spacing: 0.5px;
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
 }
 
 .action-btn:hover {
-  background: rgba(255, 255, 255, 0.18);
-  border-color: rgba(255, 255, 255, 0.35);
-  color: #ffffff;
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #ffffff; transform: translateY(-1px);
 }
 
 .action-btn.disabled {
@@ -231,37 +255,37 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 .action-btn svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; }
 
 .card-badges-top { position: absolute; top: 10px; left: 10px; display: flex; gap: 6px; z-index: 2; }
-.badge-rating { background: rgba(6, 10, 22, 0.75); backdrop-filter: blur(8px); color: #fbbf24; font-size: 11px; font-weight: 700; padding: 3px 7px; border-radius: 6px; display: flex; align-items: center; gap: 3px; border: 1px solid rgba(255, 255, 255, 0.1); }
+.badge-rating { background: rgba(6, 10, 22, 0.8); backdrop-filter: blur(8px); color: #fbbf24; font-size: 11px; font-weight: 700; padding: 3px 7px; border-radius: 6px; display: flex; align-items: center; gap: 3px; border: 1px solid rgba(255, 255, 255, 0.12); }
 .badge-rating::before { content: '★'; font-size: 10px; }
-.badge-age { background: rgba(6, 10, 22, 0.75); backdrop-filter: blur(8px); color: #e2e8f0; font-size: 10.5px; font-weight: 600; padding: 3px 6px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.1); }
+.badge-age { background: rgba(6, 10, 22, 0.8); backdrop-filter: blur(8px); color: #e2e8f0; font-size: 10.5px; font-weight: 600; padding: 3px 6px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.12); }
 
-.card-badges-bottom { position: absolute; bottom: 8px; left: 8px; display: flex; align-items: center; gap: 8px; background: rgba(6, 10, 22, 0.75); backdrop-filter: blur(8px); padding: 3px 7px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.1); font-size: 10px; font-weight: 600; color: #e2e8f0; z-index: 2; }
+.card-badges-bottom { position: absolute; bottom: 8px; left: 8px; display: flex; align-items: center; gap: 8px; background: rgba(6, 10, 22, 0.8); backdrop-filter: blur(8px); padding: 3px 7px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.12); font-size: 10px; font-weight: 600; color: #e2e8f0; z-index: 2; }
 .card-badges-bottom .badge-item { display: flex; align-items: center; gap: 3px; }
 .card-badges-bottom svg { width: 11px; height: 11px; stroke: #c4b5fd; fill: none; stroke-width: 2; }
 
 .anime-card-info { padding: 12px 10px; display: flex; flex-direction: column; gap: 4px; }
 .anime-card-title { font-size: 13.5px; font-weight: 700; color: #f1f5f9; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; gap: 5px; }
-.anime-card-title::before { content: '•'; color: var(--purple); font-size: 14px; flex-shrink: 0; }
+.anime-card-title::before { content: '•'; color: var(--purple); font-size: 14px; }
 .anime-card-meta { font-size: 10px; font-weight: 600; color: #94a3b8; letter-spacing: 0.4px; opacity: 0.85; text-transform: uppercase; }
 
 /* Authentic AniList Modal Styling */
 .modal-overlay {
   position: fixed; inset: 0; z-index: 2000;
-  background: rgba(6, 10, 18, 0.85); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  background: rgba(4, 7, 15, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
   display: none; align-items: center; justify-content: center; padding: 16px;
   overflow-y: auto;
 }
 .modal-overlay.open { display: flex; }
 
 .al-modal {
-  background: var(--al-navy); border-radius: 12px; width: 100%; max-width: 820px;
-  overflow: hidden; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9);
+  background: var(--al-navy); border-radius: 16px; width: 100%; max-width: 820px;
+  overflow: hidden; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.95);
   color: #edf1f5; font-family: 'Inter', sans-serif; position: relative;
-  border: 1px solid rgba(255, 255, 255, 0.08); animation: modal-zoom 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(255, 255, 255, 0.1); animation: modal-zoom 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes modal-zoom {
-  from { opacity: 0; transform: scale(0.96); }
+  from { opacity: 0; transform: scale(0.95); }
   to { opacity: 1; transform: scale(1); }
 }
 
@@ -278,7 +302,7 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
   position: relative; z-index: 2; width: 100%; display: flex; align-items: flex-end; justify-content: space-between; gap: 20px;
 }
 .al-cover-thumb {
-  width: 85px; height: 120px; border-radius: 6px; object-fit: cover;
+  width: 85px; height: 120px; border-radius: 8px; object-fit: cover;
   box-shadow: 0 6px 16px rgba(0,0,0,0.6); margin-bottom: -30px; border: 2px solid var(--al-navy);
 }
 .al-title-wrap { flex: 1; padding-bottom: 4px; }
@@ -287,16 +311,15 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 .al-actions-top { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
 .al-save-btn {
   background: var(--al-blue); color: #fff; border: none; padding: 8px 22px;
-  border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;
+  border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer;
   transition: opacity 0.2s ease, transform 0.1s ease;
 }
 .al-save-btn:hover { opacity: 0.9; }
 .al-close-btn {
-  position: absolute; top: 12px; right: 16px; background: rgba(0,0,0,0.4); border: none;
-  color: rgba(255, 255, 255, 0.85); font-size: 20px; cursor: pointer; z-index: 10;
-  width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  position: absolute; top: 12px; right: 16px; background: none; border: none;
+  color: rgba(255, 255, 255, 0.7); font-size: 22px; cursor: pointer; z-index: 10;
 }
-.al-close-btn:hover { color: #fff; background: rgba(0,0,0,0.7); }
+.al-close-btn:hover { color: #fff; }
 
 .al-modal-body { padding: 40px 24px 24px 24px; display: flex; flex-direction: column; gap: 20px; }
 
@@ -305,8 +328,8 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 .al-field-group label { font-size: 12px; font-weight: 600; color: var(--al-text-muted); }
 
 .al-input, .al-select, .al-textarea {
-  background: var(--al-card); border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 6px; padding: 10px 14px; color: #edf1f5; font-size: 13px;
+  background: var(--al-card); border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px; padding: 10px 14px; color: #edf1f5; font-size: 13px;
   outline: none; transition: border-color 0.2s ease;
 }
 .al-input:focus, .al-select:focus, .al-textarea:focus { border-color: var(--al-blue); }
@@ -316,7 +339,7 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 .al-footer-actions { display: flex; justify-content: flex-end; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 16px; margin-top: 4px; }
 .al-delete-btn {
   background: rgba(232, 93, 117, 0.15); color: var(--al-red); border: 1px solid rgba(232, 93, 117, 0.3);
-  padding: 8px 18px; border-radius: 6px; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all 0.2s ease;
+  padding: 8px 18px; border-radius: 8px; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all 0.2s ease;
 }
 .al-delete-btn:hover { background: var(--al-red); color: #fff; }
 
@@ -327,11 +350,11 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 }
 
 .page-btn {
-  min-width: 40px; height: 40px; padding: 0 12px; border-radius: 10px;
-  background: rgba(12, 18, 34, 0.6); border: 1px solid rgba(139, 92, 246, 0.2);
+  min-width: 40px; height: 40px; padding: 0 12px; border-radius: 12px;
+  background: rgba(12, 18, 34, 0.65); border: 1px solid rgba(139, 92, 246, 0.25);
   color: var(--text); font-size: 13px; font-weight: 600; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
-  transition: all 0.2s ease; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  transition: all 0.2s ease; backdrop-filter: blur(10px);
 }
 
 .page-btn:hover:not(.disabled):not(.active) {
@@ -341,7 +364,7 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 .page-btn.active {
   background: linear-gradient(135deg, var(--purple), var(--pink));
   border-color: transparent; color: #ffffff; font-weight: 700;
-  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
 }
 
 .page-btn.disabled {
@@ -354,30 +377,24 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 .spinner { width: 36px; height: 36px; border: 3px solid rgba(139, 92, 246, 0.2); border-top-color: var(--purple); border-radius: 50%; animation: spin 0.8s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* Optimized Mobile Responsiveness (Android Friendly) */
+/* Android & Mobile Optimization */
 @media (max-width: 768px) {
-  .site-header {
-    display: flex; flex-direction: column; height: auto; width: calc(100% - 20px);
-    padding: 12px 14px; top: 10px; gap: 10px; border-radius: 18px;
-  }
+  .site-header { display: flex; flex-direction: column; height: auto; width: calc(100% - 24px); padding: 14px 16px; top: 12px; gap: 14px; border-radius: 20px; }
   .header-left { width: 100%; display: flex; align-items: center; justify-content: space-between; position: relative; }
-  .site-brand { position: relative; transform: none; left: auto; }
+  .site-brand { position: absolute; left: 50%; transform: translateX(-50%); }
   .nav-menu-wrapper { z-index: 910; }
   
-  /* Horizontal scrollable nav for categories on mobile */
-  .nav-links {
-    width: 100%; justify-content: flex-start; border-top: 1px solid rgba(139, 92, 246, 0.12);
-    padding: 8px 0 2px 0; gap: 8px; overflow-x: auto; scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-  }
-  .nav-links::-webkit-scrollbar { display: none; }
-  .nav-links a { font-size: 13px; padding: 6px 12px; background: rgba(255,255,255,0.03); border-radius: 8px; }
-  .nav-links a.active { background: rgba(139, 92, 246, 0.2); }
-  .nav-indicator { display: none; } /* Hide moving line on mobile to prevent layout shift */
+  .menu-dropdown-content { width: calc(100vw - 48px); left: -10px; }
+
+  .nav-links { width: 100%; justify-content: center; border-top: 1px solid rgba(139, 92, 246, 0.15); padding-top: 10px; gap: 12px; }
+  .nav-links a { font-size: 13px; padding: 6px 4px; }
   
+  .search-wrapper { width: 100%; }
   .search-container { width: 100%; }
-  .main-container { margin: 16px auto; padding: 0 12px; }
-  .anime-grid { grid-template-columns: repeat(auto-fill, minmax(135px, 1fr)); gap: 12px; }
+  .anilist-filter-panel { width: 100%; right: 0; left: 0; }
+  
+  .main-container { margin: 18px auto; padding: 0 16px; }
+  .anime-grid { grid-template-columns: repeat(auto-fill, minmax(135px, 1fr)); gap: 14px; }
   
   .al-grid-row { grid-template-columns: 1fr; gap: 12px; }
   .al-banner-header { height: 110px; }
@@ -385,27 +402,22 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
   .al-title-wrap h2 { font-size: 15px; }
 }
 
-/* Fixed Footer Layout & Styling */
+/* FOOTER FIX & ELEGANT LAYOUT */
 .site-footer {
-  width: 100%; margin-top: auto; padding: 36px 0 28px 0; position: relative; z-index: 2;
-  border-top: 1px solid rgba(139, 92, 246, 0.15); background: rgba(3, 6, 14, 0.6);
+  width: 100%; margin-top: auto; padding: 45px 0 35px 0;
+  position: relative; z-index: 2;
+  background: rgba(4, 7, 16, 0.75); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(139, 92, 246, 0.18);
 }
 .footer-content {
-  max-width: 1250px; margin: 0 auto; padding: 0 24px; display: flex; flex-direction: column;
-  align-items: flex-start; gap: 12px;
+  max-width: 1250px; margin: 0 auto; padding: 0 24px;
+  display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px;
 }
-.copyright { font-size: 12.5px; font-weight: 700; color: #f8fafc; letter-spacing: 0.3px; margin-top: 6px; }
-.disclaimer-text { font-size: 12px; color: var(--muted); max-width: 700px; line-height: 1.6; }
-.footer-links { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 4px; }
+.copyright { font-size: 12.5px; font-weight: 700; color: #f8fafc; letter-spacing: 0.4px; }
+.disclaimer-text { font-size: 12px; color: var(--muted); max-width: 650px; line-height: 1.6; opacity: 0.85; }
+.footer-links { display: flex; gap: 24px; margin-top: 4px; }
 .footer-links a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 600; transition: color 0.2s ease; }
 .footer-links a:hover { color: var(--logo-grad-start); }
-
-@media (max-width: 768px) {
-  .site-footer { padding: 28px 0 20px 0; }
-  .footer-content { align-items: center; text-align: center; }
-  .disclaimer-text { font-size: 11.5px; text-align: center; }
-  .footer-links { justify-content: center; gap: 16px; }
-}
 </style>
 </head>
 <body>
@@ -433,56 +445,62 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
         </div>
 
         <div class="menu-section-title">BROWSE</div>
-        <a href="javascript:void(0)" class="menu-link active" id="menuHomeLink">
-          <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-          Home
-        </a>
-        <a href="javascript:void(0)" class="menu-link" id="menuTorrentLink">
-          <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="9" stroke="currentColor"/><path stroke-linecap="round" stroke-linejoin="round" d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg>
-          Torrent
-        </a>
-        <a href="javascript:void(0)" class="menu-link" id="menuSubtitlesLink">
-          <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="3" stroke="currentColor"/><path stroke-linecap="round" stroke-linejoin="round" d="M7 15h3M14 15h3M7 11h10"/></svg>
-          Subtitles
-        </a>
-
-        <div id="anilistListsSection" style="display: none;">
-          <div class="menu-section-title">MY ANILIST</div>
-          <a href="javascript:void(0)" class="menu-link" id="menuWatchingLink">
-            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            Watching
+        <div class="menu-grid-section">
+          <a href="javascript:void(0)" class="menu-link active" id="menuHomeLink">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+            Home
           </a>
-          <a href="javascript:void(0)" class="menu-link" id="menuPlanningLink">
-            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-            Planning
+          <a href="javascript:void(0)" class="menu-link" id="menuTorrentLink">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="9" stroke="currentColor"/><path stroke-linecap="round" stroke-linejoin="round" d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg>
+            Torrent
           </a>
-          <a href="javascript:void(0)" class="menu-link" id="menuCompletedLink">
-            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            Completed
-          </a>
-          <a href="javascript:void(0)" class="menu-link" id="menuPausedLink">
-            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            Paused
-          </a>
-          <a href="javascript:void(0)" class="menu-link" id="menuDroppedLink">
-            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-            Dropped
+          <a href="javascript:void(0)" class="menu-link" id="menuSubtitlesLink">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="3" stroke="currentColor"/><path stroke-linecap="round" stroke-linejoin="round" d="M7 15h3M14 15h3M7 11h10"/></svg>
+            Subtitles
           </a>
         </div>
 
+        <div id="anilistListsSection" style="display: none;">
+          <div class="menu-section-title">MY ANILIST</div>
+          <div class="menu-grid-section">
+            <a href="javascript:void(0)" class="menu-link" id="menuWatchingLink">
+              <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              Watching
+            </a>
+            <a href="javascript:void(0)" class="menu-link" id="menuPlanningLink">
+              <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+              Planning
+            </a>
+            <a href="javascript:void(0)" class="menu-link" id="menuCompletedLink">
+              <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              Completed
+            </a>
+            <a href="javascript:void(0)" class="menu-link" id="menuPausedLink">
+              <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              Paused
+            </a>
+            <a href="javascript:void(0)" class="menu-link" id="menuDroppedLink">
+              <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+              Dropped
+            </a>
+          </div>
+        </div>
+
         <div class="menu-section-title">MORE</div>
-        <a href="#watch2gether" class="menu-link">
-          <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-          Watch2gether
-        </a>
-        <a href="#leaderboard" class="menu-link">
-          <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-          Leaderboard
-        </a>
-        <a href="#status" class="menu-link">
-          <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-          Status
-        </a>
+        <div class="menu-grid-section">
+          <a href="#watch2gether" class="menu-link">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            Watch2gether
+          </a>
+          <a href="#leaderboard" class="menu-link">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+            Leaderboard
+          </a>
+          <a href="#status" class="menu-link">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            Status
+          </a>
+        </div>
       </div>
     </div>
 
@@ -508,12 +526,57 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
     <div class="nav-indicator" id="navIndicator"></div>
   </nav>
 
-  <div class="search-container">
-    <svg class="search-icon" fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-    <input type="text" id="searchInput" class="search-input" placeholder="Search archive..." autocomplete="off">
-    <button type="button" id="searchClearBtn" class="search-clear-btn" aria-label="Clear Search">
-      <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </button>
+  <div class="search-wrapper" id="searchWrapper">
+    <div class="search-container">
+      <svg class="search-icon" fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+      <input type="text" id="searchInput" class="search-input" placeholder="Search archive..." autocomplete="off">
+      <button type="button" id="searchClearBtn" class="search-clear-btn" aria-label="Clear Search">
+        <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+    <div class="anilist-filter-panel" id="anilistFilterPanel">
+      <div class="filter-grid">
+        <div class="filter-group">
+          <label>Sort By</label>
+          <select id="filterSort" class="filter-select">
+            <option value="POPULARITY_DESC">Popularity</option>
+            <option value="SCORE_DESC">Score</option>
+            <option value="TRENDING_DESC">Trending</option>
+            <option value="START_DATE_DESC">Newest</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Status</label>
+          <select id="filterStatus" class="filter-select">
+            <option value="">All</option>
+            <option value="FINISHED">Finished</option>
+            <option value="RELEASING">Releasing</option>
+            <option value="NOT_YET_RELEASED">Upcoming</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Season</label>
+          <select id="filterSeason" class="filter-select">
+            <option value="">All</option>
+            <option value="WINTER">Winter</option>
+            <option value="SPRING">Spring</option>
+            <option value="SUMMER">Summer</option>
+            <option value="FALL">Fall</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Year</label>
+          <select id="filterYear" class="filter-select">
+            <option value="">All</option>
+            <option value="2026">2026</option>
+            <option value="2025">2025</option>
+            <option value="2024">2024</option>
+            <option value="2023">2023</option>
+          </select>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -527,7 +590,7 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 
 <div class="modal-overlay" id="editModal" onclick="if(event.target===this) closeEditModal()">
   <div class="al-modal">
-    <button class="al-close-btn" onclick="closeEditModal()" aria-label="Close">&times;</button>
+    <button class="al-close-btn" onclick="closeEditModal()">&times;</button>
     <div class="al-banner-header" id="modalBanner">
       <div class="al-modal-top-content">
         <img src="" id="modalCover" class="al-cover-thumb" alt="Poster">
@@ -605,10 +668,7 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
     <div class="copyright">© 2026 ICHIGOOJI. All rights reserved.</div>
     <p class="disclaimer-text">ICHIGOOJI does not store any files on our server, we only link to media hosted on 3rd party services.</p>
     <div class="footer-links">
-      <a href="javascript:void(0)">Privacy</a>
-      <a href="javascript:void(0)">Terms</a>
-      <a href="javascript:void(0)">Contact</a>
-      <a href="javascript:void(0)">Status</a>
+      <a href="#">Privacy</a><a href="#">Terms</a><a href="#">Contact</a><a href="#">Status</a>
     </div>
   </div>
 </footer>
@@ -654,6 +714,12 @@ function toggleDropdownMenu(e) {
 window.addEventListener('click', function(e) {
   const wrapper = document.getElementById('navMenuWrapper');
   if (wrapper && !wrapper.contains(e.target)) wrapper.classList.remove('open');
+  
+  const searchWrapper = document.getElementById('searchWrapper');
+  const filterPanel = document.getElementById('anilistFilterPanel');
+  if (searchWrapper && !searchWrapper.contains(e.target)) {
+    filterPanel.classList.remove('show');
+  }
 });
 
 const indicator = document.getElementById('navIndicator');
@@ -664,9 +730,10 @@ const searchInput = document.getElementById('searchInput');
 const searchClearBtn = document.getElementById('searchClearBtn');
 const spinner = document.getElementById('loadingSpinner');
 const pagination = document.getElementById('pagination');
+const filterPanel = document.getElementById('anilistFilterPanel');
 
 function moveIndicator(element) {
-  if (!element || !indicator || window.innerWidth <= 768) return;
+  if (!element || !indicator) return;
   const centerPosition = element.offsetLeft + (element.offsetWidth / 2);
   indicator.style.left = `${centerPosition}px`;
   indicator.style.opacity = '1';
@@ -756,7 +823,7 @@ async function loadUserMediaList(status) {
       lists {
         entries {
           media {
-            id title { romaji english } coverImage { large } bannerImage meanScore format isAdult
+            id title { romaji english } coverImage { extraLarge large } bannerImage meanScore format isAdult
           }
           status
           progress
@@ -819,7 +886,7 @@ async function loadAnimeData(page = 1) {
     query ($ids: [Int]) {
       Page(page: 1, perPage: 50) {
         media(id_in: $ids, type: ANIME) {
-          id title { romaji english } coverImage { large } bannerImage meanScore format isAdult
+          id title { romaji english } coverImage { extraLarge large } bannerImage meanScore format isAdult
         }
       }
     }`;
@@ -852,11 +919,26 @@ async function loadAnimeData(page = 1) {
     return;
   }
 
+  // Get AniList filter values
+  const sort = document.getElementById('filterSort')?.value || 'POPULARITY_DESC';
+  const status = document.getElementById('filterStatus')?.value;
+  const season = document.getElementById('filterSeason')?.value;
+  const year = document.getElementById('filterYear')?.value;
+
   let queryVariables = { page, perPage: PER_PAGE };
-  let filterConditions = 'type: ANIME, sort: POPULARITY_DESC, isAdult: false';
+  let filterConditions = `type: ANIME, sort: ${sort}, isAdult: false`;
 
   if (currentCategoryFilter !== 'ALL') {
     filterConditions += `, format: ${currentCategoryFilter}`;
+  }
+  if (status) {
+    filterConditions += `, status: ${status}`;
+  }
+  if (season) {
+    filterConditions += `, season: ${season}`;
+  }
+  if (year) {
+    filterConditions += `, seasonYear: ${year}`;
   }
   if (searchQuery) {
     filterConditions += `, search: "${searchQuery.replace(/"/g, '\\"')}"`;
@@ -867,7 +949,7 @@ async function loadAnimeData(page = 1) {
     Page(page: $page, perPage: $perPage) {
       pageInfo { total currentPage lastPage hasNextPage }
       media(${filterConditions}) {
-        id title { romaji english } coverImage { large } bannerImage meanScore format isAdult
+        id title { romaji english } coverImage { extraLarge large } bannerImage meanScore format isAdult
       }
     }
   }`;
@@ -887,7 +969,7 @@ async function loadAnimeData(page = 1) {
 
       let items = pageData.media;
       
-      if (currentPage === 1 && currentCategoryFilter === 'ALL' && !searchQuery) {
+      if (currentPage === 1 && currentCategoryFilter === 'ALL' && !searchQuery && !status && !season && !year && sort === 'POPULARITY_DESC') {
         items.sort((a, b) => (a.id === 10087 ? -1 : b.id === 10087 ? 1 : 0));
       }
 
@@ -903,10 +985,6 @@ async function loadAnimeData(page = 1) {
   }
 }
 
-function escapeHtml(str) {
-  return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-}
-
 function renderGrid(items) {
   grid.innerHTML = '';
   items.forEach(item => {
@@ -916,7 +994,7 @@ function renderGrid(items) {
     const rating = item.meanScore ? (item.meanScore / 10).toFixed(1) : 'N/A';
     const age = item.isAdult ? '18+' : 'PG-13';
     const format = item.format || 'TV';
-    const posterSrc = item.coverImage?.large || item.coverImage?.extraLarge || '';
+    const posterSrc = item.coverImage.extraLarge || item.coverImage.large;
     const bannerSrc = item.bannerImage || posterSrc;
     const titleText = item.title.english || item.title.romaji;
     const anilistUrl = `https://anilist.co/anime/${item.id}`;
@@ -925,21 +1003,21 @@ function renderGrid(items) {
 
     card.innerHTML = `
       <div class="poster-wrapper">
-        <img class="poster-img" src="${posterSrc}" alt="${escapeHtml(item.title.romaji)}" loading="lazy" decoding="async">
+        <img class="poster-img" src="${posterSrc}" alt="${item.title.romaji}" loading="lazy">
         
         ${currentUser ? `
-        <button class="edit-card-btn" title="Edit Entry" data-id="${item.id}" data-title="${escapeHtml(titleText)}" data-cover="${posterSrc}" data-banner="${bannerSrc}">
+        <button class="edit-card-btn" title="Edit Entry" onclick="openEditModal(event, ${item.id}, '${titleText.replace(/'/g, "\\'")}', '${posterSrc}', '${bannerSrc}')">
           <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
         </button>` : ''}
 
         <div class="card-overlay-actions">
-          <a href="${anilistUrl}" target="_blank" rel="noopener" class="action-btn">
+          <a href="${anilistUrl}" target="_blank" class="action-btn">
             <svg viewBox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
             AniList
           </a>
 
           ${torrentUrl ? `
-          <a href="${torrentUrl}" target="_blank" rel="noopener" class="action-btn">
+          <a href="${torrentUrl}" target="_blank" class="action-btn">
             <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg>
             Torrent
           </a>` : `
@@ -949,7 +1027,7 @@ function renderGrid(items) {
           </div>`}
 
           ${subtitleUrl ? `
-          <a href="${subtitleUrl}" target="_blank" rel="noopener" class="action-btn">
+          <a href="${subtitleUrl}" target="_blank" class="action-btn">
             <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg>
             Subtitles
           </a>` : `
@@ -969,23 +1047,10 @@ function renderGrid(items) {
         </div>
       </div>
       <div class="anime-card-info">
-        <div class="anime-card-title" title="${escapeHtml(titleText)}">${escapeHtml(titleText)}</div>
+        <div class="anime-card-title" title="${titleText}">${titleText}</div>
         <div class="anime-card-meta">${format}</div>
       </div>
     `;
-
-    const editBtn = card.querySelector('.edit-card-btn');
-    if (editBtn) {
-      editBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        openEditModal(
-          editBtn.getAttribute('data-id'),
-          editBtn.getAttribute('data-title'),
-          editBtn.getAttribute('data-cover'),
-          editBtn.getAttribute('data-banner')
-        );
-      });
-    }
 
     grid.appendChild(card);
   });
@@ -1004,7 +1069,8 @@ function parseDateFromInput(str) {
   return { year: parseInt(parts[0]), month: parseInt(parts[1]), day: parseInt(parts[2]) };
 }
 
-async function openEditModal(mediaId, title, cover, banner) {
+async function openEditModal(event, mediaId, title, cover, banner) {
+  event.stopPropagation();
   editingMediaId = mediaId;
   editingEntryId = null;
 
@@ -1039,7 +1105,7 @@ async function openEditModal(mediaId, title, cover, banner) {
         'Authorization': 'Bearer ' + accessToken,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ query, variables: { mediaId: Number(mediaId) } })
+      body: JSON.stringify({ query, variables: { mediaId } })
     });
     const data = await res.json();
     if (data?.data?.MediaList) {
@@ -1061,10 +1127,6 @@ async function openEditModal(mediaId, title, cover, banner) {
 function closeEditModal() {
   document.getElementById('editModal').classList.remove('open');
 }
-
-window.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeEditModal();
-});
 
 async function saveMediaEntry() {
   if (!accessToken || !editingMediaId) return;
@@ -1094,7 +1156,7 @@ async function saveMediaEntry() {
       },
       body: JSON.stringify({
         query: mutation,
-        variables: { mediaId: Number(editingMediaId), status, progress, score, repeat, notes, startedAt, completedAt }
+        variables: { mediaId: editingMediaId, status, progress, score, repeat, notes, startedAt, completedAt }
       })
     });
     
@@ -1221,12 +1283,23 @@ navItems.forEach(item => {
 
 let searchDebounce;
 if (searchInput) {
+  searchInput.addEventListener('focus', () => {
+    filterPanel.classList.add('show');
+  });
+
   searchInput.addEventListener('input', () => {
     clearTimeout(searchDebounce);
     if (searchClearBtn) searchClearBtn.style.display = searchInput.value.length > 0 ? 'flex' : 'none';
     searchDebounce = setTimeout(() => { loadAnimeData(1); }, 400);
   });
 }
+
+// Filter Select Event Listeners
+['filterSort', 'filterStatus', 'filterSeason', 'filterYear'].forEach(id => {
+  document.getElementById(id)?.addEventListener('change', () => {
+    loadAnimeData(1);
+  });
+});
 
 if (searchClearBtn) {
   searchClearBtn.addEventListener('click', () => {
@@ -1251,15 +1324,10 @@ window.addEventListener('resize', () => {
   if (activeItem) moveIndicator(activeItem);
 });
 
-/* Optimized Background Stars Animation (Battery & GPU Saver for Mobile) */
+/* Background Stars Animation optimized for rendering speed */
 const canvas = document.getElementById('canvas-bg');
 const ctx = canvas.getContext('2d');
 let width, height;
-let isPageVisible = true;
-
-document.addEventListener('visibilitychange', () => {
-  isPageVisible = !document.hidden;
-});
 
 function resize() {
   width = canvas.width = window.innerWidth;
@@ -1287,23 +1355,20 @@ class Star {
   }
 }
 
-const starCount = window.innerWidth <= 768 ? 18 : 30;
-const stars = Array.from({ length: starCount }, () => new Star());
+const stars = Array.from({ length: 25 }, () => new Star());
 
 function animateStars() {
-  if (isPageVisible) {
-    ctx.clearRect(0, 0, width, height);
-    for (let i = 0; i < stars.length; i++) {
-      stars[i].update(); stars[i].draw();
-      for (let j = i + 1; j < stars.length; j++) {
-        const dx = stars[i].x - stars[j].x;
-        const dy = stars[i].y - stars[j].y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 100) {
-          ctx.strokeStyle = `rgba(139, 92, 246, ${0.1 * (1 - dist / 100)})`;
-          ctx.lineWidth = 0.5;
-          ctx.beginPath(); ctx.moveTo(stars[i].x, stars[i].y); ctx.lineTo(stars[j].x, stars[j].y); ctx.stroke();
-        }
+  ctx.clearRect(0, 0, width, height);
+  for (let i = 0; i < stars.length; i++) {
+    stars[i].update(); stars[i].draw();
+    for (let j = i + 1; j < stars.length; j++) {
+      const dx = stars[i].x - stars[j].x;
+      const dy = stars[i].y - stars[j].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 100) {
+        ctx.strokeStyle = `rgba(139, 92, 246, ${0.1 * (1 - dist / 100)})`;
+        ctx.lineWidth = 0.5;
+        ctx.beginPath(); ctx.moveTo(stars[i].x, stars[i].y); ctx.lineTo(stars[j].x, stars[j].y); ctx.stroke();
       }
     }
   }
