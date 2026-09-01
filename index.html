@@ -76,15 +76,16 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 .menu-toggle span:nth-child(2) { width: 80%; background: var(--logo-grad-end); }
 .menu-toggle span:nth-child(3) { width: 60%; background: var(--muted); }
 
+/* Menu Dropdown & Scrollbar Hiding */
 .menu-dropdown-content {
   display: none; position: absolute; top: calc(100% + 20px); left: 0; width: 250px;
   background: rgba(6, 10, 22, 0.96); backdrop-filter: blur(25px);
   border: 1px solid var(--border); border-radius: 18px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
   padding: 12px; z-index: 999;
-  max-height: 85vh; overflow-y: auto;
+  max-height: 80vh; overflow-y: auto;
   
-  /* Hide scrollbar completely */
+  /* Hide Scrollbar Cross-Browser */
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none;  /* IE and Edge */
 }
@@ -168,22 +169,6 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 .poster-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
 .anime-card:hover .poster-img { transform: scale(1.04); filter: brightness(0.4); }
 
-/* Edit Card Button */
-.edit-card-btn {
-  position: absolute; top: 8px; right: 8px; z-index: 15;
-  width: 28px; height: 28px; border-radius: 8px;
-  background: rgba(6, 10, 22, 0.6); backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; opacity: 0; transition: all 0.2s ease;
-  color: #fff;
-}
-.edit-card-btn:hover {
-  background: var(--purple); border-color: var(--pink); transform: scale(1.1);
-}
-.edit-card-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
-.anime-card:hover .edit-card-btn { opacity: 1; }
-
 .card-overlay-actions {
   position: absolute; inset: 0; background: rgba(2, 4, 8, 0.45);
   backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
@@ -219,6 +204,23 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 
 .action-btn svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; }
 
+/* Edit AniList Entry Icon Button */
+.edit-list-btn {
+  position: absolute; top: 10px; right: 10px; z-index: 12;
+  width: 28px; height: 28px; border-radius: 8px;
+  background: rgba(6, 10, 22, 0.65); backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; color: #f8fafc; opacity: 0.85;
+  transition: all 0.2s ease;
+}
+.edit-list-btn:hover {
+  opacity: 1; transform: scale(1.08);
+  background: var(--purple); border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 12px var(--neon-glow);
+}
+.edit-list-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+
 .card-badges-top { position: absolute; top: 10px; left: 10px; display: flex; gap: 6px; z-index: 2; }
 .badge-rating { background: rgba(6, 10, 22, 0.75); backdrop-filter: blur(8px); color: #fbbf24; font-size: 11px; font-weight: 700; padding: 3px 7px; border-radius: 6px; display: flex; align-items: center; gap: 3px; border: 1px solid rgba(255, 255, 255, 0.1); }
 .badge-rating::before { content: '★'; font-size: 10px; }
@@ -233,36 +235,43 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 .anime-card-title::before { content: '•'; color: var(--purple); font-size: 14px; }
 .anime-card-meta { font-size: 10px; font-weight: 600; color: #94a3b8; letter-spacing: 0.4px; opacity: 0.85; text-transform: uppercase; }
 
-/* Modal Styles */
+/* Edit AniList Modal Window */
 .modal-overlay {
-  position: fixed; inset: 0; z-index: 1000;
-  background: rgba(2, 4, 8, 0.8); backdrop-filter: blur(12px);
-  display: none; align-items: center; justify-content: center; padding: 20px;
+  position: fixed; inset: 0; background: rgba(2, 4, 8, 0.8);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  z-index: 2000; display: none; align-items: center; justify-content: center; padding: 20px;
 }
-.modal-overlay.open { display: flex; }
-.modal-card {
-  background: rgba(12, 18, 34, 0.95); border: 1px solid var(--border);
+.modal-overlay.open { display: flex; animation: modal-fade-in 0.25s ease; }
+
+@keyframes modal-fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+.edit-modal {
+  background: rgba(10, 15, 30, 0.95); border: 1px solid var(--border);
   border-radius: 20px; width: 100%; max-width: 420px; padding: 24px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.8); position: relative;
-  display: flex; flex-direction: column; gap: 16px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.8); position: relative;
 }
-.modal-header { display: flex; justify-content: space-between; align-items: center; }
-.modal-title { font-size: 16px; font-weight: 700; color: #fff; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; max-width: 85%; }
-.modal-close { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 20px; }
+
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.modal-title { font-size: 16px; font-weight: 800; color: #fff; line-height: 1.3; }
+.modal-close { background: none; border: none; color: var(--muted); font-size: 20px; cursor: pointer; padding: 4px; }
 .modal-close:hover { color: #fff; }
-.form-group { display: flex; flex-direction: column; gap: 6px; }
-.form-group label { font-size: 12px; font-weight: 600; color: var(--muted); }
-.form-control {
-  background: rgba(6, 10, 22, 0.8); border: 1px solid var(--border);
-  padding: 10px 14px; border-radius: 10px; color: #fff; font-size: 13px; outline: none;
+
+.form-group { margin-bottom: 16px; display: flex; flex-direction: column; gap: 6px; }
+.form-label { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+.form-select, .form-input {
+  width: 100%; background: rgba(6, 10, 22, 0.8); border: 1px solid var(--border);
+  padding: 10px 14px; border-radius: 10px; color: #fff; font-size: 14px; outline: none;
 }
-.form-control:focus { border-color: var(--purple); }
-.modal-actions { display: flex; gap: 10px; margin-top: 10px; }
-.save-btn {
-  flex: 1; padding: 10px; border-radius: 10px; background: linear-gradient(135deg, var(--purple), var(--pink));
-  border: none; color: #fff; font-weight: 700; font-size: 13px; cursor: pointer; transition: opacity 0.2s;
-}
-.save-btn:hover { opacity: 0.9; }
+.form-select:focus, .form-input:focus { border-color: var(--purple); }
+
+.prog-group { display: flex; align-items: center; gap: 8px; }
+.prog-btn { width: 38px; height: 38px; border-radius: 10px; background: rgba(139, 92, 246, 0.2); border: 1px solid var(--border); color: #fff; font-size: 18px; font-weight: bold; cursor: pointer; }
+.prog-btn:hover { background: var(--purple); }
+
+.modal-actions { display: flex; gap: 10px; margin-top: 24px; }
+.btn-save { flex: 1; padding: 12px; background: linear-gradient(135deg, var(--purple), var(--pink)); border: none; border-radius: 12px; color: #fff; font-weight: 700; cursor: pointer; }
+.btn-delete { padding: 12px; background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.4); border-radius: 12px; color: #f87171; font-weight: 700; cursor: pointer; }
+.btn-delete:hover { background: rgba(239, 68, 68, 0.4); }
 
 /* Pagination Controls */
 .pagination-container {
@@ -341,6 +350,7 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
       </button>
 
       <div class="menu-dropdown-content">
+        <!-- User Profile Header in Menu -->
         <div id="userProfileArea">
           <a href="javascript:void(0)" class="menu-link" id="loginBtn" onclick="loginWithAniList()">
             <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
@@ -362,6 +372,7 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
           Subtitles
         </a>
 
+        <!-- AniList User Personal Lists -->
         <div id="anilistListsSection" style="display: none;">
           <div class="menu-section-title">MY ANILIST</div>
           <a href="javascript:void(0)" class="menu-link" id="menuWatchingLink">
@@ -402,6 +413,7 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
       </div>
     </div>
 
+    <!-- Logo Header -->
     <a href="https://ichigooji.github.io/archive/" class="site-brand">
       <div class="logo-wrap">
         <div class="logo-top-row">
@@ -441,32 +453,46 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
   <div class="pagination-container" id="pagination"></div>
 </main>
 
-<div class="modal-overlay" id="editModal">
-  <div class="modal-card">
+<!-- Edit AniList Entry Modal -->
+<div class="modal-overlay" id="editModalOverlay">
+  <div class="edit-modal">
     <div class="modal-header">
-      <div class="modal-title" id="modalAnimeTitle">Edit Entry</div>
-      <button class="modal-close" onclick="closeEditModal()">&times;</button>
+      <div class="modal-title" id="editModalTitle">Edit Anime Entry</div>
+      <button class="modal-close" onclick="closeEditModal()">✕</button>
     </div>
+
+    <input type="hidden" id="editMediaId">
+    <input type="hidden" id="editEntryId">
+
     <div class="form-group">
-      <label for="editStatus">Status</label>
-      <select id="editStatus" class="form-control">
+      <label class="form-label">Status</label>
+      <select class="form-select" id="editStatus">
         <option value="CURRENT">Watching</option>
         <option value="PLANNING">Planning</option>
         <option value="COMPLETED">Completed</option>
         <option value="PAUSED">Paused</option>
         <option value="DROPPED">Dropped</option>
+        <option value="REPEATING">Repeating</option>
       </select>
     </div>
+
     <div class="form-group">
-      <label for="editProgress">Episode Progress</label>
-      <input type="number" id="editProgress" class="form-control" min="0">
+      <label class="form-label">Episode Progress</label>
+      <div class="prog-group">
+        <button type="button" class="prog-btn" onclick="adjustProgress(-1)">-</button>
+        <input type="number" class="form-input" id="editProgress" value="0" min="0" style="text-align: center;">
+        <button type="button" class="prog-btn" onclick="adjustProgress(1)">+</button>
+      </div>
     </div>
+
     <div class="form-group">
-      <label for="editScore">Score (0-10)</label>
-      <input type="number" id="editScore" class="form-control" min="0" max="10" step="0.1">
+      <label class="form-label">Score (0 - 10)</label>
+      <input type="number" class="form-input" id="editScore" value="0" min="0" max="10" step="0.5">
     </div>
+
     <div class="modal-actions">
-      <button class="save-btn" onclick="saveMediaEntry()">Save Changes</button>
+      <button class="btn-delete" onclick="deleteAniListEntry()">Delete</button>
+      <button class="btn-save" onclick="saveAniListEntry()">Save Changes</button>
     </div>
   </div>
 </div>
@@ -497,7 +523,7 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 const ANILIST_CLIENT_ID = '49970';
 let accessToken = localStorage.getItem('anilist_token') || null;
 let currentUser = null;
-let editingMediaId = null;
+let userMediaListMap = {}; // Cache user entries by mediaId
 
 // Priority Links Data
 const INITIAL_TORRENTS = {
@@ -585,6 +611,7 @@ async function fetchUserProfile() {
     if (data?.data?.Viewer) {
       currentUser = data.data.Viewer;
       renderUserProfile();
+      fetchAllUserEntries();
     } else {
       logoutAniList();
     }
@@ -612,6 +639,7 @@ function logoutAniList() {
   localStorage.removeItem('anilist_token');
   accessToken = null;
   currentUser = null;
+  userMediaListMap = {};
   document.getElementById('userProfileArea').innerHTML = `
     <a href="javascript:void(0)" class="menu-link" id="loginBtn" onclick="loginWithAniList()">
       <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
@@ -621,7 +649,39 @@ function logoutAniList() {
   document.getElementById('anilistListsSection').style.display = 'none';
   if (['CURRENT', 'PLANNING', 'COMPLETED', 'PAUSED', 'DROPPED'].includes(currentDropdownFilter)) {
     currentDropdownFilter = 'HOME';
-    loadAnimeData(1);
+  }
+  loadAnimeData(1);
+}
+
+/* Cache all entries for fast modal editing */
+async function fetchAllUserEntries() {
+  if (!currentUser) return;
+  const query = `
+  query ($userId: Int) {
+    MediaListCollection(userId: $userId, type: ANIME) {
+      lists {
+        entries {
+          id mediaId status progress score
+        }
+      }
+    }
+  }`;
+  try {
+    const res = await fetch('https://graphql.anilist.co', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query, variables: { userId: currentUser.id } })
+    });
+    const data = await res.json();
+    userMediaListMap = {};
+    const collections = data?.data?.MediaListCollection?.lists || [];
+    collections.forEach(c => {
+      c.entries.forEach(e => {
+        userMediaListMap[e.mediaId] = e;
+      });
+    });
+  } catch (err) {
+    console.error("Error loading user entries cache:", err);
   }
 }
 
@@ -637,12 +697,10 @@ async function loadUserMediaList(status) {
     MediaListCollection(userId: $userId, type: ANIME, status: $status) {
       lists {
         entries {
+          id progress score status
           media {
             id title { romaji english } coverImage { extraLarge large } meanScore format isAdult
           }
-          status
-          progress
-          score
         }
       }
     }
@@ -658,7 +716,12 @@ async function loadUserMediaList(status) {
     let list = [];
     const collections = data?.data?.MediaListCollection?.lists || [];
     collections.forEach(c => {
-      c.entries.forEach(e => { if (e.media) list.push(e.media); });
+      c.entries.forEach(e => {
+        if (e.media) {
+          userMediaListMap[e.media.id] = { id: e.id, mediaId: e.media.id, status: e.status, progress: e.progress, score: e.score };
+          list.push(e.media);
+        }
+      });
     });
 
     const searchQuery = searchInput ? searchInput.value.trim() : '';
@@ -799,14 +862,15 @@ function renderGrid(items) {
     const anilistUrl = `https://anilist.co/anime/${item.id}`;
     const torrentUrl = INITIAL_TORRENTS[item.id] || null;
     const subtitleUrl = INITIAL_SUBTITLES[item.id] || null;
+    const titleText = item.title.english || item.title.romaji;
 
     card.innerHTML = `
       <div class="poster-wrapper">
         <img class="poster-img" src="${posterSrc}" alt="${item.title.romaji}" loading="lazy">
         
         ${currentUser ? `
-        <button class="edit-card-btn" title="Edit List Entry" onclick="openEditModal(event, ${item.id}, '${(item.title.english || item.title.romaji).replace(/'/g, "\\'")}')">
-          <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        <button class="edit-list-btn" onclick="openEditModal(${item.id}, '${titleText.replace(/'/g, "\\'")}')" title="Edit AniList Entry">
+          <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
         </button>` : ''}
 
         <div class="card-overlay-actions">
@@ -846,7 +910,7 @@ function renderGrid(items) {
         </div>
       </div>
       <div class="anime-card-info">
-        <div class="anime-card-title" title="${item.title.english || item.title.romaji}">${item.title.english || item.title.romaji}</div>
+        <div class="anime-card-title" title="${titleText}">${titleText}</div>
         <div class="anime-card-meta">${format}</div>
       </div>
     `;
@@ -855,57 +919,40 @@ function renderGrid(items) {
   });
 }
 
-/* Modal Functions for Editing AniList Entry */
-async function openEditModal(event, mediaId, title) {
-  event.stopPropagation();
-  editingMediaId = mediaId;
-  document.getElementById('modalAnimeTitle').textContent = title;
-  
-  // Reset Inputs
-  document.getElementById('editStatus').value = 'CURRENT';
-  document.getElementById('editProgress').value = 0;
-  document.getElementById('editScore').value = 0;
-  
-  document.getElementById('editModal').classList.add('open');
+/* Edit AniList Entry Modal logic */
+function openEditModal(mediaId, title) {
+  document.getElementById('editMediaId').value = mediaId;
+  document.getElementById('editModalTitle').textContent = `Edit: ${title}`;
 
-  // Fetch current details for media entry if exists
-  const query = `
-  query ($mediaId: Int) {
-    MediaList(mediaId: $mediaId) {
-      status
-      progress
-      score
-    }
-  }`;
-
-  try {
-    const res = await fetch('https://graphql.anilist.co', {
-      method: 'POST',
-      headers: {
-        'Authorization': 'Bearer ' + accessToken,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ query, variables: { mediaId } })
-    });
-    const data = await res.json();
-    if (data?.data?.MediaList) {
-      const entry = data.data.MediaList;
-      if (entry.status) document.getElementById('editStatus').value = entry.status;
-      if (entry.progress) document.getElementById('editProgress').value = entry.progress;
-      if (entry.score) document.getElementById('editScore').value = entry.score;
-    }
-  } catch (e) {
-    console.log("No existing entry found or error fetching data", e);
+  const entry = userMediaListMap[mediaId];
+  if (entry) {
+    document.getElementById('editEntryId').value = entry.id || '';
+    document.getElementById('editStatus').value = entry.status || 'PLANNING';
+    document.getElementById('editProgress').value = entry.progress || 0;
+    document.getElementById('editScore').value = entry.score || 0;
+  } else {
+    document.getElementById('editEntryId').value = '';
+    document.getElementById('editStatus').value = 'PLANNING';
+    document.getElementById('editProgress').value = 0;
+    document.getElementById('editScore').value = 0;
   }
+
+  document.getElementById('editModalOverlay').classList.add('open');
 }
 
 function closeEditModal() {
-  document.getElementById('editModal').classList.remove('open');
+  document.getElementById('editModalOverlay').classList.remove('open');
 }
 
-async function saveMediaEntry() {
-  if (!accessToken || !editingMediaId) return;
+function adjustProgress(delta) {
+  const input = document.getElementById('editProgress');
+  let val = parseInt(input.value) || 0;
+  val = Math.max(0, val + delta);
+  input.value = val;
+}
 
+async function saveAniListEntry() {
+  const mediaId = parseInt(document.getElementById('editMediaId').value);
   const status = document.getElementById('editStatus').value;
   const progress = parseInt(document.getElementById('editProgress').value) || 0;
   const score = parseFloat(document.getElementById('editScore').value) || 0;
@@ -913,10 +960,7 @@ async function saveMediaEntry() {
   const mutation = `
   mutation ($mediaId: Int, $status: MediaListStatus, $progress: Int, $score: Float) {
     SaveMediaListEntry (mediaId: $mediaId, status: $status, progress: $progress, score: $score) {
-      id
-      status
-      progress
-      score
+      id mediaId status progress score
     }
   }`;
 
@@ -930,22 +974,64 @@ async function saveMediaEntry() {
       },
       body: JSON.stringify({
         query: mutation,
-        variables: { mediaId: editingMediaId, status, progress, score }
+        variables: { mediaId, status, progress, score }
       })
     });
-    
     const data = await res.json();
     if (data?.data?.SaveMediaListEntry) {
+      const saved = data.data.SaveMediaListEntry;
+      userMediaListMap[mediaId] = saved;
       closeEditModal();
       if (['CURRENT', 'PLANNING', 'COMPLETED', 'PAUSED', 'DROPPED'].includes(currentDropdownFilter)) {
-        loadAnimeData(1);
+        loadAnimeData(currentPage);
       }
     } else {
-      alert("Error saving changes. Please check permissions.");
+      alert("Failed to save entry. Check permissions.");
     }
-  } catch (err) {
-    console.error("Save error:", err);
-    alert("Failed to save changes.");
+  } catch (e) {
+    console.error("Save error:", e);
+    alert("Error saving entry.");
+  }
+}
+
+async function deleteAniListEntry() {
+  const entryId = document.getElementById('editEntryId').value;
+  const mediaId = parseInt(document.getElementById('editMediaId').value);
+
+  if (!entryId) {
+    closeEditModal();
+    return;
+  }
+
+  if (!confirm("Are you sure you want to delete this anime from your list?")) return;
+
+  const mutation = `
+  mutation ($id: Int) {
+    DeleteMediaListEntry (id: $id) {
+      deleted
+    }
+  }`;
+
+  try {
+    const res = await fetch('https://graphql.anilist.co', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + accessToken,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({ query: mutation, variables: { id: parseInt(entryId) } })
+    });
+    const data = await res.json();
+    if (data?.data?.DeleteMediaListEntry?.deleted) {
+      delete userMediaListMap[mediaId];
+      closeEditModal();
+      if (['CURRENT', 'PLANNING', 'COMPLETED', 'PAUSED', 'DROPPED'].includes(currentDropdownFilter)) {
+        loadAnimeData(currentPage);
+      }
+    }
+  } catch (e) {
+    console.error("Delete error:", e);
   }
 }
 
