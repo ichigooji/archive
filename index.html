@@ -3,32 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>ICHIGOOJI - ARCANUM</title>
+<title>ICHIGOOJI</title>
 
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%23c4b5fd'/><stop offset='100%' stop-color='%23ec4899'/></linearGradient></defs><rect width='100' height='100' rx='22' fill='%23060a16'/><path d='M45 15 L70 42 L50 48 L75 85 L30 52 L50 44 Z' fill='url(%23g)'/><polygon points='80,20 84,28 92,32 84,36 80,44 76,36 68,32 76,28' fill='%23c4b5fd'/></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Montserrat:ital,wght@0,900;1,900&family=Inter:wght@400;500;600;700&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --bg: #020408;
-  --surface: rgba(8, 12, 24, 0.75);
+  --bg: #0b1622;
+  --surface: #151f2e;
   --header-bg: rgba(6, 10, 22, 0.85);
-  --border: rgba(139, 92, 246, 0.22);
-  --text: #f8fafc;
-  --muted: #94a3b8;
+  --border: rgba(255, 255, 255, 0.08);
+  --text: #9fadbf;
+  --text-bright: #edf1f5;
   --purple: #8b5cf6;
   --pink: #ec4899;
+  --blue-accent: #3db4f2;
   --logo-grad-start: #c4b5fd;
   --logo-grad-end: #ec4899;
   --neon-glow: rgba(139, 92, 246, 0.3);
-  
-  /* AniList Theme Colors */
-  --al-navy: #0b1622;
-  --al-card: #151f2e;
-  --al-input: #0e1626;
-  --al-blue: #3db4f2;
-  --al-red: #e85d75;
-  --al-text-muted: #8ba0b2;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -47,7 +40,7 @@ body {
 .bg-gradient-mesh { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
 .mesh-blob {
   position: absolute; width: 700px; height: 700px; border-radius: 50%;
-  filter: blur(140px); opacity: 0.18; animation: float-blob 22s infinite alternate ease-in-out;
+  filter: blur(140px); opacity: 0.12; animation: float-blob 22s infinite alternate ease-in-out;
 }
 .blob-1 { background: var(--purple); top: -20%; left: -10%; }
 .blob-2 { background: var(--pink); bottom: -20%; right: -10%; animation-delay: -6s; }
@@ -79,10 +72,10 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
   display: flex; flex-direction: column; justify-content: space-between; 
   width: 24px; height: 16px; padding: 0; z-index: 905;
 }
-.menu-toggle span { display: block; width: 100%; height: 2px; background: var(--muted); border-radius: 2px; transition: all 0.3s ease; }
+.menu-toggle span { display: block; width: 100%; height: 2px; background: var(--text); border-radius: 2px; transition: all 0.3s ease; }
 .menu-toggle span:nth-child(1) { width: 100%; background: var(--logo-grad-start); }
 .menu-toggle span:nth-child(2) { width: 80%; background: var(--logo-grad-end); }
-.menu-toggle span:nth-child(3) { width: 60%; background: var(--muted); }
+.menu-toggle span:nth-child(3) { width: 60%; background: var(--text); }
 
 .menu-dropdown-content {
   display: none; position: absolute; top: calc(100% + 20px); left: 0; width: 250px;
@@ -90,12 +83,8 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
   border: 1px solid var(--border); border-radius: 18px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
   padding: 12px; z-index: 999;
-  max-height: 85vh; overflow-y: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  max-height: 80vh; overflow-y: auto;
 }
-.menu-dropdown-content::-webkit-scrollbar { display: none; }
-
 .nav-menu-wrapper.open .menu-dropdown-content { display: flex; flex-direction: column; animation: dropdown-slide-down 0.2s ease; }
 
 @keyframes dropdown-slide-down {
@@ -103,11 +92,11 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
   to { opacity: 1; transform: translateY(0); }
 }
 
-.menu-section-title { font-size: 10px; font-weight: 800; letter-spacing: 1.5px; color: var(--muted); text-transform: uppercase; margin: 10px 8px 4px; display: flex; align-items: center; gap: 6px; }
+.menu-section-title { font-size: 10px; font-weight: 800; letter-spacing: 1.5px; color: var(--text); text-transform: uppercase; margin: 10px 8px 4px; display: flex; align-items: center; gap: 6px; }
 .menu-section-title::after { content: ''; flex: 1; height: 1px; background: rgba(139, 92, 246, 0.15); }
 
-.menu-link { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text); padding: 10px 12px; border-radius: 10px; font-size: 13.5px; font-weight: 500; transition: all 0.2s ease; margin-bottom: 2px; cursor: pointer; }
-.menu-link svg { width: 18px; height: 18px; stroke: var(--muted); fill: none; transition: stroke 0.2s; }
+.menu-link { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text-bright); padding: 10px 12px; border-radius: 10px; font-size: 13.5px; font-weight: 500; transition: all 0.2s ease; margin-bottom: 2px; cursor: pointer; }
+.menu-link svg { width: 18px; height: 18px; stroke: var(--text); fill: none; transition: stroke 0.2s; }
 .menu-link:hover, .menu-link.active { background: rgba(139, 92, 246, 0.15); color: var(--logo-grad-start); }
 .menu-link:hover svg, .menu-link.active svg { stroke: var(--logo-grad-start); }
 
@@ -115,7 +104,7 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 .user-avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
 .user-name { font-size: 13px; font-weight: 700; color: #fff; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
 
-/* Logo Styles */
+/* Logo */
 .site-brand { display: flex; align-items: center; text-decoration: none; position: relative; font-family: 'Orbitron', 'Montserrat', sans-serif; }
 .logo-wrap { display: flex; flex-direction: column; position: relative; width: max-content; }
 .logo-top-row { display: flex; align-items: center; font-weight: 900; font-size: 25px; font-style: italic; letter-spacing: -0.5px; text-transform: uppercase; line-height: 0.9; position: relative; }
@@ -134,9 +123,9 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 @keyframes star-spin { 0% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(180deg) scale(1.3); } 100% { transform: rotate(360deg) scale(1); } }
 
 .logo-sub-server { font-family: 'Rajdhani', 'Orbitron', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2.8px; color: #c4b5fd; text-transform: uppercase; text-align: left; margin-top: 1px; line-height: 1; padding-left: 1px; opacity: 0.95; }
-.logo-sub-server span { color: var(--muted); font-weight: 600; }
+.logo-sub-server span { color: var(--text); font-weight: 600; }
 
-/* Header Nav Links */
+/* Nav Links */
 .nav-links { display: flex; align-items: center; justify-content: center; gap: 24px; position: relative; margin: 0 auto; }
 .nav-links a { position: relative; text-decoration: none; color: #94a3b8; font-size: 14.5px; font-weight: 700; padding: 10px 4px; transition: color 0.25s ease; cursor: pointer; z-index: 2; white-space: nowrap; }
 .nav-links a:hover, .nav-links a.active { color: #ffffff; }
@@ -144,15 +133,15 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 .nav-indicator { position: absolute; bottom: 0px; width: 20px; height: 3px; background: linear-gradient(90deg, #ec4899 0%, #c4b5fd 100%); border-radius: 3px; transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); pointer-events: none; z-index: 1; opacity: 0; transform: translateX(-50%); }
 
 .search-container { position: relative; width: 220px; display: flex; align-items: center; justify-self: end; }
-.search-icon { position: absolute; left: 14px; width: 16px; height: 16px; stroke: var(--muted); pointer-events: none; transition: stroke 0.25s ease; }
-.search-input { width: 100%; background: rgba(10, 15, 30, 0.5); border: 1px solid rgba(139, 92, 246, 0.2); padding: 9px 34px 9px 40px; border-radius: 12px; color: var(--text); font-size: 13px; font-weight: 500; outline: none; transition: all 0.25s ease; }
+.search-icon { position: absolute; left: 14px; width: 16px; height: 16px; stroke: var(--text); pointer-events: none; transition: stroke 0.25s ease; }
+.search-input { width: 100%; background: rgba(10, 15, 30, 0.5); border: 1px solid rgba(139, 92, 246, 0.2); padding: 9px 34px 9px 40px; border-radius: 12px; color: var(--text-bright); font-size: 13px; font-weight: 500; outline: none; transition: all 0.25s ease; }
 .search-input::placeholder { color: rgba(148, 163, 184, 0.55); font-size: 13px; }
 .search-input:focus { border-color: rgba(168, 85, 247, 0.6); }
 
-.search-clear-btn { position: absolute; right: 10px; background: none; border: none; cursor: pointer; display: none; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; color: var(--muted); padding: 0; }
+.search-clear-btn { position: absolute; right: 10px; background: none; border: none; cursor: pointer; display: none; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; color: var(--text); padding: 0; }
 .search-clear-btn svg { width: 12px; height: 12px; stroke: currentColor; stroke-width: 2.5; fill: none; }
 
-/* Container & Cards */
+/* Grid Container */
 .main-container { max-width: 1250px; margin: 30px auto; padding: 0 24px; flex: 1; width: 100%; position: relative; z-index: 2; }
 .results-count { font-size: 14px; font-weight: 600; color: #64748b; margin-bottom: 20px; }
 
@@ -161,7 +150,7 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 .anime-card {
   position: relative; border-radius: 16px; background: rgba(12, 18, 34, 0.6);
   backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08); overflow: hidden; text-decoration: none;
+  border: 1px solid var(--border); overflow: hidden; text-decoration: none;
   transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease; display: flex; flex-direction: column;
 }
 
@@ -170,24 +159,6 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 .poster-wrapper { position: relative; width: 100%; aspect-ratio: 1 / 1.42; overflow: hidden; background: #060912; }
 .poster-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
 .anime-card:hover .poster-img { transform: scale(1.04); filter: brightness(0.4); }
-
-/* Compact & Modernized Edit Pencil Button */
-.edit-card-btn {
-  position: absolute; top: 8px; right: 8px; z-index: 15;
-  width: 24px; height: 24px; border-radius: 50%;
-  background: rgba(11, 22, 34, 0.75); backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; opacity: 0; transform: scale(0.85);
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  color: #e2e8f0;
-}
-.edit-card-btn:hover {
-  background: var(--al-blue); border-color: transparent; color: #ffffff;
-  transform: scale(1.1); box-shadow: 0 0 10px rgba(61, 180, 242, 0.5);
-}
-.edit-card-btn svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2.2; }
-.anime-card:hover .edit-card-btn { opacity: 1; transform: scale(1); }
 
 .card-overlay-actions {
   position: absolute; inset: 0; background: rgba(2, 4, 8, 0.45);
@@ -208,19 +179,9 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
 }
 
-.action-btn:hover {
-  background: rgba(255, 255, 255, 0.18);
-  border-color: rgba(255, 255, 255, 0.35);
-  color: #ffffff;
-}
-
-.action-btn.disabled {
-  opacity: 0.25; cursor: not-allowed;
-  background: rgba(255, 255, 255, 0.02) !important;
-  border-color: rgba(255, 255, 255, 0.05) !important;
-  color: rgba(255, 255, 255, 0.3) !important;
-  pointer-events: none;
-}
+.action-btn:hover { background: rgba(255, 255, 255, 0.18); border-color: rgba(255, 255, 255, 0.35); color: #ffffff; }
+.action-btn.edit-entry-btn { background: var(--blue-accent); border: none; color: #fff; font-weight: 700; }
+.action-btn.edit-entry-btn:hover { background: #35a0d8; }
 
 .action-btn svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; }
 
@@ -229,119 +190,82 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 .badge-rating::before { content: '★'; font-size: 10px; }
 .badge-age { background: rgba(6, 10, 22, 0.75); backdrop-filter: blur(8px); color: #e2e8f0; font-size: 10.5px; font-weight: 600; padding: 3px 6px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.1); }
 
-.card-badges-bottom { position: absolute; bottom: 8px; left: 8px; display: flex; align-items: center; gap: 8px; background: rgba(6, 10, 22, 0.75); backdrop-filter: blur(8px); padding: 3px 7px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.1); font-size: 10px; font-weight: 600; color: #e2e8f0; z-index: 2; }
-.card-badges-bottom .badge-item { display: flex; align-items: center; gap: 3px; }
-.card-badges-bottom svg { width: 11px; height: 11px; stroke: #c4b5fd; fill: none; stroke-width: 2; }
-
 .anime-card-info { padding: 12px 10px; display: flex; flex-direction: column; gap: 4px; }
 .anime-card-title { font-size: 13.5px; font-weight: 700; color: #f1f5f9; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; gap: 5px; }
 .anime-card-title::before { content: '•'; color: var(--purple); font-size: 14px; }
-.anime-card-meta { font-size: 10px; font-weight: 600; color: #94a3b8; letter-spacing: 0.4px; opacity: 0.85; text-transform: uppercase; }
+.anime-card-meta { font-size: 10px; font-weight: 600; color: var(--text); letter-spacing: 0.4px; opacity: 0.85; text-transform: uppercase; }
 
-/* Authentic AniList Modal Styling */
+/* Modal Editor Box (AniList Modern Style) */
 .modal-overlay {
-  position: fixed; inset: 0; z-index: 2000;
-  background: rgba(6, 10, 18, 0.85); backdrop-filter: blur(8px);
-  display: none; align-items: center; justify-content: center; padding: 16px;
-  overflow-y: auto;
+  position: fixed; inset: 0; background: rgba(6, 10, 22, 0.82);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  z-index: 2000; display: none; align-items: center; justify-content: center;
+  padding: 20px;
 }
-.modal-overlay.open { display: flex; }
+.modal-overlay.open { display: flex; animation: fadeIn 0.2s ease; }
 
-.al-modal {
-  background: var(--al-navy); border-radius: 12px; width: 100%; max-width: 820px;
-  overflow: hidden; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9);
-  color: #edf1f5; font-family: 'Inter', sans-serif; position: relative;
-  border: 1px solid rgba(255, 255, 255, 0.08); animation: modal-zoom 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-@keyframes modal-zoom {
-  from { opacity: 0; transform: scale(0.96); }
-  to { opacity: 1; transform: scale(1); }
+.edit-modal {
+  background: #111923; width: 100%; max-width: 860px;
+  border-radius: 12px; overflow: hidden; border: 1px solid var(--border);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8); display: flex; flex-direction: column;
+  max-height: 90vh; color: var(--text); font-size: 13px;
 }
 
-.al-banner-header {
-  position: relative; height: 140px; background-size: cover; background-position: center;
-  display: flex; align-items: flex-end; padding: 0 24px 16px 24px;
+.modal-header-banner {
+  position: relative; height: 180px; width: 100%; background-size: cover; background-position: center;
+  display: flex; align-items: flex-end; padding: 20px 30px;
 }
-.al-banner-header::before {
+.modal-header-banner::before {
   content: ''; position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(11, 22, 34, 0.4) 0%, rgba(11, 22, 34, 0.95) 100%);
+  background: linear-gradient(180deg, rgba(11, 22, 34, 0.2) 0%, #111923 100%);
 }
 
-.al-modal-top-content {
-  position: relative; z-index: 2; width: 100%; display: flex; align-items: flex-end; justify-content: space-between; gap: 20px;
+.modal-header-content {
+  position: relative; z-index: 2; display: flex; align-items: flex-end; gap: 20px; width: 100%;
 }
-.al-cover-thumb {
-  width: 85px; height: 120px; border-radius: 6px; object-fit: cover;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.6); margin-bottom: -30px; border: 2px solid var(--al-navy);
+.modal-poster { width: 85px; height: 120px; border-radius: 6px; object-fit: cover; box-shadow: 0 8px 20px rgba(0,0,0,0.6); flex-shrink: 0; }
+.modal-title-area { flex: 1; }
+.modal-anime-title { font-size: 20px; font-weight: 700; color: var(--text-bright); margin-bottom: 6px; text-shadow: 0 2px 8px rgba(0,0,0,0.8); }
+
+.modal-header-actions { display: flex; align-items: center; gap: 12px; margin-left: auto; }
+.btn-fav { background: rgba(255,255,255,0.1); border: none; border-radius: 8px; width: 38px; height: 38px; color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+.btn-fav:hover { background: rgba(236, 72, 153, 0.3); color: var(--pink); }
+.btn-save { background: var(--blue-accent); color: #fff; border: none; padding: 10px 24px; border-radius: 8px; font-weight: 700; font-size: 13px; cursor: pointer; transition: background 0.2s; }
+.btn-save:hover { background: #35a0d8; }
+.btn-close-modal { position: absolute; top: 15px; right: 20px; background: none; border: none; color: #fff; font-size: 20px; cursor: pointer; z-index: 10; opacity: 0.7; }
+.btn-close-modal:hover { opacity: 1; }
+
+.modal-body { padding: 30px; overflow-y: auto; display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
+
+.modal-form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
+.modal-label { font-size: 12px; font-weight: 600; color: #7a8b9e; }
+.modal-input, .modal-select, .modal-textarea {
+  background: #0e1621; border: 1px solid rgba(255,255,255,0.06); border-radius: 6px;
+  padding: 10px 12px; color: var(--text-bright); font-size: 13px; outline: none; transition: border-color 0.2s;
 }
-.al-title-wrap { flex: 1; padding-bottom: 4px; }
-.al-title-wrap h2 { font-size: 18px; font-weight: 600; color: #ffffff; margin-bottom: 2px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
+.modal-input:focus, .modal-select:focus, .modal-textarea:focus { border-color: var(--blue-accent); }
 
-.al-actions-top { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
-.al-save-btn {
-  background: var(--al-blue); color: #fff; border: none; padding: 8px 22px;
-  border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;
-  transition: opacity 0.2s ease, transform 0.1s ease;
-}
-.al-save-btn:hover { opacity: 0.9; }
-.al-close-btn {
-  position: absolute; top: 12px; right: 16px; background: none; border: none;
-  color: rgba(255, 255, 255, 0.7); font-size: 22px; cursor: pointer; z-index: 10;
-}
-.al-close-btn:hover { color: #fff; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
 
-.al-modal-body { padding: 40px 24px 24px 24px; display: flex; flex-direction: column; gap: 20px; }
+.checkbox-group { display: flex; flex-direction: column; gap: 10px; margin-top: 6px; }
+.checkbox-item { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-bright); cursor: pointer; }
+.checkbox-item input { accent-color: var(--blue-accent); width: 16px; height: 16px; cursor: pointer; }
 
-.al-grid-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-.al-field-group { display: flex; flex-direction: column; gap: 8px; }
-.al-field-group label { font-size: 12px; font-weight: 600; color: var(--al-text-muted); }
+.advanced-scores-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 
-.al-input, .al-select, .al-textarea {
-  background: var(--al-card); border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 6px; padding: 10px 14px; color: #edf1f5; font-size: 13px;
-  outline: none; transition: border-color 0.2s ease;
-}
-.al-input:focus, .al-select:focus, .al-textarea:focus { border-color: var(--al-blue); }
+.modal-footer { padding: 15px 30px; background: #0e1621; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; }
+.btn-delete { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); padding: 8px 18px; border-radius: 6px; font-weight: 600; font-size: 12px; cursor: pointer; transition: all 0.2s; }
+.btn-delete:hover { background: #ef4444; color: #fff; }
 
-.al-textarea { resize: vertical; min-height: 70px; font-family: inherit; }
-
-.al-footer-actions { display: flex; justify-content: flex-end; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 16px; margin-top: 4px; }
-.al-delete-btn {
-  background: rgba(232, 93, 117, 0.15); color: var(--al-red); border: 1px solid rgba(232, 93, 117, 0.3);
-  padding: 8px 18px; border-radius: 6px; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all 0.2s ease;
-}
-.al-delete-btn:hover { background: var(--al-red); color: #fff; }
-
-/* Pagination Controls */
-.pagination-container {
-  display: flex; justify-content: center; align-items: center; gap: 8px;
-  margin: 40px 0 20px 0; width: 100%; flex-wrap: wrap;
-}
-
-.page-btn {
-  min-width: 40px; height: 40px; padding: 0 12px; border-radius: 10px;
-  background: rgba(12, 18, 34, 0.6); border: 1px solid rgba(139, 92, 246, 0.2);
-  color: var(--text); font-size: 13px; font-weight: 600; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.2s ease; backdrop-filter: blur(10px);
-}
-
-.page-btn:hover:not(.disabled):not(.active) {
-  background: rgba(139, 92, 246, 0.2); border-color: var(--purple); color: #ffffff;
-}
-
-.page-btn.active {
-  background: linear-gradient(135deg, var(--purple), var(--pink));
-  border-color: transparent; color: #ffffff; font-weight: 700;
-  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
-}
-
-.page-btn.disabled {
-  opacity: 0.3; cursor: not-allowed; border-color: rgba(255, 255, 255, 0.05);
-}
-
-.page-dots { color: var(--muted); font-weight: 600; padding: 0 4px; }
+/* Pagination */
+.pagination-container { display: flex; justify-content: center; align-items: center; gap: 8px; margin: 40px 0 20px 0; width: 100%; flex-wrap: wrap; }
+.page-btn { min-width: 40px; height: 40px; padding: 0 12px; border-radius: 10px; background: rgba(12, 18, 34, 0.6); border: 1px solid var(--border); color: var(--text); font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; backdrop-filter: blur(10px); }
+.page-btn:hover:not(.disabled):not(.active) { background: rgba(139, 92, 246, 0.2); border-color: var(--purple); color: #ffffff; }
+.page-btn.active { background: linear-gradient(135deg, var(--purple), var(--pink)); border-color: transparent; color: #ffffff; font-weight: 700; box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3); }
+.page-btn.disabled { opacity: 0.3; cursor: not-allowed; border-color: rgba(255, 255, 255, 0.05); }
 
 #loadingSpinner { display: none; justify-content: center; align-items: center; padding: 40px 0; width: 100%; }
 .spinner { width: 36px; height: 36px; border: 3px solid rgba(139, 92, 246, 0.2); border-top-color: var(--purple); border-radius: 50%; animation: spin 0.8s linear infinite; }
@@ -357,19 +281,16 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
   .search-container { width: 100%; }
   .main-container { margin: 18px auto; padding: 0 16px; }
   .anime-grid { grid-template-columns: repeat(auto-fill, minmax(135px, 1fr)); gap: 12px; }
-  
-  .al-grid-row { grid-template-columns: 1fr; gap: 12px; }
-  .al-banner-header { height: 110px; }
-  .al-cover-thumb { width: 65px; height: 95px; margin-bottom: -20px; }
-  .al-title-wrap h2 { font-size: 15px; }
+  .modal-body { grid-template-columns: 1fr; padding: 16px; }
+  .grid-3 { grid-template-columns: 1fr; }
 }
 
 .site-footer { width: 100%; margin-top: auto; padding: 40px 0 30px 0; position: relative; z-index: 2; border-top: 1px solid rgba(139, 92, 246, 0.15); }
 .footer-content { max-width: 1250px; margin: 0 auto; padding: 0 32px; display: flex; flex-direction: column; align-items: flex-start; }
 .copyright { font-size: 12.5px; font-weight: 700; color: #f8fafc; letter-spacing: 0.3px; margin-bottom: 8px; margin-top: 16px; }
-.disclaimer-text { font-size: 12px; color: var(--muted); max-width: 700px; line-height: 1.6; margin-bottom: 16px; }
+.disclaimer-text { font-size: 12px; color: var(--text); max-width: 700px; line-height: 1.6; margin-bottom: 16px; }
 .footer-links { display: flex; gap: 22px; }
-.footer-links a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 600; transition: color 0.2s ease; }
+.footer-links a { color: var(--text); text-decoration: none; font-size: 13px; font-weight: 600; transition: color 0.2s ease; }
 .footer-links a:hover { color: var(--logo-grad-start); }
 </style>
 </head>
@@ -402,14 +323,6 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
           <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
           Home
         </a>
-        <a href="javascript:void(0)" class="menu-link" id="menuTorrentLink">
-          <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="9" stroke="currentColor"/><path stroke-linecap="round" stroke-linejoin="round" d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg>
-          Torrent
-        </a>
-        <a href="javascript:void(0)" class="menu-link" id="menuSubtitlesLink">
-          <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="3" stroke="currentColor"/><path stroke-linecap="round" stroke-linejoin="round" d="M7 15h3M14 15h3M7 11h10"/></svg>
-          Subtitles
-        </a>
 
         <div id="anilistListsSection" style="display: none;">
           <div class="menu-section-title">MY ANILIST</div>
@@ -434,20 +347,6 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
             Dropped
           </a>
         </div>
-
-        <div class="menu-section-title">MORE</div>
-        <a href="#watch2gether" class="menu-link">
-          <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-          Watch2gether
-        </a>
-        <a href="#leaderboard" class="menu-link">
-          <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-          Leaderboard
-        </a>
-        <a href="#status" class="menu-link">
-          <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-          Status
-        </a>
       </div>
     </div>
 
@@ -490,70 +389,100 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
   <div class="pagination-container" id="pagination"></div>
 </main>
 
-<!-- Authentic AniList Edit Modal Component -->
-<div class="modal-overlay" id="editModal" onclick="if(event.target===this) closeEditModal()">
-  <div class="al-modal">
-    <button class="al-close-btn" onclick="closeEditModal()">&times;</button>
-    <div class="al-banner-header" id="modalBanner">
-      <div class="al-modal-top-content">
-        <img src="" id="modalCover" class="al-cover-thumb" alt="Poster">
-        <div class="al-title-wrap">
-          <h2 id="modalAnimeTitle">Anime Title</h2>
+<div class="modal-overlay" id="editModalOverlay">
+  <div class="edit-modal">
+    <button class="btn-close-modal" onclick="closeEditModal()">✕</button>
+    
+    <div class="modal-header-banner" id="modalBanner">
+      <div class="modal-header-content">
+        <img src="" id="modalPoster" class="modal-poster" alt="Poster">
+        <div class="modal-title-area">
+          <div class="modal-anime-title" id="modalTitle">Anime Title</div>
         </div>
-        <div class="al-actions-top">
-          <button class="al-save-btn" onclick="saveMediaEntry()">Save</button>
+        <div class="modal-header-actions">
+          <button class="btn-fav" id="modalFavBtn" onclick="toggleFavorite()">♥</button>
+          <button class="btn-save" onclick="saveMediaEntry()">Save</button>
         </div>
       </div>
     </div>
-    
-    <div class="al-modal-body">
-      <!-- Row 1: Status, Score, Progress -->
-      <div class="al-grid-row">
-        <div class="al-field-group">
-          <label for="editStatus">Status</label>
-          <select id="editStatus" class="al-select">
-            <option value="CURRENT">Watching</option>
-            <option value="PLANNING">Planning</option>
-            <option value="COMPLETED">Completed</option>
-            <option value="PAUSED">Paused</option>
-            <option value="DROPPED">Dropped</option>
-          </select>
+
+    <div class="modal-body">
+      <div class="modal-left-col">
+        <div class="grid-3">
+          <div class="modal-form-group">
+            <label class="modal-label">Status</label>
+            <select class="modal-select" id="inputStatus">
+              <option value="CURRENT">Watching</option>
+              <option value="COMPLETED">Completed</option>
+              <option value="PLANNING">Planning</option>
+              <option value="PAUSED">Paused</option>
+              <option value="DROPPED">Dropped</option>
+              <option value="REWATCHING">Rewatching</option>
+            </select>
+          </div>
+          <div class="modal-form-group">
+            <label class="modal-label">Score</label>
+            <input type="number" class="modal-input" id="inputScore" min="0" max="100" value="0">
+          </div>
+          <div class="modal-form-group">
+            <label class="modal-label">Episode Progress</label>
+            <input type="number" class="modal-input" id="inputProgress" min="0" value="0">
+          </div>
         </div>
-        <div class="al-field-group">
-          <label for="editScore">Score</label>
-          <input type="number" id="editScore" class="al-input" min="0" max="10" step="0.1" placeholder="0">
+
+        <div class="grid-3">
+          <div class="modal-form-group">
+            <label class="modal-label">Start Date</label>
+            <input type="date" class="modal-input" id="inputStartDate">
+          </div>
+          <div class="modal-form-group">
+            <label class="modal-label">Finish Date</label>
+            <input type="date" class="modal-input" id="inputFinishDate">
+          </div>
+          <div class="modal-form-group">
+            <label class="modal-label">Total Rewatches</label>
+            <input type="number" class="modal-input" id="inputRewatches" min="0" value="0">
+          </div>
         </div>
-        <div class="al-field-group">
-          <label for="editProgress">Episode Progress</label>
-          <input type="number" id="editProgress" class="al-input" min="0" placeholder="0">
+
+        <div class="modal-form-group">
+          <label class="modal-label">Notes</label>
+          <textarea class="modal-textarea" id="inputNotes" rows="3"></textarea>
+        </div>
+
+        <div class="modal-form-group">
+          <label class="modal-label">Advanced Scores</label>
+          <div class="advanced-scores-grid">
+            <div><label class="modal-label">Story</label><input type="number" class="modal-input" id="advStory" value="0"></div>
+            <div><label class="modal-label">Characters</label><input type="number" class="modal-input" id="advCharacters" value="0"></div>
+            <div><label class="modal-label">Visuals</label><input type="number" class="modal-input" id="advVisuals" value="0"></div>
+            <div><label class="modal-label">Audio</label><input type="number" class="modal-input" id="advAudio" value="0"></div>
+            <div><label class="modal-label">Enjoyment</label><input type="number" class="modal-input" id="advEnjoyment" value="0"></div>
+          </div>
         </div>
       </div>
 
-      <!-- Row 2: Dates and Rewatches -->
-      <div class="al-grid-row">
-        <div class="al-field-group">
-          <label for="editStartDate">Start Date</label>
-          <input type="date" id="editStartDate" class="al-input">
+      <div class="modal-right-col">
+        <div class="modal-form-group">
+          <label class="modal-label">Custom Lists</label>
+          <div class="checkbox-group">
+            <label class="checkbox-item"><input type="checkbox" id="listWeekly"> Weekly</label>
+            <label class="checkbox-item"><input type="checkbox" id="listNextly"> Nextly</label>
+            <label class="checkbox-item"><input type="checkbox" id="listSnoozely"> Snoozely</label>
+          </div>
         </div>
-        <div class="al-field-group">
-          <label for="editFinishDate">Finish Date</label>
-          <input type="date" id="editFinishDate" class="al-input">
-        </div>
-        <div class="al-field-group">
-          <label for="editRepeat">Total Rewatches</label>
-          <input type="number" id="editRepeat" class="al-input" min="0" value="0">
-        </div>
-      </div>
 
-      <!-- Row 3: Notes -->
-      <div class="al-field-group">
-        <label for="editNotes">Notes</label>
-        <textarea id="editNotes" class="al-textarea" placeholder="Write your personal notes..."></textarea>
+        <div class="modal-form-group" style="margin-top:20px;">
+          <div class="checkbox-group">
+            <label class="checkbox-item"><input type="checkbox" id="hideStatus"> Hide from status lists</label>
+            <label class="checkbox-item"><input type="checkbox" id="isPrivate"> Private</label>
+          </div>
+        </div>
       </div>
+    </div>
 
-      <div class="al-footer-actions">
-        <button class="al-delete-btn" onclick="deleteMediaEntry()">Delete</button>
-      </div>
+    <div class="modal-footer">
+      <button class="btn-delete" onclick="deleteMediaEntry()">Delete</button>
     </div>
   </div>
 </div>
@@ -583,28 +512,7 @@ canvas#canvas-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; 
 const ANILIST_CLIENT_ID = '49970';
 let accessToken = localStorage.getItem('anilist_token') || null;
 let currentUser = null;
-let editingMediaId = null;
-let editingEntryId = null;
-
-const INITIAL_TORRENTS = {
-  10087: "https://ichigooji.github.io/archive/fate.html",
-  21196: "https://nyaa.si/view/1596956",
-  1818: "https://nyaa.si/view/1549110",
-  108241: "https://nyaa.si/view/1530571",
-  6675: "https://nyaa.si/view/1540851",
-  185773: "https://nyaa.si/view/2088112",
-  128546: "https://nyaa.si/view/1578720",
-  143653: "https://nyaa.si/view/1932264",
-  153452: "https://nyaa.si/view/1682990",
-  151514: "https://nyaa.si/view/2044702",
-  130003: "https://nyaa.si/view/1854203",
-  21428: "https://nyaa.si/view/2070170",
-  4282: "https://nyaa.si/view/1679533"
-};
-
-const INITIAL_SUBTITLES = {
-  10087: "https://gofile.io/d/e746e0ba-7fc0-4c25-912e-4f4aa5435e4d"
-};
+let activeEditingMediaId = null;
 
 const PER_PAGE = 88;
 let currentPage = 1;
@@ -704,12 +612,144 @@ function logoutAniList() {
     </a>
   `;
   document.getElementById('anilistListsSection').style.display = 'none';
-  if (['CURRENT', 'PLANNING', 'COMPLETED', 'PAUSED', 'DROPPED'].includes(currentDropdownFilter)) {
-    currentDropdownFilter = 'HOME';
-    loadAnimeData(1);
+  currentDropdownFilter = 'HOME';
+  loadAnimeData(1);
+}
+
+/* Modal Open & Save Logic */
+async function openEditModal(mediaId) {
+  if (!accessToken) {
+    alert("Please login with AniList first!");
+    return;
+  }
+
+  activeEditingMediaId = mediaId;
+  document.getElementById('editModalOverlay').classList.add('open');
+
+  // Fetch Media and Entry Details
+  const query = `
+  query ($mediaId: Int) {
+    Media(id: $mediaId) {
+      id title { romaji english } coverImage { extraLarge } bannerImage
+      mediaListEntry {
+        id status score progress notes repeat hiddenFromStatusLists private
+        startedAt { year month day } completedAt { year month day }
+      }
+    }
+  }`;
+
+  try {
+    const res = await fetch('https://graphql.anilist.co', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + accessToken,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ query, variables: { mediaId } })
+    });
+    const data = await res.json();
+    const media = data?.data?.Media;
+    const entry = media?.mediaListEntry;
+
+    if (media) {
+      document.getElementById('modalTitle').textContent = media.title.english || media.title.romaji;
+      document.getElementById('modalPoster').src = media.coverImage.extraLarge;
+      document.getElementById('modalBanner').style.backgroundImage = `url(${media.bannerImage || media.coverImage.extraLarge})`;
+
+      if (entry) {
+        document.getElementById('inputStatus').value = entry.status || 'CURRENT';
+        document.getElementById('inputScore').value = entry.score || 0;
+        document.getElementById('inputProgress').value = entry.progress || 0;
+        document.getElementById('inputRewatches').value = entry.repeat || 0;
+        document.getElementById('inputNotes').value = entry.notes || '';
+        document.getElementById('hideStatus').checked = entry.hiddenFromStatusLists || false;
+        document.getElementById('isPrivate').checked = entry.private || false;
+
+        if (entry.startedAt?.year) {
+          const d = `${entry.startedAt.year}-${String(entry.startedAt.month).padStart(2,'0')}-${String(entry.startedAt.day).padStart(2,'0')}`;
+          document.getElementById('inputStartDate').value = d;
+        }
+        if (entry.completedAt?.year) {
+          const d = `${entry.completedAt.year}-${String(entry.completedAt.month).padStart(2,'0')}-${String(entry.completedAt.day).padStart(2,'0')}`;
+          document.getElementById('inputFinishDate').value = d;
+        }
+      }
+    }
+  } catch (err) {
+    console.error("Fetch Entry Error:", err);
   }
 }
 
+function closeEditModal() {
+  document.getElementById('editModalOverlay').classList.remove('open');
+}
+
+async function saveMediaEntry() {
+  if (!activeEditingMediaId || !accessToken) return;
+
+  const status = document.getElementById('inputStatus').value;
+  const score = parseFloat(document.getElementById('inputScore').value);
+  const progress = parseInt(document.getElementById('inputProgress').value);
+  const notes = document.getElementById('inputNotes').value;
+  const repeat = parseInt(document.getElementById('inputRewatches').value);
+  const hiddenFromStatusLists = document.getElementById('hideStatus').checked;
+  const isPrivate = document.getElementById('isPrivate').checked;
+
+  const mutation = `
+  mutation ($mediaId: Int, $status: MediaListStatus, $score: Float, $progress: Int, $notes: String, $repeat: Int, $private: Boolean, $hiddenFromStatusLists: Boolean) {
+    SaveMediaListEntry (mediaId: $mediaId, status: $status, score: $score, progress: $progress, notes: $notes, repeat: $repeat, private: $private, hiddenFromStatusLists: $hiddenFromStatusLists) {
+      id status score progress
+    }
+  }`;
+
+  try {
+    const res = await fetch('https://graphql.anilist.co', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + accessToken,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        query: mutation,
+        variables: { mediaId: activeEditingMediaId, status, score, progress, notes, repeat, private: isPrivate, hiddenFromStatusLists }
+      })
+    });
+    const data = await res.json();
+    if (data?.data?.SaveMediaListEntry) {
+      closeEditModal();
+      loadAnimeData(currentPage);
+    }
+  } catch (e) {
+    console.error("Save Error:", e);
+  }
+}
+
+async function deleteMediaEntry() {
+  if (!activeEditingMediaId || !accessToken) return;
+  
+  // First fetch entry ID
+  const query = `query ($mediaId: Int) { Media(id: $mediaId) { mediaListEntry { id } } }`;
+  const res = await fetch('https://graphql.anilist.co', {
+    method: 'POST',
+    headers: { 'Authorization': 'Bearer ' + accessToken, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ query, variables: { mediaId: activeEditingMediaId } })
+  });
+  const data = await res.json();
+  const entryId = data?.data?.Media?.mediaListEntry?.id;
+
+  if (entryId) {
+    const delMutation = `mutation ($id: Int) { DeleteMediaListEntry (id: $id) { deleted } }`;
+    await fetch('https://graphql.anilist.co', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + accessToken, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: delMutation, variables: { id: entryId } })
+    });
+    closeEditModal();
+    loadAnimeData(currentPage);
+  }
+}
+
+/* User Specific Lists Fetcher */
 async function loadUserMediaList(status) {
   spinner.style.display = 'flex';
   grid.innerHTML = '';
@@ -722,11 +762,8 @@ async function loadUserMediaList(status) {
       lists {
         entries {
           media {
-            id title { romaji english } coverImage { extraLarge large } bannerImage meanScore format isAdult
+            id title { romaji english } coverImage { extraLarge large } meanScore format isAdult
           }
-          status
-          progress
-          score
         }
       }
     }
@@ -763,6 +800,7 @@ async function loadUserMediaList(status) {
   }
 }
 
+// Main Loader
 async function loadAnimeData(page = 1) {
   const searchQuery = searchInput ? searchInput.value.trim() : '';
 
@@ -777,46 +815,6 @@ async function loadAnimeData(page = 1) {
   grid.innerHTML = '';
   pagination.innerHTML = '';
   resultsCount.textContent = 'Loading archive...';
-
-  if (currentDropdownFilter === 'TORRENT' || currentDropdownFilter === 'SUBTITLES') {
-    const idsToFetch = currentDropdownFilter === 'TORRENT' ? Object.keys(INITIAL_TORRENTS) : Object.keys(INITIAL_SUBTITLES);
-    
-    const query = `
-    query ($ids: [Int]) {
-      Page(page: 1, perPage: 50) {
-        media(id_in: $ids, type: ANIME) {
-          id title { romaji english } coverImage { extraLarge large } bannerImage meanScore format isAdult
-        }
-      }
-    }`;
-
-    try {
-      const res = await fetch('https://graphql.anilist.co', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query, variables: { ids: idsToFetch.map(Number) } })
-      });
-      const data = await res.json();
-      let list = data?.data?.Page?.media || [];
-      
-      list.sort((a, b) => (a.id === 10087 ? -1 : b.id === 10087 ? 1 : 0));
-      
-      if (currentCategoryFilter !== 'ALL') {
-        list = list.filter(m => m.format === currentCategoryFilter);
-      }
-      if (searchQuery) {
-        list = list.filter(m => (m.title.english || m.title.romaji).toLowerCase().includes(searchQuery.toLowerCase()));
-      }
-
-      renderGrid(list);
-      resultsCount.textContent = `${list.length} result${list.length === 1 ? '' : 's'} found`;
-    } catch (e) {
-      console.error(e);
-    } finally {
-      spinner.style.display = 'none';
-    }
-    return;
-  }
 
   let queryVariables = { page, perPage: PER_PAGE };
   let filterConditions = 'type: ANIME, sort: POPULARITY_DESC, isAdult: false';
@@ -833,7 +831,7 @@ async function loadAnimeData(page = 1) {
     Page(page: $page, perPage: $perPage) {
       pageInfo { total currentPage lastPage hasNextPage }
       media(${filterConditions}) {
-        id title { romaji english } coverImage { extraLarge large } bannerImage meanScore format isAdult
+        id title { romaji english } coverImage { extraLarge large } meanScore format isAdult
       }
     }
   }`;
@@ -850,14 +848,7 @@ async function loadAnimeData(page = 1) {
     if (pageData) {
       currentPage = pageData.pageInfo.currentPage;
       totalPages = pageData.pageInfo.lastPage;
-
-      let items = pageData.media;
-      
-      if (currentPage === 1 && currentCategoryFilter === 'ALL' && !searchQuery) {
-        items.sort((a, b) => (a.id === 10087 ? -1 : b.id === 10087 ? 1 : 0));
-      }
-
-      renderGrid(items);
+      renderGrid(pageData.media);
       renderPaginationControls();
       resultsCount.textContent = `${pageData.pageInfo.total} results found (Page ${currentPage} of ${totalPages})`;
     }
@@ -879,215 +870,35 @@ function renderGrid(items) {
     const age = item.isAdult ? '18+' : 'PG-13';
     const format = item.format || 'TV';
     const posterSrc = item.coverImage.extraLarge || item.coverImage.large;
-    const bannerSrc = item.bannerImage || posterSrc;
-    const titleText = item.title.english || item.title.romaji;
-    const anilistUrl = `https://anilist.co/anime/${item.id}`;
-    const torrentUrl = INITIAL_TORRENTS[item.id] || null;
-    const subtitleUrl = INITIAL_SUBTITLES[item.id] || null;
 
     card.innerHTML = `
       <div class="poster-wrapper">
         <img class="poster-img" src="${posterSrc}" alt="${item.title.romaji}" loading="lazy">
         
-        ${currentUser ? `
-        <button class="edit-card-btn" title="Edit Entry" onclick="openEditModal(event, ${item.id}, '${titleText.replace(/'/g, "\\'")}', '${posterSrc}', '${bannerSrc}')">
-          <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-        </button>` : ''}
-
         <div class="card-overlay-actions">
-          <a href="${anilistUrl}" target="_blank" class="action-btn">
+          <button class="action-btn edit-entry-btn" onclick="openEditModal(${item.id})">
+            <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            Edit Entry
+          </button>
+          <a href="https://anilist.co/anime/${item.id}" target="_blank" class="action-btn">
             <svg viewBox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
             AniList
           </a>
-
-          ${torrentUrl ? `
-          <a href="${torrentUrl}" target="_blank" class="action-btn">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg>
-            Torrent
-          </a>` : `
-          <div class="action-btn disabled">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg>
-            Torrent
-          </div>`}
-
-          ${subtitleUrl ? `
-          <a href="${subtitleUrl}" target="_blank" class="action-btn">
-            <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg>
-            Subtitles
-          </a>` : `
-          <div class="action-btn disabled">
-            <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg>
-            Subtitles
-          </div>`}
         </div>
 
         <div class="card-badges-top">
           <div class="badge-rating">${rating}</div>
           <div class="badge-age">${age}</div>
         </div>
-        <div class="card-badges-bottom">
-          <div class="badge-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5v7m0 0l-2-2m2 2l2-2M14.5 15.5v-7m0 0l-2 2m2-2l2 2"/></svg><span>${torrentUrl ? '1' : '0'}</span></div>
-          <div class="badge-item"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15h3M14 15h3M7 11h10"/></svg><span>${subtitleUrl ? '1' : '0'}</span></div>
-        </div>
       </div>
       <div class="anime-card-info">
-        <div class="anime-card-title" title="${titleText}">${titleText}</div>
+        <div class="anime-card-title" title="${item.title.english || item.title.romaji}">${item.title.english || item.title.romaji}</div>
         <div class="anime-card-meta">${format}</div>
       </div>
     `;
 
     grid.appendChild(card);
   });
-}
-
-function formatDateToInput(d) {
-  if (!d || !d.year || !d.month || !d.day) return '';
-  const m = String(d.month).padStart(2, '0');
-  const day = String(d.day).padStart(2, '0');
-  return `${d.year}-${m}-${day}`;
-}
-
-function parseDateFromInput(str) {
-  if (!str) return { year: null, month: null, day: null };
-  const parts = str.split('-');
-  return { year: parseInt(parts[0]), month: parseInt(parts[1]), day: parseInt(parts[2]) };
-}
-
-async function openEditModal(event, mediaId, title, cover, banner) {
-  event.stopPropagation();
-  editingMediaId = mediaId;
-  editingEntryId = null;
-
-  document.getElementById('modalAnimeTitle').textContent = title;
-  document.getElementById('modalCover').src = cover;
-  document.getElementById('modalBanner').style.backgroundImage = `url('${banner}')`;
-  
-  // Reset Form
-  document.getElementById('editStatus').value = 'CURRENT';
-  document.getElementById('editProgress').value = '';
-  document.getElementById('editScore').value = '';
-  document.getElementById('editStartDate').value = '';
-  document.getElementById('editFinishDate').value = '';
-  document.getElementById('editRepeat').value = 0;
-  document.getElementById('editNotes').value = '';
-
-  document.getElementById('editModal').classList.add('open');
-
-  const query = `
-  query ($mediaId: Int) {
-    MediaList(mediaId: $mediaId) {
-      id status progress score repeat notes
-      startedAt { year month day }
-      completedAt { year month day }
-    }
-  }`;
-
-  try {
-    const res = await fetch('https://graphql.anilist.co', {
-      method: 'POST',
-      headers: {
-        'Authorization': 'Bearer ' + accessToken,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ query, variables: { mediaId } })
-    });
-    const data = await res.json();
-    if (data?.data?.MediaList) {
-      const entry = data.data.MediaList;
-      editingEntryId = entry.id;
-      if (entry.status) document.getElementById('editStatus').value = entry.status;
-      if (entry.progress !== undefined) document.getElementById('editProgress').value = entry.progress;
-      if (entry.score !== undefined) document.getElementById('editScore').value = entry.score;
-      if (entry.repeat !== undefined) document.getElementById('editRepeat').value = entry.repeat;
-      if (entry.notes) document.getElementById('editNotes').value = entry.notes;
-      document.getElementById('editStartDate').value = formatDateToInput(entry.startedAt);
-      document.getElementById('editFinishDate').value = formatDateToInput(entry.completedAt);
-    }
-  } catch (e) {
-    console.log("No existing entry details found", e);
-  }
-}
-
-function closeEditModal() {
-  document.getElementById('editModal').classList.remove('open');
-}
-
-async function saveMediaEntry() {
-  if (!accessToken || !editingMediaId) return;
-
-  const status = document.getElementById('editStatus').value;
-  const progress = parseInt(document.getElementById('editProgress').value) || 0;
-  const score = parseFloat(document.getElementById('editScore').value) || 0;
-  const repeat = parseInt(document.getElementById('editRepeat').value) || 0;
-  const notes = document.getElementById('editNotes').value;
-  const startedAt = parseDateFromInput(document.getElementById('editStartDate').value);
-  const completedAt = parseDateFromInput(document.getElementById('editFinishDate').value);
-
-  const mutation = `
-  mutation ($mediaId: Int, $status: MediaListStatus, $progress: Int, $score: Float, $repeat: Int, $notes: String, $startedAt: FuzzyDateInput, $completedAt: FuzzyDateInput) {
-    SaveMediaListEntry (mediaId: $mediaId, status: $status, progress: $progress, score: $score, repeat: $repeat, notes: $notes, startedAt: $startedAt, completedAt: $completedAt) {
-      id status progress score repeat notes
-    }
-  }`;
-
-  try {
-    const res = await fetch('https://graphql.anilist.co', {
-      method: 'POST',
-      headers: {
-        'Authorization': 'Bearer ' + accessToken,
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        query: mutation,
-        variables: { mediaId: editingMediaId, status, progress, score, repeat, notes, startedAt, completedAt }
-      })
-    });
-    
-    const data = await res.json();
-    if (data?.data?.SaveMediaListEntry) {
-      closeEditModal();
-      if (['CURRENT', 'PLANNING', 'COMPLETED', 'PAUSED', 'DROPPED'].includes(currentDropdownFilter)) {
-        loadAnimeData(1);
-      }
-    } else {
-      alert("Error saving changes.");
-    }
-  } catch (err) {
-    console.error("Save error:", err);
-    alert("Failed to save changes.");
-  }
-}
-
-async function deleteMediaEntry() {
-  if (!accessToken || !editingEntryId) return;
-  if (!confirm("Are you sure you want to delete this entry from your AniList?")) return;
-
-  const mutation = `
-  mutation ($id: Int) {
-    DeleteMediaListEntry (id: $id) {
-      deleted
-    }
-  }`;
-
-  try {
-    const res = await fetch('https://graphql.anilist.co', {
-      method: 'POST',
-      headers: {
-        'Authorization': 'Bearer ' + accessToken,
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({ query: mutation, variables: { id: editingEntryId } })
-    });
-    const data = await res.json();
-    if (data?.data?.DeleteMediaListEntry?.deleted) {
-      closeEditModal();
-      loadAnimeData(1);
-    }
-  } catch (e) {
-    console.error("Delete error:", e);
-  }
 }
 
 function renderPaginationControls() {
@@ -1100,12 +911,9 @@ function renderPaginationControls() {
   prevBtn.onclick = () => { if (currentPage > 1) goToPage(currentPage - 1); };
   pagination.appendChild(prevBtn);
 
-  let pages = [];
-  pages.push(1);
+  let pages = [1];
   if (currentPage > 3) pages.push('...');
-  for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) {
-    pages.push(i);
-  }
+  for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) pages.push(i);
   if (currentPage < totalPages - 2) pages.push('...');
   if (totalPages > 1) pages.push(totalPages);
 
@@ -1137,10 +945,8 @@ function goToPage(p) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+/* Menu Nav */
 document.getElementById('menuHomeLink')?.addEventListener('click', () => { currentDropdownFilter = 'HOME'; setActiveDropdownMenu('menuHomeLink'); loadAnimeData(1); });
-document.getElementById('menuTorrentLink')?.addEventListener('click', () => { currentDropdownFilter = 'TORRENT'; setActiveDropdownMenu('menuTorrentLink'); loadAnimeData(1); });
-document.getElementById('menuSubtitlesLink')?.addEventListener('click', () => { currentDropdownFilter = 'SUBTITLES'; setActiveDropdownMenu('menuSubtitlesLink'); loadAnimeData(1); });
-
 document.getElementById('menuWatchingLink')?.addEventListener('click', () => { currentDropdownFilter = 'CURRENT'; setActiveDropdownMenu('menuWatchingLink'); loadAnimeData(1); });
 document.getElementById('menuPlanningLink')?.addEventListener('click', () => { currentDropdownFilter = 'PLANNING'; setActiveDropdownMenu('menuPlanningLink'); loadAnimeData(1); });
 document.getElementById('menuCompletedLink')?.addEventListener('click', () => { currentDropdownFilter = 'COMPLETED'; setActiveDropdownMenu('menuCompletedLink'); loadAnimeData(1); });
@@ -1148,7 +954,7 @@ document.getElementById('menuPausedLink')?.addEventListener('click', () => { cur
 document.getElementById('menuDroppedLink')?.addEventListener('click', () => { currentDropdownFilter = 'DROPPED'; setActiveDropdownMenu('menuDroppedLink'); loadAnimeData(1); });
 
 function setActiveDropdownMenu(id) {
-  const allLinks = ['menuHomeLink', 'menuTorrentLink', 'menuSubtitlesLink', 'menuWatchingLink', 'menuPlanningLink', 'menuCompletedLink', 'menuPausedLink', 'menuDroppedLink'];
+  const allLinks = ['menuHomeLink', 'menuWatchingLink', 'menuPlanningLink', 'menuCompletedLink', 'menuPausedLink', 'menuDroppedLink'];
   allLinks.forEach(linkId => { document.getElementById(linkId)?.classList.remove('active'); });
   document.getElementById(id)?.classList.add('active');
   document.getElementById('navMenuWrapper').classList.remove('open');
@@ -1183,6 +989,7 @@ if (searchClearBtn) {
   });
 }
 
+// Init
 window.addEventListener('load', () => {
   handleOAuthCallback();
   if (accessToken) fetchUserProfile();
@@ -1197,7 +1004,7 @@ window.addEventListener('resize', () => {
   if (activeItem) moveIndicator(activeItem);
 });
 
-/* Background Stars Animation */
+/* Canvas Background */
 const canvas = document.getElementById('canvas-bg');
 const ctx = canvas.getContext('2d');
 let width, height;
